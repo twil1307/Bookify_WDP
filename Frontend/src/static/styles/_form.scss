@@ -1,0 +1,122 @@
+@use "src/global";
+@use "./animations";
+
+@mixin input-field {
+    width: 100%;
+    position: relative;
+
+    input {
+        border: 2px solid global.$gray-200;
+        font-size: 1em;
+        border-radius: 0.6em;
+        padding: 0.6em 0.6em;
+        min-width: 22em;
+        transition: all 0.2s;
+
+        &:focus {
+            outline: none;
+            border-color: global.$main-color;
+        }
+
+        &:focus ~ label {
+            color: global.$main-color;
+        }
+
+        &:focus ~ label,
+        &:not([value=""]) ~ label {
+            top: 0;
+            font-size: 0.75em;
+            left: 1.5em;
+        }
+    }
+
+    label {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 1em;
+        color: global.$gray-600;
+        font-size: 0.9em;
+        transition: all 0.2s ease-out;
+        display: inline-block;
+        background: global.$white;
+        padding: 0 0.2em;
+        cursor: text;
+    }
+}
+
+@mixin form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0.8em;
+}
+
+@mixin modal {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 1.4em;
+    padding-bottom: 1em;
+    background: global.$white;
+    @include animations.animate(slide-in-fwd-top, 0.25s, animations.$slide, true);
+    top: 8em;
+}
+
+@mixin heading {
+    @include global.vertical-center;
+    flex-direction: column;
+    padding-top: 3em;
+    padding-bottom: 2em;
+
+    .welcome-heading {
+        font-size: 1.2em;
+        margin-top: 0.6em;
+    }
+}
+
+@mixin button {
+    border-radius: 0.6em;
+    cursor: pointer;
+    transition: all 0.2s linear;
+    padding: 0.8em 0;
+    display: block;
+    width: 100%;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+@mixin normal-button {
+    background: global.$main-color;
+    color: global.$white;
+    font-size: 1em;
+    margin-bottom: 0.6em;
+}
+
+@mixin googled-button {
+    border: 2px solid global.$gray-200;
+    font-size: 0.9em;
+
+    .fa-google {
+        margin-left: 0.1em;
+    }
+}
+
+@mixin close-button {
+    position: absolute;
+    right: 0.6em;
+    top: 0.4em;
+    font-size: 1.4em;
+    cursor: pointer;
+    padding: 0.2em 0.4em;
+
+    &:hover {
+        opacity: 0.6;
+    }
+}
+
+@mixin button-disabled {
+    opacity: 0.8;
+}

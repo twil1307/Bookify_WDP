@@ -1,0 +1,23 @@
+@use 'src/global';
+
+.spinner-icon {
+    animation: rotating 2s linear infinite;
+
+    &.sm {
+        width: 2em;
+        height: 2em;
+    }
+
+    &.large {
+
+    }
+}
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

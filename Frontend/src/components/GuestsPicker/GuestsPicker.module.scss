@@ -1,0 +1,16 @@
+@use 'src/global';
+
+#guest-picker-field {
+    display: inline-block;
+    background: global.$white;
+    padding: 2em;
+    border-radius: 1.6em;
+
+    > * {
+        padding: 1em 0;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid global.$gray-100;
+        }
+    }
+}
