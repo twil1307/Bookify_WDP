@@ -31,32 +31,6 @@ function BookingItem({ booking, handleBookingAction }) {
   const { user, roomType } = booking;
   const [isLoading, setLoading] = useState(false);
 
-  const handleAcceptedBooking = async (event) => {
-    if (!isLoading) {
-      setLoading(true);
-      const data = await fetch(acceptBooking(booking?.bookingId)).then(
-        (data) => data
-      );
-      if (data?.status) {
-        setLoading(false);
-        handleBookingAction(booking.bookingId, "accept");
-      }
-    }
-  };
-
-  const handleRejectedBooking = async (event) => {
-    if (!isLoading) {
-      setLoading(true);
-      const data = await fetch(acceptBooking(booking?.bookingId)).then(
-        (data) => data
-      );
-      if (data?.status) {
-        setLoading(false);
-        handleBookingAction(booking.bookingId, "reject");
-      }
-    }
-  };
-
   return (
     <div className={bookingItemStyles["tab-card"]} key={booking?.bookingId}>
       <div className={bookingItemStyles["card-header"]}>
@@ -99,13 +73,13 @@ function BookingItem({ booking, handleBookingAction }) {
         {booking.status === 0 ? (
           <>
             <button
-              onClick={handleAcceptedBooking}
+         
               className={bookingItemStyles["accept-button"]}
             >
               {isLoading ? <CircleLoading /> : "Chấp nhận"}
             </button>
             <button
-              onClick={handleRejectedBooking}
+          
               className={bookingItemStyles["reject-button"]}
             >
               {isLoading ? <CircleLoading /> : "Hủy bỏ"}

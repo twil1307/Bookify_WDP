@@ -8,14 +8,11 @@ import {
   useCallback,
 } from "react";
 import {
-  ModalContext,
   UserContext,
   CoordinatesContext,
-  ToastMessageContext,
   WebSocketContext,
 } from "@/utils/contexts";
 import { modalReducer, toastMessageReducer } from "./utils/reducers";
-import { Modal, ToastMessage, ToastMessageBox } from "./components";
 import { Container } from "@mui/material";
 import VerifyAuth from "./utils/hooks/verifyAuth";
 
@@ -91,28 +88,7 @@ function App({ children }) {
     <WebSocketContext.Provider value={websocket.current}>
       <CoordinatesContext.Provider value={currentCoordinates}>
         <UserContext.Provider value={userContextValue}>
-          <ModalContext.Provider value={modal}>
-            <ToastMessageContext.Provider value={toastMessageContextValue}>
-              <Container
-                maxWidth={"sx"}
-                sx={{
-                  position: "relative",
-                }}
-              >
-                {children}
-                {modalState.isOpen && (
-                  <div className="overlay">
-                    <Modal>{modalState.renderModal()}</Modal>
-                  </div>
-                )}
-                <ToastMessageBox>
-                  {toastMessages.map(({ type, message }) => (
-                    <ToastMessage type={type} message={message} />
-                  ))}
-                </ToastMessageBox>
-              </Container>
-            </ToastMessageContext.Provider>
-          </ModalContext.Provider>
+         
         </UserContext.Provider>
       </CoordinatesContext.Provider>
     </WebSocketContext.Provider>
