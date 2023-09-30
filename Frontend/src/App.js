@@ -88,7 +88,7 @@ function App({ children }) {
     <WebSocketContext.Provider value={websocket.current}>
       <CoordinatesContext.Provider value={currentCoordinates}>
         <UserContext.Provider value={userContextValue}>
-         
+         {children}
         </UserContext.Provider>
       </CoordinatesContext.Provider>
     </WebSocketContext.Provider>

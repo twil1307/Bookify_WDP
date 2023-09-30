@@ -1,5 +1,4 @@
 import DropdownBox from "../DropdownBox";
-import BookmarkItem from "../BookmarkItem";
 
 function BookmarkBox({ bookmarkedHotels, setBookmarkedHotels }) {
 
@@ -10,13 +9,7 @@ function BookmarkBox({ bookmarkedHotels, setBookmarkedHotels }) {
       isScrollable={bookmarkedHotels.length > 8}
       activeIndex={0}
     >
-      {bookmarkedHotels?.map((hotel) => (
-        <BookmarkItem
-          hotel={hotel}
-          key={hotel.hotelId}
-       
-        />
-      ))}
+     
     </DropdownBox>
   );
 }
