@@ -7,16 +7,8 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { Link, useOutletContext } from "react-router-dom";
 import { useContext, useState, memo } from "react";
-import {
-  BookmarkContext,
-  ToastMessageContext,
-  UserContext,
-} from "@/utils/contexts";
-import { addHotelToBookmark, deleteHotelFromBookmark } from "@/services/user";
-import {
-  getFailureToastMessage,
-  getSuccessToastMessage,
-} from "@/utils/reducers/toastMessageReducer";
+
+
 
 function HotelCard({
   _id: hotelId,
