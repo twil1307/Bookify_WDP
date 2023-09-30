@@ -2,10 +2,8 @@ import { Link } from "react-router-dom";
 import bookmarkItemStyles from "./BookmarkItem.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { deleteHotelFromBookmark } from "@/services/user";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "@/utils/contexts";
-import { useGetHotel } from "@/utils/hooks";
 
 ;
 
