@@ -1,6 +1,7 @@
 import { Grid, Box } from "@mui/material";
 import { BannerCarousel, TabItem, Loading } from "./components";
 import homeStyles from "./Home.module.scss";
+import { BannerCarousel, Loading } from "./components";
 import categories from "./categories";
 import {
   useState,
@@ -23,6 +24,8 @@ import {
 } from "./advanceFilterInitState";
 import { useClsx } from "@/utils/hooks";
 
+
+const HotelCards = lazy(() => import("./components/HotelCards"));
 
 
 
@@ -131,17 +134,26 @@ function Home() {
     });
   };
 
-  useEffect(() => {
-    console.log(type);
-    if (type.filterType || type.filterTypeId) {
-      const filterPayload = `${type.filterType}=${type.filterTypeId}`;
-      getAdvancedTab(filterPayload).then((result) => {
-        setHotelsList(result.hotels);
-      });
-    } else {
-      getHotel();
-    }
-  }, [type]);
+
+  const trendingHotels = [
+    {
+      backgroundImage:
+        "photo/Hotel-Gardens-The-10-Most-Beautiful-Around-the-World-1.jpg",
+      name: "Hotel 1",
+    },
+    {
+      backgroundImage:
+        "photo/Hotel-Gardens-The-10-Most-Beautiful-Around-the-World-1.jpg",
+      name: "Hotel 2",
+    },
+    {
+      backgroundImage:
+        "photo/Hotel-Gardens-The-10-Most-Beautiful-Around-the-World-1.jpg",
+      name: "Hotel 3",
+    },
+  ];
+
+
 
   useEffect(() => {
     if (isSearchAdvanceMode) {
@@ -218,9 +230,9 @@ function Home() {
                 {isLoading ? (
                   <Loading />
                 ) : (
-                  
-                    <HotelCards hotels={hotelsList} type={type} />
-                  
+
+                 <HotelCards hotels={hotelsList} type={type} />
+
                 )}
               </Suspense>
             </Grid>
