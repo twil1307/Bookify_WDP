@@ -1,5 +1,6 @@
 import { Grid, Box } from "@mui/material";
 import homeStyles from "./Home.module.scss";
+import { BannerCarousel, Loading } from "./components";
 import {
   useState,
   lazy,
@@ -10,6 +11,8 @@ import {
 } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSliders } from "@fortawesome/free-solid-svg-icons";
+
+const HotelCards = lazy(() => import("./components/HotelCards"));
 
 
 
@@ -78,6 +81,23 @@ function Home() {
 
   };
 
+  const trendingHotels = [
+    {
+      backgroundImage:
+        "photo/Hotel-Gardens-The-10-Most-Beautiful-Around-the-World-1.jpg",
+      name: "Hotel 1",
+    },
+    {
+      backgroundImage:
+        "photo/Hotel-Gardens-The-10-Most-Beautiful-Around-the-World-1.jpg",
+      name: "Hotel 2",
+    },
+    {
+      backgroundImage:
+        "photo/Hotel-Gardens-The-10-Most-Beautiful-Around-the-World-1.jpg",
+      name: "Hotel 3",
+    },
+  ];
 
 
   useEffect(() => {
@@ -99,6 +119,7 @@ function Home() {
                 overflow: "hidden",
               }}
             >
+              <BannerCarousel trendingHotels={trendingHotels} />
             </Box>
           </Grid>
           <Grid item xs={12}>
@@ -126,11 +147,11 @@ function Home() {
           </Grid>
           <div className={homeStyles["hotel-cards"]}>
             <Grid container spacing={1.5} overflow={"hidden"}>
-              <Suspense fallback={"loading"}>
+              <Suspense fallback={<Loading />}>
                 {isLoading ? (
-                  "Loading"
+                  <Loading />
                 ) : (
-                 <></>
+                 <HotelCards hotels={hotelsList} type={type} />
                 )}
               </Suspense>
             </Grid>
