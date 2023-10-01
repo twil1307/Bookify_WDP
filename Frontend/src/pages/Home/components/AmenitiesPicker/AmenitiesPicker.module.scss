@@ -1,0 +1,55 @@
+@use 'src/global';
+
+#amenities-picker {
+    padding-bottom: 3em;
+    margin-top: 2em;
+
+    .amenities-picker-heading {
+        font-size: 1.4em;
+        font-weight: bold;
+        margin-bottom: 1.6em;
+    }
+
+    .amenity-type {
+
+
+        .type-heading {
+            font-size: 1.1em;
+            margin-bottom: 1em;
+        }
+
+        .amenity-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6em;
+            margin-bottom: 1em;
+
+            .amenity {
+                flex-basis: 48%;
+                display: flex;
+                gap: 1em;
+
+                .amenity-checkbox {
+                    border: 1px solid black;
+                    width: 1.6em;
+                    height: 1.6em;
+                    border-radius: 0.2em;
+                    @include global.center(); 
+                    transition: all 0.2s ease-out;
+                    cursor: pointer;
+                    background: global.$white;
+                    border: 1px solid global.$black;
+
+                    &:hover {
+                        opacity: 0.6;
+                    }
+                }
+
+                input[type='checkbox']:checked + div {
+                    background: global.$black !important;
+                    color: global.$white !important;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,69 @@
+@use "src/global";
+@use "src/static/styles/animations";
+
+#advance-filter {
+    background: global.$white;
+    position: fixed;
+    top: 2em;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    border-radius: 1.6em;
+    @include animations.animate(slide-in-bottom, 0.25s, animations.$slide, false);
+
+    .heading {
+        position: absolute;
+        left: 0;
+        right: 0;
+        padding: 1em 0;
+        border-bottom: 1px solid global.$gray-200;
+
+        .filter-heading {
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+        }
+    }
+
+    .footer {
+        border-top: 1px solid global.$gray-200;
+        display: flex;
+
+        > * {
+            flex-grow: 1;
+            padding: 0.8em 2em;
+            @include global.vertical-center()
+        }
+
+        .reset-button {
+            text-decoration: underline;
+            font-weight: bold;
+            transition: all 0.2s linear;
+
+            &:hover {
+                opacity: 0.6;
+            }
+        }
+
+        .find-button {
+            background: global.$black;
+            color: global.$white;
+            padding: 0.6em 0.8em;
+            border-radius: 0.8em;
+            transition: all 0.2s linear;
+
+            &:hover {
+                opacity: 0.6;
+            }
+        }
+    }
+
+    .close-button {
+        position: absolute;
+        top: 0.7em;
+        left: calc(1.7em - 0.45em);
+        font-size: 1.2em;
+        padding: 0.01em 0.45em;
+        border-radius: 50%;
+    }
+}
