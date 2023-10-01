@@ -1,0 +1,8 @@
+@use 'src/global';
+
+.carousel-image {
+    width: 100%;
+    height: 40vh;
+    object-fit: cover;
+    object-position: center;
+}
