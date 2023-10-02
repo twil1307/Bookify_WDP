@@ -2,7 +2,6 @@ import SearchInputField from "../SearchInputField";
 import { useState, memo, useMemo } from "react";
 import { usePopup } from "@/utils/hooks";
 import searchBoxStyles from "./SearchBox.module.scss";
-import { SearchModal } from "@/features/hotel/search";
 import { Box } from "@mui/material";
 import { AdvanceSearchContext } from "@/utils/contexts";
 
@@ -38,9 +37,7 @@ function SearchBox() {
                     />
                 </div>
                 { (isOpen || isAdvanceSearchOpen) && (
-                    <SearchModal
-                        searchTerms={searchTerms}
-                    />
+               <></>
                 )}
             </div>
             {isOpen && (

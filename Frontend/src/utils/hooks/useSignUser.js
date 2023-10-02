@@ -1,6 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState, useEffect, useContext } from "react";
-import { SignIn, SignUp, compareCurrentPassword } from "@/services-new/user";
 import {
   ToastMessageContext,
   ModalContext,
@@ -11,7 +10,6 @@ import {
   getFailureToastMessage,
 } from "@/utils/reducers/toastMessageReducer";
 import { getSignInModal } from "@/utils/reducers/modalReducer";
-import LogOut from "@/services-new/user/LogOut";
 
 export default function useSignUser() {
   const { dispatch } = useContext(ModalContext);
@@ -20,7 +18,7 @@ export default function useSignUser() {
   const [loginState, setLoginState] = useState();
   const { mutate: logInFn, status } = useMutation({
     mutationFn: (account) => {
-      return SignIn(account.username, account.password);
+      return ;
     },
     onSuccess: (data) => {
       if (!data) {
@@ -50,7 +48,7 @@ export default function useSignUser() {
   });
   const { mutate: SignUpFn, status: siginUpStatus } = useMutation({
     mutationFn: (account) => {
-      return SignUp(account.username, account.email, account.password);
+      return ;
     },
     onSuccess: (data) => {
       console.log("login success");
@@ -63,7 +61,7 @@ export default function useSignUser() {
         })
       );
       dispatch(getSignInModal({ isOpen: true }));
-    },
+    }, 
     onError: (error) => {
       console.log("Sign up error:" + error);
       setToastMessages(
@@ -75,11 +73,11 @@ export default function useSignUser() {
   });
   const { mutate: checkPass } = useMutation({
     mutationKey: ["check-password"],
-    mutationFn: (password) => compareCurrentPassword(password),
+    mutationFn: (password) => {},
   });
 const {mutate:SignOut} = useMutation({
   mutationKey:["log-out"],
-  mutationFn:LogOut,
+  mutationFn:()=>{},
 })
   return { status, loginState, logInFn, SignUpFn, checkPass ,SignOut};
 }

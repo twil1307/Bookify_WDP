@@ -1,7 +1,6 @@
 import { Grid, Box } from "@mui/material";
 import { BannerCarousel, TabItem, Loading } from "./components";
 import homeStyles from "./Home.module.scss";
-import { BannerCarousel, Loading } from "./components";
 import categories from "./categories";
 import {
   useState,
@@ -29,7 +28,6 @@ const HotelCards = lazy(() => import("./components/HotelCards"));
 
 
 
-const HotelCards = lazy(() => import("./components/HotelCards"));
 const AdvanceFilter = lazy(() => import("./components/AdvanceFilter"));
 
 // testing purpose only
@@ -127,11 +125,7 @@ function Home() {
   };
 
   const getAdvanceSearchHotel = async () => {
-    setLoading(true);
-    await GetAdvanceSearchHotels(place, selectedDays, guests).then((data) => {
-      setHotelsList(data.hotels);
-      setLoading(false);
-    });
+    
   };
 
 
