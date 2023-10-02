@@ -9,9 +9,11 @@ import BookmarkBox from "./BookmarkBox";
 import BookmarkItem from "./BookmarkItem";
 import DropdownBox from "./DropdownBox";
 import BookingItem from "./BookingItem";
+import NotifyBox from "./NotifyBox";
 
 export {
     Logo,
+    NotifyBox,
     Input,
     Form,
     Modal,

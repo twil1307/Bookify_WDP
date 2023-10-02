@@ -10,7 +10,6 @@ function IconButton({ icon, renderChild, isHasNotifUnRead = null }) {
   const [isOpen, handleClick, containerRef] = useDropdown();
   const { user } = useContext(UserContext);
   // console.log(user);
-  const { dispatch } = useContext(ModalContext);
 
   return (
     <div
@@ -24,10 +23,7 @@ function IconButton({ icon, renderChild, isHasNotifUnRead = null }) {
         )}
         onClick={(e) => {
           e.stopPropagation();
-          if (!user._id) {
-            dispatch(getSignInModal({ isOpen: true }));
-            return;
-          }
+         
           handleClick(e);
         }}
       >

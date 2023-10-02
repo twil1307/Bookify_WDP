@@ -1,14 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { UserContext } from "@/utils/contexts";
-import {
-  FetchUser,
-  UpdateBankingCard,
-  UpdateUser,
-  newPassowrdUpdate,
-} from "@/services-new/user";
+
 import { AddFavorite } from ".";
-import GetBookingHistory from "@/services-new/user/GetBookingHistory";
 export default function useUser() {
   const [userData, setUserData] = useState(); 
   const queryClient = useQueryClient();
@@ -17,7 +11,7 @@ export default function useUser() {
   const _id = user._id;
   const { isLoading, data } = useQuery({
     queryKey: ["fetchUser", _id],
-    queryFn: () => FetchUser(user._id),
+    queryFn: () => {},
     onSuccess: (data) => {
       // console.log(data);
       setUserData(data);
@@ -25,7 +19,7 @@ export default function useUser() {
   });
   const { mutate: updateUser } = useMutation({
     mutationKey: ["update user", user._id],
-    mutationFn: (userForm) => UpdateUser(userForm),
+    mutationFn: (userForm) => {},
     onSuccess: async (data, variables) => {
       if (!data) {
       }
@@ -34,17 +28,17 @@ export default function useUser() {
   });
   const { mutate: updatePass } = useMutation({
     mutationKey: ["update-password"],
-    mutationFn: (pass) => newPassowrdUpdate(pass),
+    mutationFn: (pass) =>{},
   });
   const { mutate: updateCard } = useMutation({
     mutationKey: ["update-Card_number"],
-    mutationFn: (number) => UpdateBankingCard(number),
+    mutationFn: (number) => {},
   });
   const {mutate:addBookmarked}= useMutation({
     mutationKey:["add-bookmarked"],
-    mutationKey:(_id)=>AddFavorite(_id)
+    mutationFn:(_id)=>{}
   })
-  const {mutate:getBookingHistory}= useMutation({mutationKey:["booking-history:",_id],mutationFn:(filter)=>GetBookingHistory(filter)});
+  const {mutate:getBookingHistory}= useMutation({mutationKey:["booking-history:",_id],mutationFn:(filter)=>{}});
 
   return {
     isLoading,

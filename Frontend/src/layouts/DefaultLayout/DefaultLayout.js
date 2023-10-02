@@ -6,8 +6,6 @@ import { Outlet, useHref } from "react-router-dom";
 import { Box } from "@mui/material";
 import { Suspense, useContext } from "react";
 import { UserContext, WebSocketContext } from "@/utils/contexts";
-import { getAllBookmarkedHotel } from "@/services/hotel";
-import getNotification from "@/services/hotel/getNotification";
 import { SearchContext } from "@/utils/contexts";
 
 const guestsInitial = {
@@ -30,15 +28,11 @@ function DefaultLayout() {
   const [isSearchAdvanceMode, setSearchAdvanceMode] = useState(false);
 
   const getBookmarkedHotel = () => {
-    getAllBookmarkedHotel(user.user_id).then((data) => {
-      setBookmarkedHotels(data);
-    });
+  
   };
 
   const getNotifications = () => {
-    getNotification(user.user_id, type).then((data) => {
-      setNotifs(data);
-    });
+ 
   };
 
   const resetSearchAdvance = () => {
