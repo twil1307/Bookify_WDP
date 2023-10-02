@@ -81,23 +81,23 @@ function Home() {
 
   };
 
-  const trendingHotels = [
-    {
-      backgroundImage:
-        "photo/Hotel-Gardens-The-10-Most-Beautiful-Around-the-World-1.jpg",
-      name: "Hotel 1",
-    },
-    {
-      backgroundImage:
-        "photo/Hotel-Gardens-The-10-Most-Beautiful-Around-the-World-1.jpg",
-      name: "Hotel 2",
-    },
-    {
-      backgroundImage:
-        "photo/Hotel-Gardens-The-10-Most-Beautiful-Around-the-World-1.jpg",
-      name: "Hotel 3",
-    },
-  ];
+  // const trendingHotels = [
+  //   {
+  //     backgroundImage:
+  //       "photo/Hotel-Gardens-The-10-Most-Beautiful-Around-the-World-1.jpg",
+  //     name: "Hotel 1",
+  //   },
+  //   {
+  //     backgroundImage:
+  //       "photo/Hotel-Gardens-The-10-Most-Beautiful-Around-the-World-1.jpg",
+  //     name: "Hotel 2",
+  //   },
+  //   {
+  //     backgroundImage:
+  //       "photo/Hotel-Gardens-The-10-Most-Beautiful-Around-the-World-1.jpg",
+  //     name: "Hotel 3",
+  //   },
+  // ];
 
 
   useEffect(() => {
@@ -119,7 +119,7 @@ function Home() {
                 overflow: "hidden",
               }}
             >
-              <BannerCarousel trendingHotels={trendingHotels} />
+              {/* <BannerCarousel trendingHotels={trendingHotels} /> */}
             </Box>
           </Grid>
           <Grid item xs={12}>
