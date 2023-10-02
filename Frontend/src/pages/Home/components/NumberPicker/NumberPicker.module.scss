@@ -1,0 +1,34 @@
+@use 'src/global';
+
+.number-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+
+    .number-picker-heading {
+        flex-basis: 100%;
+        font-size: 1.1em;
+    }
+
+    .number-choice {
+        padding: 0.4em 1.4em;
+        border-radius: 1em;
+        background: global.$white;
+        color: global.$black;
+        flex-grow: 1;
+        margin-right: 0.4em;
+        border: 1px solid global.$gray-500;
+        transition: all 0.2s ease-out;
+
+        &.active {
+            background: global.$black;
+            color: global.$white;
+            border: 1px solid global.$black;
+        }
+
+        &:hover:not(.active) {
+            color: global.$black;
+            border: 1px solid global.$black;
+        }
+    }
+}
