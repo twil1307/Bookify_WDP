@@ -1,0 +1,59 @@
+@use "src/global";
+@use 'src/static/styles/form';
+
+.form-wrapper {
+    padding: 0 1em;
+    padding-bottom: 2em;
+    position: relative;
+
+    .form {
+        @include form.form();
+
+        label[for="term-check"] {
+            @include global.vertical-center();
+            font-size: 0.8em;
+            cursor: pointer;
+
+            input[type="checkbox"] {
+                font-size: 2em;
+                border-radius: 4px;
+                margin-right: 0.1em;
+                width: 0.6em;
+                height: 0.6em;
+            }
+
+            .text-link {
+                color: global.$main-color;
+                font-weight: bold;
+                margin: 0 0.15em;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .button-wrapper {
+            margin-top: 1em;
+            text-align: center;
+            margin-bottom: 2.5em;
+    
+            button {
+                @include form.button();
+            }
+
+            .sign-up-button {
+                @include form.normal-button();
+    
+            }
+    
+            .google-sign-up-button {
+                @include form.googled-button();
+            }
+    
+            .button-disabled {
+                @include form.button-disabled();
+            }
+        }
+    }
+}

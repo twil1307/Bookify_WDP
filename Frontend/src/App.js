@@ -7,12 +7,15 @@ import {
   useRef,
   useCallback,
 } from "react";
-import {
+import {  
+  ModalContext,
   UserContext,
   CoordinatesContext,
   WebSocketContext,
 } from "@/utils/contexts";
+
 import { modalReducer, toastMessageReducer } from "./utils/reducers";
+import { Modal } from "./components";
 import { Container } from "@mui/material";
 import VerifyAuth from "./utils/hooks/verifyAuth";
 
@@ -26,6 +29,7 @@ const websocketEndPoint = `ws://localhost:${process.env.REACT_APP_BACK_END_PORT}
 
 function App({ children }) {
   const { verifyData, firstLogin, userLocal } = VerifyAuth();
+  
   const [modalState, dispatch] = useReducer(modalReducer, appInitState);
   const [user, setUser] = useState(userLocal);
   const [isLogin, setLogin] = useState(firstLogin);
@@ -86,11 +90,18 @@ function App({ children }) {
 
   return (
     <WebSocketContext.Provider value={websocket.current}>
+       <ModalContext.Provider value={modal}> 
       <CoordinatesContext.Provider value={currentCoordinates}>
         <UserContext.Provider value={userContextValue}>
          {children}
+         {modalState.isOpen && (
+                  <div className="overlay">
+                    <Modal>{modalState.renderModal()}</Modal>
+                  </div>
+                )}
         </UserContext.Provider>
       </CoordinatesContext.Provider>
+       </ModalContext.Provider>
     </WebSocketContext.Provider>
   );
 }

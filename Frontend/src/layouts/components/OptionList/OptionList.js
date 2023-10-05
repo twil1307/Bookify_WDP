@@ -15,8 +15,6 @@ function OptionList({ handleClick }) {
   const { isLogin, setLogin } = useContext(UserContext);
   const { user, setUser } = useContext(UserContext);
   const { SignOut } = useSignUser();
-  console.log(user);
-  const { setToastMessages } = useContext(ToastMessageContext);
   const navigate = useNavigate();
 
   const options = useMemo(
@@ -69,11 +67,7 @@ function OptionList({ handleClick }) {
         onClickHandler: (event) => {
           event.stopPropagation();
           if (!user.bankingAccount) {
-            setToastMessages(
-              getFailureToastMessage({
-                message: "Bạn chưa liên kết tài khoản ngân hàng",
-              })
-            );
+           
             handleClick(event);
           } else {
             navigate("/hosting/introduction");
@@ -146,8 +140,7 @@ function OptionList({ handleClick }) {
             { title, style, requiredRole, isLoginRequired, onClickHandler },
             index
           ) => {
-            if (
-              isLoginRequired == isLogin &&
+            if (              
               requiredRole.includes(user.role)
             ) {
               // console.log(prev);
