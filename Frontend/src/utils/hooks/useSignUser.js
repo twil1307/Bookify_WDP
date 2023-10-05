@@ -14,7 +14,6 @@ import { getSignInModal } from "@/utils/reducers/modalReducer";
 export default function useSignUser() {
   const { dispatch } = useContext(ModalContext);
   const { setUser, isLogin, setLogin } = useContext(UserContext);
-  const { setToastMessages } = useContext(ToastMessageContext);
   const [loginState, setLoginState] = useState();
   const { mutate: logInFn, status } = useMutation({
     mutationFn: (account) => {
@@ -22,22 +21,14 @@ export default function useSignUser() {
     },
     onSuccess: (data) => {
       if (!data) {
-        setToastMessages(
-          getFailureToastMessage({
-            message: "Đăng nhập thất bại",
-          })
-        );
+  
       } else {
         console.log("login success");
         console.log(data);
         setUser(data.user);
         setLogin(true);
         localStorage.setItem("user", JSON.stringify(data.user));
-        setToastMessages(
-          getSuccessToastMessage({
-            message: "Đăng nhập thành công",
-          })
-        );
+       
 
         setLoginState({ status: true, user: data.user });
       }
@@ -55,20 +46,13 @@ export default function useSignUser() {
       console.log(data);
       setUser(data.user);
       setLogin(true);
-      setToastMessages(
-        getSuccessToastMessage({
-          message: "Đăng Kí thành công",
-        })
-      );
+    
+    ;
       dispatch(getSignInModal({ isOpen: true }));
     }, 
     onError: (error) => {
       console.log("Sign up error:" + error);
-      setToastMessages(
-        getFailureToastMessage({
-          message: error,
-        })
-      );
+   
     },
   });
   const { mutate: checkPass } = useMutation({

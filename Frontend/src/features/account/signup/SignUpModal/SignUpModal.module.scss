@@ -1,0 +1,38 @@
+@use 'src/global';
+@use 'src/static/styles/form';
+@use 'src/static/styles/animations';
+
+.sign-up-modal {
+    
+    &.slide-in-right {
+        @include animations.animate(slide-in-right, 0.25s, animations.$slide, false);
+    }
+
+    .page-logo {
+        @include form.heading();
+
+        .sub-heading {
+            font-weight: 400;
+            color: global.$gray-500;
+        }
+    }
+
+    .sign-in-link {
+        text-align: center;
+        font-size: 0.8em;
+
+        .link {
+            color: global.$main-color;
+            cursor: pointer;
+            font-weight: bold;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .close-button {
+        @include form.close-button();
+    }
+}
