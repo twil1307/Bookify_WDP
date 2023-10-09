@@ -32,4 +32,23 @@ router.post("/verifyjwt", userController.verifyJwtToken);
 // login
 router.post("/login", formDataRetrieve.none(), userController.logIn);
 
+// refresh new access and refresh token after access token expired
+router.post("/refresh", userController.refreshNewTokens);
+
+// compare password
+router.post(
+  "/compareCurrentPassword",
+  jwtMiddleware,
+  formDataRetrieve.none(),
+  userController.compareCurrentPassword
+);
+
+// change password
+router.put(
+  "/changePassword",
+  jwtMiddleware,
+  formDataRetrieve.none(),
+  userController.changePassword
+);
+
 module.exports = router;
