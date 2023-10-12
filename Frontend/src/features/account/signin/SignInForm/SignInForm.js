@@ -1,14 +1,24 @@
 import { InputField } from "@/components";
 import formStyles from "./SignInForm.module.scss";
-import { useState, memo, useCallback, useEffect, useRef, useMemo } from "react";
+import {
+  useState,
+  memo,
+  useCallback,
+  useEffect,
+  useRef,
+  useMemo,
+  useContext,
+} from "react";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { useUppercase } from "@/utils/hooks";
 import { accountValidation } from "@/utils/validation";
-
+import { SignIn } from "@/services/user";
+import { UserContext } from "@/utils/contexts";
 
 function SignInForm({ setModalOpen }) {
+  const { setUser } = useContext(UserContext);
   const [account, setAccount] = useState({
     username: null,
     password: null,
@@ -40,11 +50,13 @@ function SignInForm({ setModalOpen }) {
     } else {
       setLoading(true);
       try {
-       
-
+        SignIn(account.username, account.password).then((resp) => {
+          setLoading(false);
+          localStorage.setItem("user", JSON.stringify(resp.user));
+          setUser(resp.user);
+          setModalOpen(event);
+        });
       } finally {
-        setLoading(false);
-        setModalOpen(event);
       }
     }
   };

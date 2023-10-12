@@ -13,8 +13,9 @@ import { accountValidation } from "@/utils/validation";
 import { useUppercase, useSignUser } from "@/utils/hooks";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SignUp } from "@/services/user";
 
-function SignUpForm() {
+function SignUpForm({ modalHandler }) {
   const { SignUpFn } = useSignUser();
   const [registerAccount, setRegisterAccount] = useState({
     username: null,
@@ -50,8 +51,16 @@ function SignUpForm() {
       setLoading(true);
       try {
         SignUpFn(registerAccount);
-      } finally {
-        setLoading(false);
+        SignUp(
+          registerAccount.username,
+          registerAccount.email,
+          registerAccount.password
+        ).then((resp) => {
+          setLoading(false);
+          modalHandler(event);
+        });
+      } catch (e) {
+        console.log(e);
       }
     }
   };

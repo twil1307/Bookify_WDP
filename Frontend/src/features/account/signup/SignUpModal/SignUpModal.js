@@ -13,7 +13,7 @@ import { BrowserRouter } from "react-router-dom";
 function SignUpModal({ animation }) {
   const [isModalOpen, handleClick, containerRef] = usePopup(true);
   const { dispatch } = useContext(ModalContext);
-console.log("rendered");
+  console.log("rendered");
   useEffect(() => {
     if (!isModalOpen) {
       dispatch(getSignUpModal({ isOpen: false }));
@@ -36,7 +36,7 @@ console.log("rendered");
         <h3 className={signUpStyles["welcome-heading"]}>Sign Up</h3>
         <h4 className={signUpStyles["sub-heading"]}>Let's get started</h4>
       </div>
-      <SignUpForm />
+      <SignUpForm modalHandler={handleClick} />
       <div className={signUpStyles["sign-in-link"]}>
         <p>
           Already have and account?

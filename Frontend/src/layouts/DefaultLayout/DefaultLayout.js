@@ -27,13 +27,9 @@ function DefaultLayout() {
   const [guests, setGuests] = useState(guestsInitial);
   const [isSearchAdvanceMode, setSearchAdvanceMode] = useState(false);
 
-  const getBookmarkedHotel = () => {
-  
-  };
+  const getBookmarkedHotel = () => {};
 
-  const getNotifications = () => {
- 
-  };
+  const getNotifications = () => {};
 
   const resetSearchAdvance = () => {
     setPlace("");
@@ -53,9 +49,7 @@ function DefaultLayout() {
     setNotifs((prev) => [newNotif, ...prev]);
   };
 
-  const handleClose = (event) => {
-    console.log("close ", event.data);
-  };
+  const handleClose = (event) => {};
 
   useEffect(() => {
     if (current) {

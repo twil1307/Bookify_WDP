@@ -9,10 +9,11 @@ import { getSignUpModal, getSignInModal } from "@/utils/reducers/modalReducer";
 import { useNavigate } from "react-router-dom";
 import { getFailureToastMessage } from "@/utils/reducers/toastMessageReducer";
 import { useSignUser } from "@/utils/hooks";
+import VerifyAuth from "@/utils/hooks/verifyAuth";
 
 function OptionList({ handleClick }) {
+  const { userLocal } = VerifyAuth();
   const { dispatch } = useContext(ModalContext);
-  const { isLogin, setLogin } = useContext(UserContext);
   const { user, setUser } = useContext(UserContext);
   const { SignOut } = useSignUser();
   const navigate = useNavigate();
@@ -67,7 +68,6 @@ function OptionList({ handleClick }) {
         onClickHandler: (event) => {
           event.stopPropagation();
           if (!user.bankingAccount) {
-           
             handleClick(event);
           } else {
             navigate("/hosting/introduction");
@@ -97,9 +97,10 @@ function OptionList({ handleClick }) {
         requiredRole: [1, 2, 3],
         isLoginRequired: true,
         onClickHandler: (e) => {
+          localStorage.removeItem("user");
           e.stopPropagation();
+          setUser(userLocal);
           SignOut();
-          navigate(0);
         },
       },
       {
@@ -140,9 +141,7 @@ function OptionList({ handleClick }) {
             { title, style, requiredRole, isLoginRequired, onClickHandler },
             index
           ) => {
-            if (              
-              requiredRole.includes(user.role)
-            ) {
+            if (requiredRole.includes(user.role)) {
               // console.log(prev);
               return [
                 ...prev,
