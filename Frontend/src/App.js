@@ -7,7 +7,7 @@ import {
   useRef,
   useCallback,
 } from "react";
-import {  
+import {
   ModalContext,
   UserContext,
   CoordinatesContext,
@@ -29,19 +29,21 @@ const websocketEndPoint = `ws://localhost:${process.env.REACT_APP_BACK_END_PORT}
 
 function App({ children }) {
   const { verifyData, firstLogin, userLocal } = VerifyAuth();
-  
+
   const [modalState, dispatch] = useReducer(modalReducer, appInitState);
-  const [user, setUser] = useState(userLocal);
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || userLocal
+  );
   const [isLogin, setLogin] = useState(firstLogin);
   const updateData = useCallback(() => {
     setLogin(firstLogin);
     setUser(userLocal);
   }, [firstLogin, userLocal]);
   useEffect(() => {
-    // console.log(user);
+    console.log(user);
     // console.log(isLogin);
-    updateData();
-  }, [firstLogin, userLocal]);
+    // updateData();
+  }, [user]);
   const [currentCoordinates, setCurrentCoordinates] = useState();
   const [toastMessages, setToastMessages] = useReducer(toastMessageReducer, []);
   const websocket = useRef();
@@ -83,25 +85,24 @@ function App({ children }) {
     });
   }, []);
 
-
   useEffect(() => {
-    websocket.current = new WebSocket(`${websocketEndPoint}/${user._id}`);
+    websocket.current = new WebSocket(`${websocketEndPoint}/${user?._id}`);
   }, [user]);
 
   return (
     <WebSocketContext.Provider value={websocket.current}>
-       <ModalContext.Provider value={modal}> 
-      <CoordinatesContext.Provider value={currentCoordinates}>
-        <UserContext.Provider value={userContextValue}>
-         {children}
-         {modalState.isOpen && (
-                  <div className="overlay">
-                    <Modal>{modalState.renderModal()}</Modal>
-                  </div>
-                )}
-        </UserContext.Provider>
-      </CoordinatesContext.Provider>
-       </ModalContext.Provider>
+      <ModalContext.Provider value={modal}>
+        <CoordinatesContext.Provider value={currentCoordinates}>
+          <UserContext.Provider value={userContextValue}>
+            {children}
+            {modalState.isOpen && (
+              <div className="overlay">
+                <Modal>{modalState.renderModal()}</Modal>
+              </div>
+            )}
+          </UserContext.Provider>
+        </CoordinatesContext.Provider>
+      </ModalContext.Provider>
     </WebSocketContext.Provider>
   );
 }

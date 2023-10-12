@@ -23,10 +23,7 @@ import {
 } from "./advanceFilterInitState";
 import { useClsx } from "@/utils/hooks";
 
-
 const HotelCards = lazy(() => import("./components/HotelCards"));
-
-
 
 const AdvanceFilter = lazy(() => import("./components/AdvanceFilter"));
 
@@ -108,26 +105,22 @@ function Home() {
 
   const getAdvanceFilterHotel = () => {
     // console.log(roomAndBedRoom, houseType, price, amenitiesPicked);
-    
   };
 
   const getHotel = () => {
-    fetch(`http://localhost:${process.env.REACT_APP_BACK_END_PORT}/hotel/`, {
-      method: "GET",
-      credentials: "include",
-      withCredentials: true,
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        setHotelsList(result.hotels);
-        setLoading(false);
-      });
+    // fetch(`http://localhost:${process.env.REACT_APP_BACK_END_PORT}/hotel/`, {
+    //   method: "GET",
+    //   credentials: "include",
+    //   withCredentials: true,
+    // })
+    //   .then((res) => res.json())
+    //   .then((result) => {
+    //     setHotelsList(result.hotels);
+    //     setLoading(false);
+    //   });
   };
 
-  const getAdvanceSearchHotel = async () => {
-    
-  };
-
+  const getAdvanceSearchHotel = async () => {};
 
   const trendingHotels = [
     {
@@ -146,8 +139,6 @@ function Home() {
       name: "Hotel 3",
     },
   ];
-
-
 
   useEffect(() => {
     if (isSearchAdvanceMode) {
@@ -224,9 +215,7 @@ function Home() {
                 {isLoading ? (
                   <Loading />
                 ) : (
-
-                 <HotelCards hotels={hotelsList} type={type} />
-
+                  <HotelCards hotels={hotelsList} type={type} />
                 )}
               </Suspense>
             </Grid>
@@ -237,7 +226,6 @@ function Home() {
                 <AdvanceFilter
                   isAdvanceFilterOpen={isAdvanceFilterOpen}
                   setAdvanceFilterOpen={setAdvanceFilterOpen}
-                 
                 />
               )}
             </Suspense>
