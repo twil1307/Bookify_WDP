@@ -39,6 +39,15 @@ const roomTypeSchema = new Schema({
     type: String,
     required: [true, "Is bathroom private"],
   },
+  roomService: [
+    {
+      type: {
+        context: { type: String, required: true },
+        icon: { type: String, required: true },
+        status: { type: Boolean, required: true },
+      },
+    },
+  ],
 });
 
 module.exports = mongoose.model("RoomType", roomTypeSchema);

@@ -1,0 +1,95 @@
+@use "src/global";
+
+.rdp-months {
+    display: flex;
+    padding: 1em;
+    justify-content: center;
+    gap: 1em;
+
+    .rdp-month {
+        .rdp-caption {
+            @include global.center();
+            position: relative;
+            padding: 1em 0;
+
+            .rdp-caption_label {
+                font-size: 1.1em;
+                font-weight: 400;
+            }
+
+            .rdp-nav {
+                position: absolute;
+                top: 50%;
+                translate: 0 -50%;
+
+                button {
+                    @include global.center();
+                    cursor: pointer;
+                }
+            }
+        }
+
+        &.rdp-caption_start {
+            .rdp-nav {
+                left: 4%;
+            }
+
+            &.rdp-caption_end {
+                
+                .rdp-caption {
+                    position: relative;
+
+                    .rdp-nav {
+                        position: absolute;
+                        // top: 50%;
+                        // transform: translateY(-50%);
+    
+                        button {
+                            float: left;
+
+                            &[name="next-month"] {
+                                float: right;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &.rdp-caption_end {
+            .rdp-nav {
+                right: 4%;
+            }
+        }
+
+        .rdp-table {
+            font-size: 0.9em;
+            color: global.$gray-600;
+            margin: 0 auto;
+            border-spacing: 0;
+
+            .rdp-head {
+                .rdp-vhidden {
+                    display: none;
+                }
+
+                .rdp-head_row {
+                    .rdp-head_cell {
+                        width: 3em;
+                    }
+                }
+            }
+
+            .rdp-tbody {
+                .rdp-row {
+                    
+
+                    .rdp-cell {
+                        text-align: center;
+                        padding: 0.2em 0;
+                    }
+                }
+            }
+        }
+    }
+}

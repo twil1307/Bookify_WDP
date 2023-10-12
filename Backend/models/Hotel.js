@@ -160,8 +160,38 @@ const hotelSchema = new Schema(
       type: [mongoose.Schema.Types.ObjectId],
       ref: "Room",
     },
-    // followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    // following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    Vouchers: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "voucher",
+    },
+    additionalFee: {
+      type: {
+        fee: { type: Number, default: 0 },
+        feeType: {
+          type: String,
+          enum: ["pet", "cleaning", "extraGuest", "weekend"],
+        },
+      },
+    },
+    restrictCheckInDate: {
+      type: [Date],
+    },
+    accessibility: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Accessibility",
+    },
+    rules: [
+      {
+        type: {
+          name: { type: String, required: true },
+          shortDes: { type: String, required: true },
+        },
+      },
+    ],
+    hightlight: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "HotelHightlight",
+    },
   },
   {
     timestamps: true,

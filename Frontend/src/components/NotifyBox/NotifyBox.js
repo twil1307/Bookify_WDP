@@ -2,6 +2,7 @@ import DropdownBox from "../DropdownBox";
 import NotifyItem from "../NotifyItem";
 import { useMemo, useState } from "react";
 
+
 function NotifyBox({ notifs, setNotifs, setDropdownOpen }) {
     const handleClick = (readNotifId) => {
         setNotifs((list) => {
@@ -77,7 +78,9 @@ function NotifyBox({ notifs, setNotifs, setDropdownOpen }) {
             activeIndex={index}
             setActiveIndex={setIndex}
             extraButtonHandleClick={(userId) => {
+
              
+
             }}
         >
             {

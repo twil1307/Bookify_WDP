@@ -3,6 +3,7 @@ import { memo } from "react";
 import differenceInHours from "date-fns/differenceInHours";
 import { differenceInBusinessDays, differenceInMinutes } from "date-fns";
 import { useClsx } from "@/utils/hooks";
+
 import { Link } from "react-router-dom";
 
 const getNotifAction = (notif) => {
@@ -97,19 +98,16 @@ function NotifItem({ notif, handleClick, handleActBooking, setDropdownOpen }) {
   const handleAccepted = async (event) => {
     event.preventDefault();
     const type = 5;
-   
   };
 
   const handleRejected = async (event) => {
     event.preventDefault();
     const type = 6;
-   
   };
 
   const handleChangeReadStatus = (event) => {
     setDropdownOpen(event);
     if (!isRead) {
-     
       handleClick(notif.id);
     }
   };
