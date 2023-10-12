@@ -1,0 +1,12 @@
+@use 'src/global';
+
+.header {
+    position: fixed;
+    z-index: 2;
+    background: global.$white;
+    padding: 1em 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    @include global.layout-padding();
+}

@@ -4,7 +4,6 @@ import useUppercase from "./useUppercase";
 import useFormatDate from "./useFormatDate";
 import useClsx from "./useClsx";
 import useSignUser from "./useSignUser";
-import AddFavorite from "@/services-new/user/AddFavorite";
 import useGetHotel from "./useGetHotel";
 import useUser from "./useUser";
 
@@ -16,6 +15,5 @@ export {
   useUppercase,
   useFormatDate,
   useClsx,
-  AddFavorite,
   useSignUser,
 };

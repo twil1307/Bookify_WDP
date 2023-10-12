@@ -1,0 +1,22 @@
+@use 'src/global';
+.option-list {
+    padding: 0.35em 0;
+    min-width: max-content;
+    cursor: pointer;
+    overflow-y: hidden;
+    background-color: white;
+    z-index: 3;
+    
+    li {
+        padding: 0.6em 1em;
+        padding-right: 2em;
+        min-width: 10em;
+
+        &:hover {
+            background: global.$gray-100;
+        }
+        &.primary {
+            font-weight: 500;
+        }
+    }
+}

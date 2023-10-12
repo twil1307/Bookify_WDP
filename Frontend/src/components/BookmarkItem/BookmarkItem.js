@@ -2,22 +2,14 @@ import { Link } from "react-router-dom";
 import bookmarkItemStyles from "./BookmarkItem.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { deleteHotelFromBookmark } from "@/services/user";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "@/utils/contexts";
-import { useGetHotel } from "@/utils/hooks";
-import { useQuery } from "@tanstack/react-query";
-import { GetHotel } from "@/services-new/hotel";
+
+;
 
 function BookmarkItem({ hotel, handleDeleted }) {
   const { user } = useContext(UserContext);
-  const { getHotelbyId } = useGetHotel();
-  const unBookmarkHotel = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    deleteHotelFromBookmark(hotel, user._id);
-    handleDeleted(hotel);
-  };
+
   return (
     <Link to={`hotel/${hotel}`}>
       <div
@@ -45,7 +37,7 @@ function BookmarkItem({ hotel, handleDeleted }) {
           <div className={bookmarkItemStyles["infor-right"]} tabIndex="-1">
             <button
               className={bookmarkItemStyles["unbookmark-button"]}
-              onClick={unBookmarkHotel}
+       
             >
               <FontAwesomeIcon icon={faXmark} />
             </button>

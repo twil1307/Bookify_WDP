@@ -7,16 +7,8 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { Link, useOutletContext } from "react-router-dom";
 import { useContext, useState, memo } from "react";
-import {
-  BookmarkContext,
-  ToastMessageContext,
-  UserContext,
-} from "@/utils/contexts";
-import { addHotelToBookmark, deleteHotelFromBookmark } from "@/services/user";
-import {
-  getFailureToastMessage,
-  getSuccessToastMessage,
-} from "@/utils/reducers/toastMessageReducer";
+
+
 
 function HotelCard({
   _id: hotelId,
@@ -30,79 +22,6 @@ function HotelCard({
   rating,
   isBookmarked,
 }) {
-  console.log(averagePrice);
-  // const backgroundImg2 = backgroundImg.split("/");
-  // const allImages = [backgroundImg2[backgroundImg2.length - 1]];
-  const { user } = useContext(UserContext);
-  const [bookmarked, setBookmarked] = useState(isBookmarked);
-  const { setToastMessages } = useContext(ToastMessageContext);
-  const setBookmarkedHotels = useOutletContext(BookmarkContext);
-
-  // images.forEach((image) => {
-  //   let imgName = image.src.split("/");
-  //   allImages.push(imgName[imgName.length - 1]);
-  // });
-
-  const addToBookmark = () => {
-    setBookmarkedHotels((prev) => [
-      {
-        hotelId,
-        hotelName,
-        // backgroundImg,
-        country,
-        district,
-        address,
-        roomType: {
-          price: averagePrice,
-        },
-      },
-      ...prev,
-    ]);
-    setToastMessages(
-      getSuccessToastMessage({ message: "Đã thêm vào mục yêu thích" })
-    );
-    setBookmarked(true);
-  };
-
-  const removeFromBookmark = () => {
-    setBookmarkedHotels((prev) => {
-      const thisHotelId = hotelId;
-      return prev.filter(({ hotelId }) => hotelId !== thisHotelId);
-    });
-    setToastMessages(
-      getSuccessToastMessage({ message: "Đã xóa khỏi mục yêu thích" })
-    );
-    setBookmarked(false);
-  };
-
-  const handleBookmark = async (event) => {
-    event.preventDefault();
-    if (!user._id) {
-      setToastMessages(
-        getFailureToastMessage({ message: "Bạn cần phải đăng nhập" })
-      );
-      return;
-    }
-    if (bookmarked) {
-      const res = await deleteHotelFromBookmark(hotelId, user._id).then(
-        (res) => res
-      );
-      if (res?.ok) {
-        removeFromBookmark();
-      } else {
-        setBookmarked(false);
-      }
-    } else {
-      const res = await addHotelToBookmark(hotelId, user._id).then(
-        (res) => res
-      );
-      if (res?.ok) {
-        addToBookmark();
-      } else {
-        setBookmarked(true);
-      }
-    }
-  };
 
   return (
     <Link to={`hotel/${hotelId}`}>
@@ -139,18 +58,7 @@ function HotelCard({
             <p className={"hotel-price-per-night"}>{`$${averagePrice}`}</p>
           </div>
         </div>
-        {user.role === 0 ? (
-          ""
-        ) : (
-          <div
-            className={["bookmark-icon", bookmarked ? "bookmarked" : ""].join(
-              " "
-            )}
-            onClick={handleBookmark}
-          >
-            <FontAwesomeIcon icon={bookmarked ? faHeartSolid : faHeart} />
-          </div>
-        )}
+  
       </div>
     </Link>
   );

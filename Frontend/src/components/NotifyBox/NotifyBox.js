@@ -1,7 +1,7 @@
 import DropdownBox from "../DropdownBox";
 import NotifyItem from "../NotifyItem";
 import { useMemo, useState } from "react";
-import markAllNotifAsRead from "@/services/hotel/markAllNotifAsRead";
+
 
 function NotifyBox({ notifs, setNotifs, setDropdownOpen }) {
     const handleClick = (readNotifId) => {
@@ -78,12 +78,9 @@ function NotifyBox({ notifs, setNotifs, setDropdownOpen }) {
             activeIndex={index}
             setActiveIndex={setIndex}
             extraButtonHandleClick={(userId) => {
-                markAllNotifAsRead(userId).then(data => {
-                    setNotifs(prev => prev.map((notif) => ({
-                        ...notif,
-                        isRead: true
-                    })))
-                });
+
+             
+
             }}
         >
             {

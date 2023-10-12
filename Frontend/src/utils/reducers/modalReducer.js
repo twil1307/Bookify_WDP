@@ -1,10 +1,7 @@
 import {
   SignInModal,
-  SignUpModal,
-  PasswordModal,
-  NewPasswordModal,
-  HotelSettingModal,
-  ChangeCardModal,
+  SignUpModal
+ 
 } from "@/features/account";
 
 const modalType = {
@@ -63,34 +60,36 @@ const reducer = (state, modal) => {
   };
   switch (modal.type) {
     case modalType.SIGN_IN:
+    
       return {
         ...newState,
         renderModal: () => <SignInModal animation={modal?.animation} />,
       };
-    case modalType.SIGN_UP:
-      return {
-        ...newState,
-        renderModal: () => <SignUpModal animation={modal?.animation} />,
-      };
+    case modalType.SIGN_UP: 
+     console.log(modal.type);
+     return {
+      ...newState,
+      renderModal: () => <SignUpModal animation={modal?.animation} />,
+    };
     case modalType.PASSWORD:
       return {
         ...newState,
-        renderModal: () => <PasswordModal submodal={modal?.modal} animation={modal?.animation} />,
+        renderModal: () => {} ,
       };
     case modalType.NEWPASSWORD:
       return {
         ...newState,
-        renderModal: () => <NewPasswordModal animation={modal?.animation} />,
+        renderModal: () => {} ,
       };
     case modalType.HOTELSETTING:
       return {
         ...newState,
-        renderModal: () => <HotelSettingModal animation={modal?.animation} />,
+        renderModal: () => {} 
       };
     case modalType.CHANGECARD:
       return {
         ...newState,
-        renderModal: () => <ChangeCardModal animation={modal?.animation} />,
+        renderModal: () => {} 
       };
     case modalType.FILTER:
       break;
