@@ -2,8 +2,6 @@ import bookingItemStyles from "./BookingItemStyles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { useState, memo } from "react";
-import { acceptBooking } from "@/services/hotel";
-import CircleLoading from "../CircleLoading";
 
 const getBookingGuestsTitle = (guests) => {
   const bookingGuestsTitle = Object.keys(guests).reduce((prev, key) => {
@@ -30,32 +28,6 @@ const getBookingGuestsTitle = (guests) => {
 function BookingItem({ booking, handleBookingAction }) {
   const { user, roomType } = booking;
   const [isLoading, setLoading] = useState(false);
-
-  const handleAcceptedBooking = async (event) => {
-    if (!isLoading) {
-      setLoading(true);
-      const data = await fetch(acceptBooking(booking?.bookingId)).then(
-        (data) => data
-      );
-      if (data?.status) {
-        setLoading(false);
-        handleBookingAction(booking.bookingId, "accept");
-      }
-    }
-  };
-
-  const handleRejectedBooking = async (event) => {
-    if (!isLoading) {
-      setLoading(true);
-      const data = await fetch(acceptBooking(booking?.bookingId)).then(
-        (data) => data
-      );
-      if (data?.status) {
-        setLoading(false);
-        handleBookingAction(booking.bookingId, "reject");
-      }
-    }
-  };
 
   return (
     <div className={bookingItemStyles["tab-card"]} key={booking?.bookingId}>
@@ -99,16 +71,16 @@ function BookingItem({ booking, handleBookingAction }) {
         {booking.status === 0 ? (
           <>
             <button
-              onClick={handleAcceptedBooking}
+         
               className={bookingItemStyles["accept-button"]}
             >
-              {isLoading ? <CircleLoading /> : "Chấp nhận"}
+              {isLoading ? "Load" : "Chấp nhận"}
             </button>
             <button
-              onClick={handleRejectedBooking}
+          
               className={bookingItemStyles["reject-button"]}
             >
-              {isLoading ? <CircleLoading /> : "Hủy bỏ"}
+              {isLoading ? "Load"  : "Hủy bỏ"}
             </button>
           </>
         ) : booking.status === 1 ? (

@@ -1,0 +1,42 @@
+@use 'src/global';
+
+.search-input-bar {
+    transition: border 0.2s ease;
+
+    &.f-width {
+        width: 100%;
+    }
+
+    &.error {
+        border-color: global.$red !important;
+    }
+
+    &.error:focus ~ label {
+        color: global.$red;
+    }
+
+    &.focused {
+        padding-left: 0.6em !important;
+    }
+}
+
+.search-glass-icon, .search-close-icon {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    color: global.$gray-600;
+}
+
+.search-glass-icon {
+    left: 2%;
+}
+
+.search-close-icon {
+    right: 1%;
+    text-align: center;
+    padding: 0.1em 0.4em;
+    
+    &:hover {
+        color: global.$main-color
+    }
+}

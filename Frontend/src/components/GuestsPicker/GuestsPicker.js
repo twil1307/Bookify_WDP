@@ -11,15 +11,7 @@ function GuestsPicker({
   totalLimit = 100,
   isAllowPet = true,
 }) {
-  const total = useMemo(() => {
-    return Object.keys(guests).reduce((prev, key) => {
-      if (key !== "pet") {
-        return prev + guests[key];
-      } else {
-        return prev;
-      }
-    }, 0);
-  }, [guests]);
+
 
   return (
     <div id={guestsPickerStyles["guest-picker-field"]}>
@@ -38,9 +30,9 @@ function GuestsPicker({
               };
             });
           }}
-          total={total}
+       
           isAllowPet={type === "pet" ? isAllowPet : true}
-          disabled={type !== "pet" ? total >= totalLimit : false}
+     
         />
       ))}
     </div>

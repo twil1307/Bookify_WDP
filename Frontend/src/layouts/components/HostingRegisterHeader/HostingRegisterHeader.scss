@@ -1,0 +1,33 @@
+@use 'src/global';
+
+.header {
+    position: relative;
+    z-index: 2;
+
+    &.introduction {
+
+        * {
+            color: global.$white !important
+        }
+    }
+
+    &.register {
+        padding-top: 2em !important;
+
+        .brand-logo {
+            padding-left: 1em;
+
+            * {
+                color: global.$white;
+            }
+        }
+
+        .profile-link-button {
+            padding-right: 1em;
+            
+            p {
+                color: global.$black !important;
+            }
+        }
+    }
+}

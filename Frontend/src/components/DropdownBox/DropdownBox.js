@@ -60,7 +60,9 @@ function DropdownBox({
                 >
                   {title}
                   <span className={dropDownStyles["number-of-notif"]}>
-                    {list.length}
+
+                    {list?.length}
+
                   </span>
                 </button>,
               ];

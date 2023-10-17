@@ -3,8 +3,7 @@ import { memo } from "react";
 import differenceInHours from "date-fns/differenceInHours";
 import { differenceInBusinessDays, differenceInMinutes } from "date-fns";
 import { useClsx } from "@/utils/hooks";
-import { acceptBooking, rejectBooking } from "@/services/hotel";
-import markNotifAsRead from "@/services/hotel/markNotifAsRead";
+
 import { Link } from "react-router-dom";
 
 const getNotifAction = (notif) => {
@@ -99,27 +98,16 @@ function NotifItem({ notif, handleClick, handleActBooking, setDropdownOpen }) {
   const handleAccepted = async (event) => {
     event.preventDefault();
     const type = 5;
-    const data = await acceptBooking(notif.sourceId).then((data) => data);
-    if (data?.status) {
-      handleActBooking(notif.sourceId, type);
-      markNotifAsRead(notif.id).then((data) => console.log(data));
-    }
   };
 
   const handleRejected = async (event) => {
     event.preventDefault();
     const type = 6;
-    const data = await rejectBooking(notif.sourceId).then((data) => data);
-    if (data?.status) {
-      markNotifAsRead(notif.id).then((data) => console.log(data));
-      handleActBooking(notif.sourceId, type);
-    }
   };
 
   const handleChangeReadStatus = (event) => {
     setDropdownOpen(event);
     if (!isRead) {
-      markNotifAsRead(notif.id).then((data) => console.log(data));
       handleClick(notif.id);
     }
   };

@@ -1,0 +1,42 @@
+@use 'src/global';
+
+.tab-item {
+    
+    
+    label {
+        display: flex;
+        flex-direction: column;
+        padding: 0.4em;
+        opacity: 0.7;
+        transition: all 0.2s linear;
+        position: relative;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+
+        &:hover {
+            border-bottom: 2px solid global.$black;
+            opacity: 1;
+        }
+
+        .title {
+            margin-top: 0.6em;
+            font-size: 0.8em;
+        }
+    }
+
+    input[type="radio"]:checked + label {
+        animation: scale-fwd 0.15s ease-in forwards;
+        border-bottom: 2px solid global.$black;
+        opacity: 1;
+    }
+}
+
+@keyframes scale-fwd {
+    from {
+        scale: 0.9;
+    }
+
+    to {
+        scale: 1;
+    }
+}
