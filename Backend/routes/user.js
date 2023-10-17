@@ -6,11 +6,30 @@ const {
   formDataRetrieve,
 } = require("../service/uploadImg");
 const jwtMiddleware = require("../middleware/jwtMiddleware");
+const { isExactUser } = require("../middleware/userAuthMiddleware");
+
+// update user banking account
+router.put(
+  "/bankingAccount",
+  jwtMiddleware,
+  formDataRetrieve.none(),
+  userController.updateUserBankingAccount
+);
 
 // Get user money ammount
-router.get("/", () => {
-  console.log("user get");
-});
+router.get("/amount", jwtMiddleware, userController.getUserRemainingAmount);
+
+router.get(
+  "/bookingHistory",
+  jwtMiddleware,
+  userController.getUserBookingHistory
+);
+
+router.get(
+  "/bookmarked",
+  jwtMiddleware,
+  userController.getUserBookmarkedHotels
+);
 
 /* GET user */
 router.get("/:userId", formDataRetrieve.none(), userController.getUser);
@@ -32,6 +51,8 @@ router.post("/verifyjwt", userController.verifyJwtToken);
 // login
 router.post("/login", formDataRetrieve.none(), userController.logIn);
 
+router.post("/logout", formDataRetrieve.none(), userController.logOut);
+
 // refresh new access and refresh token after access token expired
 router.post("/refresh", userController.refreshNewTokens);
 
@@ -49,6 +70,13 @@ router.put(
   jwtMiddleware,
   formDataRetrieve.none(),
   userController.changePassword
+);
+
+// add favorites
+router.put(
+  "/bookmarked/:hotelId",
+  jwtMiddleware,
+  userController.addOrRemoveFavorite
 );
 
 module.exports = router;

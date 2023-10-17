@@ -62,9 +62,9 @@ const hotelSchema = new Schema(
       required: [true, "hotelName required"],
       unique: true,
     },
-    backgroundImg: {
+    backgroundImage: {
       type: String,
-      required: [true, "backgroundImg required"],
+      required: [true, "backgroundImage required"],
     },
     isVerified: {
       type: Boolean,
@@ -153,8 +153,8 @@ const hotelSchema = new Schema(
       ref: "Review",
     },
     roomType: {
-      type: roomTypeSchema,
-      required: [true, "Room type required"],
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "RoomType",
     },
     Rooms: {
       type: [mongoose.Schema.Types.ObjectId],
@@ -162,17 +162,20 @@ const hotelSchema = new Schema(
     },
     Vouchers: {
       type: [mongoose.Schema.Types.ObjectId],
-      ref: "voucher",
+      ref: "Voucher",
+      default: [],
     },
-    additionalFee: {
-      type: {
-        fee: { type: Number, default: 0 },
-        feeType: {
-          type: String,
-          enum: ["pet", "cleaning", "extraGuest", "weekend"],
+    additionalFee: [
+      {
+        type: {
+          fee: { type: Number, default: 0 },
+          feeType: {
+            type: String,
+            enum: ["pet", "cleaning", "extraGuest", "weekend"],
+          },
         },
       },
-    },
+    ],
     restrictCheckInDate: {
       type: [Date],
     },
@@ -191,12 +194,15 @@ const hotelSchema = new Schema(
     hightlight: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "HotelHightlight",
+      default: [],
     },
   },
   {
     timestamps: true,
   }
 );
+
+hotelSchema.path("rules").default([]);
 
 hotelSchema.statics.calculateAveragePoints = async function (hotelId) {
   const pipeline1 = [

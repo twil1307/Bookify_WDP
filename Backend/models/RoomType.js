@@ -36,18 +36,24 @@ const roomTypeSchema = new Schema({
     required: [true, "Number of bedroom required"],
   },
   isbathPrivate: {
-    type: String,
+    type: Boolean,
     required: [true, "Is bathroom private"],
+    default: true,
   },
   roomService: [
     {
       type: {
-        context: { type: String, required: true },
-        icon: { type: String, required: true },
-        status: { type: Boolean, required: true },
+        context: { type: String, required: false },
+        icon: { type: String, required: false },
+        status: { type: Boolean, required: false },
       },
     },
   ],
+  // total number of this type of rooms
+  roomNumber: {
+    type: Number,
+    required: [true, "Number of rooms required"],
+  },
 });
 
 module.exports = mongoose.model("RoomType", roomTypeSchema);
