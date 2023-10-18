@@ -68,6 +68,24 @@ module.exports.updateUser = catchAsync(async (req, res, next) => {
   });
 });
 
+module.exports.updateUserBankingAccount = catchAsync(async (req, res, next) => {
+  console.log(req.body.bankingAccountNumber);
+
+  const bankingAccount = new BankingAccount(req.body);
+
+  await bankingAccount.save();
+
+  const newUser = await User.findByIdAndUpdate(
+    req.user._id,
+    { $set: { bankingAccountNumber: bankingAccount._id } },
+    { new: true }
+  );
+
+  return res.status(200).json({
+    user: newUser,
+  });
+});
+
 module.exports.logIn = catchAsync(async (req, res, next) => {
   const userObj = new User(req.body);
 
@@ -206,6 +224,21 @@ module.exports.verifyJwtToken = catchAsync(async (req, res, next) => {
   }
 });
 
+module.exports.testIsTokenSave = catchAsync(async (req, res, next) => {
+  console.log("Here");
+
+  // Hash user password
+  return res
+    .status(200)
+    .cookie("refreshToken33", "Refresh iawdhdh1982dh1928hd9182dh1892hd1982hd", {
+      httpOnly: true,
+      secure: false,
+    })
+    .json({
+      message: "Retrieve new token successfully",
+    });
+});
+
 module.exports.logOut = catchAsync(async (req, res, next) => {
   res.setHeader("Set-Cookie", expireTokens);
 
@@ -230,5 +263,98 @@ module.exports.changePassword = catchAsync(async (req, res, next) => {
     return res.status(200).json({ message: "Passwords updated successfully" });
   } else {
     return next(new AppError("Passwords updated failed", 500));
+  }
+});
+
+module.exports.addOrRemoveFavorite = catchAsync(async (req, res, next) => {
+  const hotelIdBookmark = req.params.hotelId;
+
+  console.log(hotelIdBookmark);
+
+  const currentUser = await User.findById(req.user.id);
+
+  if (!currentUser.hotelBookmarked.includes(hotelIdBookmark)) {
+    currentUser.hotelBookmarked.push(hotelIdBookmark);
+  } else {
+    // remove hotelId when found existed in array
+    currentUser.hotelBookmarked.splice(
+      currentUser.hotelBookmarked.indexOf(hotelIdBookmark),
+      1
+    );
+  }
+
+  const newUserHotelbookMarked = await currentUser.save();
+
+  return res.json({
+    user: newUserHotelbookMarked,
+  });
+});
+
+module.exports.enableHost = catchAsync(async (req, res, next) => {});
+
+module.exports.updateBankAccount = catchAsync(async (req, res, next) => {
+  const userId = req.params.userId;
+
+  await User.findByIdAndUpdate(userId, {
+    bankingAccountNumber: req.body.bankingAccountNumber,
+  });
+
+  return res.status(200).json({
+    message: "Update banking acocunt successfully",
+  });
+});
+
+module.exports.getUserRemainingAmount = catchAsync(async (req, res, next) => {
+  const bankingAccountId = await User.findById(req.user._id)
+    .populate("bankingAccountNumber", "amount")
+    .select("bankingAccountNumber -_id");
+
+  return res.status(200).json({
+    amount: bankingAccountId.bankingAccountNumber.amount,
+  });
+});
+
+module.exports.getUserBookmarkedHotels = catchAsync(async (req, res, next) => {
+  const hotelBookmarkedId = req.user.hotelBookmarked;
+
+  const hotels = await Hotel.find({ _id: { $in: hotelBookmarkedId } }).select(
+    "_id hotelName country district address roomType rating backgroundImg"
+  );
+
+  const bookmarkHotels = hotels.map((hotel) => {
+    const { roomType, ...hotelData } = hotel._doc;
+
+    return {
+      ...hotelData,
+      averagePrice: roomType.roomPrice,
+    };
+  });
+
+  return res.status(200).json({
+    bookmarkedHotel: bookmarkHotels,
+  });
+});
+
+module.exports.getUserBookingHistory = catchAsync(async (req, res, next) => {
+  const type = req.query.type;
+
+  switch (type) {
+    case "all":
+      getUserBookingHistoryTypeAll(req, res, next);
+      break;
+    case "today":
+      getUserBookingHistoryTypeToday(req, res, next);
+      break;
+    case "booked":
+      getUserBookingHistoryTypeBooked(req, res, next);
+      break;
+    case "canceled":
+      getUserBookingHistoryTypeCanceled(req, res, next);
+      break;
+
+    default:
+      return res.status(400).json({
+        message: `Invalid request, type all, today, booked, canceled is accepted only`,
+      });
   }
 });

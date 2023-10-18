@@ -2,11 +2,14 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const accessibilitySchema = new Schema({
-  accessibilityName: {
-    type: Number,
-    ref: "Hotel",
+  name: {
+    type: String,
+    required: [true, "Accessibility name required"],
   },
-  accessibilityType: {
+  content: {
+    type: String,
+  },
+  type: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: "AccessibilityType",
   },
