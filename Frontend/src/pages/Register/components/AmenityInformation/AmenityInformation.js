@@ -65,12 +65,12 @@ function AmenityInformation() {
         </div>
         <div className={amenityInforStyles["input-field"]}>
           <h4>Không tìm thấy thứ bạn muốn ? Thêm vào ở bên dưới</h4>
-          {/* <AmenityInputField
+          <AmenityInputField
             hotelId={hotelId}
             handleClick={setAmenities}
             addNewAmenity={setDisplayAmenities}
             amenityTypes={displayAmenitiesType}
-          /> */}
+          />
         </div>
       </div>
     </div>
