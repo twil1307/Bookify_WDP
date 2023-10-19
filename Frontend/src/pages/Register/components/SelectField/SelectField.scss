@@ -1,0 +1,38 @@
+@use 'src/global';
+
+.select-field {
+
+    .drop-down-button {
+        position: absolute;
+        right: 0.4em;
+    }
+
+    input {
+
+        &:focus + .selection-list {
+            display: block;
+        }
+    }
+
+    .selection-list {
+        display: none;
+        background: global.$white;
+        position: absolute;
+        z-index: 2;
+        left: 0;
+        right: 0;
+
+        &.d-block {
+            display: block;
+        }
+
+        .selection-item {
+            cursor: pointer;
+            padding: 0.2em;
+            
+            &:hover {
+                background: global.$gray-100;
+            }
+        }
+    }
+}

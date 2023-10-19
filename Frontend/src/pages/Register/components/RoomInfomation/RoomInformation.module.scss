@@ -1,0 +1,15 @@
+.container {
+    overflow-Y: scroll;
+    overflow-X: hidden;
+    height: 60vh;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.heading {
+    font-weight: bold;
+    width: 30rem;
+    text-align: center;
+    padding-bottom: 2rem;
+}

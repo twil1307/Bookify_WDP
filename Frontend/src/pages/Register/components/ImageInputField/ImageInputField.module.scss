@@ -1,0 +1,43 @@
+@use 'src/global';
+
+.image-add {
+    margin: 1rem 0;
+
+    p {
+        font-weight: bold;
+    }
+
+    .image-container {
+
+        .image-grid {
+
+            .image-input {
+
+                .image-show {
+                    opacity: 0.6;
+                    margin-top: 1rem;
+                    padding: 0.5rem 2%;
+                    width: 10rem;
+                    height: 10rem;
+                    border: 2px dashed #ABABAB;
+                    border-radius: 12px;
+                    color: global.$black;
+                    transition: all 0.2s;
+
+                    svg {
+                        margin-top: calc((100% - 2rem) / 2);
+                        margin-left: calc((100% - 2rem) / 2);
+                        font-size: 2rem;
+                    }
+
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+                input {
+                    display: none;
+                }
+            }
+        }
+    }
+}

@@ -108,16 +108,16 @@ function Home() {
   };
 
   const getHotel = () => {
-    // fetch(`http://localhost:${process.env.REACT_APP_BACK_END_PORT}/hotel/`, {
-    //   method: "GET",
-    //   credentials: "include",
-    //   withCredentials: true,
-    // })
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     setHotelsList(result.hotels);
-    //     setLoading(false);
-    //   });
+    fetch(`http://localhost:${process.env.REACT_APP_BACK_END_PORT}/hotel/`, {
+      method: "GET",
+      credentials: "include",
+      withCredentials: true,
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setHotelsList(result.hotels);
+        setLoading(false);
+      });
   };
 
   const getAdvanceSearchHotel = async () => {};
@@ -226,6 +226,7 @@ function Home() {
                 <AdvanceFilter
                   isAdvanceFilterOpen={isAdvanceFilterOpen}
                   setAdvanceFilterOpen={setAdvanceFilterOpen}
+                  getAdvanceFilterHotel={getAdvanceFilterHotel}
                 />
               )}
             </Suspense>

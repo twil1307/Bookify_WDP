@@ -1,0 +1,31 @@
+@use "src/global";
+
+.header {
+    h3 {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 2em;
+    }
+}
+
+#basic-information {
+    padding-top: 1em;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 60vh;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    .basic-infor-header {
+        font-size: 1.6em;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 2em;
+    }
+    .basic-infor-body {
+        .basic-infor-form {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
