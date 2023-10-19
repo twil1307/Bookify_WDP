@@ -32,9 +32,10 @@ function SelectField({ id, label, value, setValue, setInformationValid }) {
   const debouncedSearchFunction = useCallback(
     useDebounce((searchTerm) => {
       // console.log(getDebouncedFunction(id));
+
       const debouncedFunction = getDebouncedFunction(id);
-      if (id === "hotelType") {
-        debouncedFunction(searchTerm)?.then((data) => {
+      if (id == "hotelType") {
+        debouncedFunction(searchTerm).then((data) => {
           // console.log(data?.types);
           setSelectionList(data?.types);
         });
@@ -117,9 +118,9 @@ function SelectField({ id, label, value, setValue, setInformationValid }) {
           isSelectionListOpen ? "d-block" : ""
         )}
       >
-        {selectionList?.map((value) => (
+        {selectionList?.map((value, index) => (
           <div
-            key={value.code}
+            key={index}
             onClick={() => {
               setSelectionListOpen(false);
               value.name ? setValue(value.name, id) : setValue(value, id);

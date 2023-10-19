@@ -70,7 +70,7 @@ function RegisterSection({
       setDisplayAmenities((prev) => {
         const mergedAmenities = [...prev];
         Array.from(defaultAmenties?.amenities).forEach((defaultAmenity) => {
-          console.log(defaultAmenity);
+          // console.log(defaultAmenity);
           let isIncluded = false;
           prev.forEach(({ amenityName }) => {
             if (amenityName === defaultAmenity.amenityName) {
@@ -89,7 +89,7 @@ function RegisterSection({
     //eslint-disable-next-line
   }, []);
   useEffect(() => {
-    console.log(displayAmenities);
+    // console.log(displayAmenities);
   }, [displayAmenities]);
   const registerContextValue = useMemo(
     () => ({

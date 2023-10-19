@@ -49,22 +49,6 @@ function HotelCard({
       );
       return;
     }
-    // addBookMarked(hotelId, {
-    //   onSuccess: () => {
-    //     if (!bookmarked) {
-    //       setBookmarked(!bookmarked);
-    //       setToastMessages(
-    //         getSuccessToastMessage({ message: "Đã thêm vào mục yêu thích" })
-    //       );
-    //       return;
-    //     } else {
-    //       setBookmarked(!bookmarked);
-    //       setToastMessages(
-    //         getSuccessToastMessage({ message: "Đã xóa khỏi mục yêu thích" })
-    //       );
-    //     }
-    //   },
-    // });
   };
 
   return (
