@@ -6,9 +6,18 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { Link, useOutletContext } from "react-router-dom";
-import { useContext, useState, memo } from "react";
-
-
+import { useContext, useState, memo, useEffect } from "react";
+import {
+  BookmarkContext,
+  ToastMessageContext,
+  UserContext,
+} from "@/utils/contexts";
+import { addHotelToBookmark, deleteHotelFromBookmark } from "@/services/user";
+import {
+  getFailureToastMessage,
+  getSuccessToastMessage,
+} from "@/utils/reducers/toastMessageReducer";
+import { useUser } from "@/utils/hooks";
 
 function HotelCard({
   _id: hotelId,
@@ -16,12 +25,47 @@ function HotelCard({
   country,
   district,
   address,
-  // backgroundImg,
   images,
   averagePrice,
   rating,
   isBookmarked,
 }) {
+  const { user } = useContext(UserContext);
+
+  const [bookmarked, setBookmarked] = useState(false);
+  const { setToastMessages } = useContext(ToastMessageContext);
+  const setBookmarkedHotels = useOutletContext(BookmarkContext);
+  // const { addBookMarked } = useUser();
+  useEffect(() => {
+    if (user?.hotelBookmarked?.includes(hotelId)) setBookmarked(true);
+    else setBookmarked(false);
+  }, []);
+
+  const handleBookmark = async (event) => {
+    event.preventDefault();
+    if (!user._id) {
+      setToastMessages(
+        getSuccessToastMessage({ message: "Đăng nhập để dùng" })
+      );
+      return;
+    }
+    // addBookMarked(hotelId, {
+    //   onSuccess: () => {
+    //     if (!bookmarked) {
+    //       setBookmarked(!bookmarked);
+    //       setToastMessages(
+    //         getSuccessToastMessage({ message: "Đã thêm vào mục yêu thích" })
+    //       );
+    //       return;
+    //     } else {
+    //       setBookmarked(!bookmarked);
+    //       setToastMessages(
+    //         getSuccessToastMessage({ message: "Đã xóa khỏi mục yêu thích" })
+    //       );
+    //     }
+    //   },
+    // });
+  };
 
   return (
     <Link to={`hotel/${hotelId}`}>
@@ -58,7 +102,18 @@ function HotelCard({
             <p className={"hotel-price-per-night"}>{`$${averagePrice}`}</p>
           </div>
         </div>
-  
+        {user?.role === 0 ? (
+          ""
+        ) : (
+          <div
+            className={["bookmark-icon", bookmarked ? "bookmarked" : ""].join(
+              " "
+            )}
+            onClick={handleBookmark}
+          >
+            <FontAwesomeIcon icon={bookmarked ? faHeartSolid : faHeart} />
+          </div>
+        )}
       </div>
     </Link>
   );

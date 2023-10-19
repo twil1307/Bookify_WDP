@@ -51,10 +51,14 @@ function SignInForm({ setModalOpen }) {
       setLoading(true);
       try {
         SignIn(account.username, account.password).then((resp) => {
-          setLoading(false);
-          localStorage.setItem("user", JSON.stringify(resp.user));
-          setUser(resp.user);
-          setModalOpen(event);
+          if (resp.user) {
+            setLoading(false);
+            localStorage.setItem("user", JSON.stringify(resp.user));
+            setUser(resp.user);
+            setModalOpen(event);
+          } else {
+            console.log("User not found");
+          }
         });
       } finally {
       }

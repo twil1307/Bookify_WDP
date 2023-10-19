@@ -1,0 +1,46 @@
+@use 'src/global';
+
+.input-field {
+    margin-bottom: 1.6em;
+    position: relative;
+
+    input {
+        border: none;
+        width: 100%;
+        border-bottom: 1px solid global.$gray-200;
+        transition: all 0.15s linear;
+        padding: 0.2em 0;
+
+        &:focus {
+            outline: none;
+            border-bottom-color: global.$main-color;
+
+            + label {
+                top: -60%;
+                left: 0; 
+                font-size: 0.8em
+            }
+        }
+
+        &.error {
+            border-bottom-color: global.$red;
+        }
+    }
+
+    input:not([value=""]) + label {
+        top: -60%;
+        left: 0; 
+        font-size: 0.8em
+    }
+
+    .input-label {
+        position: absolute;
+        top: 0;
+        left: 0.4em;
+        transition: all 0.15s linear;
+
+        &.error {
+            color: global.$red;
+        }
+    }
+}

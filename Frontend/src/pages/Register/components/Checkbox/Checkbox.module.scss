@@ -1,0 +1,44 @@
+@use "src/global";
+.checkbox {
+    color: #6a6a6a;
+    @include global.vertical-center();
+    gap: 0.2em;
+
+    input[type="radio"] {
+        margin-top: 1rem;
+        width: 18px;
+        height: 18px;
+        margin-right: 1rem;
+    }
+
+    input[type="checkbox"]:checked {
+        + label {
+            color: black;
+        }
+        + div {
+            background: global.$black !important;
+            color: global.$white !important;
+        }
+    }
+    label {
+        font-size: 20px;
+        font-weight: bold;
+        transition: all 0.2s;
+    }
+
+    .extra-infor-checkbox {
+        border: 1px solid black;
+        width: 1.4em;
+        height: 1.4em;
+        border-radius: 0.2em;
+        @include global.center();
+        transition: all 0.2s ease-out;
+        cursor: pointer;
+        background: global.$white;
+        border: 1px solid global.$black;
+
+        &:hover {
+            opacity: 0.6;
+        }
+    }
+}

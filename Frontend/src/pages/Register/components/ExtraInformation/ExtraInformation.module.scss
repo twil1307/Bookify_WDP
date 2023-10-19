@@ -1,0 +1,32 @@
+@use 'src/global';
+.extra-info {
+    h3 {
+        text-align: center;
+    }
+    .body {
+        font-size: 20px;
+        margin-top: 2rem;
+
+        .extra-checkbox {
+            h4 {
+                font-weight: bold;
+            }
+
+            .select-box {
+                display: flex;
+                flex-direction: column;
+                gap: 0.4em;
+            }
+        }
+
+        .input-time {
+            margin-top: 2.5rem;
+            h4 {
+                font-weight: bold
+            }
+            form {
+                margin-top: 2rem;
+            }
+        }
+    }
+}

@@ -11,11 +11,12 @@ import {
   ModalContext,
   UserContext,
   CoordinatesContext,
+  ToastMessageContext,
   WebSocketContext,
 } from "@/utils/contexts";
 
 import { modalReducer, toastMessageReducer } from "./utils/reducers";
-import { Modal } from "./components";
+import { Modal, ToastMessage, ToastMessageBox } from "./components";
 import { Container } from "@mui/material";
 import VerifyAuth from "./utils/hooks/verifyAuth";
 
@@ -40,7 +41,7 @@ function App({ children }) {
     setUser(userLocal);
   }, [firstLogin, userLocal]);
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
     // console.log(isLogin);
     // updateData();
   }, [user]);
@@ -94,12 +95,19 @@ function App({ children }) {
       <ModalContext.Provider value={modal}>
         <CoordinatesContext.Provider value={currentCoordinates}>
           <UserContext.Provider value={userContextValue}>
-            {children}
-            {modalState.isOpen && (
-              <div className="overlay">
-                <Modal>{modalState.renderModal()}</Modal>
-              </div>
-            )}
+            <ToastMessageContext.Provider value={toastMessageContextValue}>
+              {children}
+              {modalState.isOpen && (
+                <div className="overlay">
+                  <Modal>{modalState.renderModal()}</Modal>
+                </div>
+              )}
+              <ToastMessageBox>
+                {toastMessages.map(({ type, message }) => (
+                  <ToastMessage type={type} message={message} />
+                ))}
+              </ToastMessageBox>
+            </ToastMessageContext.Provider>
           </UserContext.Provider>
         </CoordinatesContext.Provider>
       </ModalContext.Provider>

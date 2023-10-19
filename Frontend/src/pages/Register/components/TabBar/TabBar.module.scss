@@ -1,0 +1,51 @@
+@use 'src/global';
+
+#register-tab-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    background: global.$white;
+    border-top: 1px solid global.$gray-200;
+
+    .tab-button-list {
+        display: flex;
+        gap: 0.2em;
+        padding: 1em 0;
+    }
+}
+
+.tab-button {
+    width: 2em;
+    height: 0.6em;
+    background: global.$gray-500;
+    border-radius: 0.6em;
+    transition: all 0.2s ease-out;
+    box-sizing: content-box;
+    border-left: 0 solid global.$main-color;
+    border-right: 0 solid global.$main-color;
+
+    &.active {
+        background: global.$main-color;  
+        animation: border-grow-fwd 0.2s ease-out forwards;
+    }
+
+    &:hover:not(.active) {
+        background: global.$main-color;
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+}
+
+@keyframes border-grow-fwd {
+    from {
+        border-left: 0.2em solid global.$main-color;
+        border-right: 0.2em solid global.$main-color;
+    }
+    to {
+        border-left: 1em solid global.$main-color;
+        border-right: 1em solid global.$main-color;
+    }
+}

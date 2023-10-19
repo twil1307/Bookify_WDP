@@ -1,0 +1,69 @@
+@use "src/global";
+
+.add-amenity {
+    margin-top: 1rem;
+    border: 1px solid global.$gray-200;
+    border-radius: 1.2em;
+    margin-bottom: 4em;
+
+    .amenity-input {
+        display: flex;
+        align-items: center;
+
+        .amenity-type-select {
+            position: relative;
+            display: flex;
+            padding: 1em;
+            width: 30%;
+
+            p {
+                width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .amenity-type-list {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                display: none;
+                background: global.$white;
+                border: 1px solid global.$gray-200;
+                border-radius: 0.6em;
+
+                &.d-block {
+                    display: block;
+                }
+
+                .type-item {
+                    width: 100%;
+                    padding: 0.4em 0.6em;
+                    padding-right: 2em;
+                    cursor: pointer;
+                    font-weight: bold;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+
+                    &:hover {
+                        background: global.$gray-500;
+                        color: global.$white;
+                    }
+                }
+            }
+        }
+
+        input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            padding: 1em;
+        }
+
+        button {
+            padding-right: 0.5rem;
+        }
+    }
+}

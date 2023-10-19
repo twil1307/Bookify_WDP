@@ -67,11 +67,12 @@ function OptionList({ handleClick }) {
         isLoginRequired: true,
         onClickHandler: (event) => {
           event.stopPropagation();
-          if (!user.bankingAccount) {
-            handleClick(event);
-          } else {
-            navigate("/hosting/introduction");
-          }
+          navigate("/hosting/introduction");
+          // if (!user.bankingAccount) {
+          //   handleClick(event);
+          // } else {
+          //   navigate("/hosting/introduction");
+          // }
         },
       },
       {
