@@ -1,16 +1,31 @@
 var express = require("express");
 var router = express.Router();
+const jwtMiddleware = require("../middleware/jwtMiddleware");
+const { hasRole } = require("../middleware/userAuthMiddleware");
+const amenityController = require("../controller/amenity.controller");
+const { userImageUploaderLocal } = require("../service/uploadImg");
+const Roles = require("../enum/Role");
 
-router.post("/type", () => {
-  console.log("Type route post");
-});
+router.post(
+  "/type",
+  userImageUploaderLocal.none(),
+  jwtMiddleware,
+  hasRole(Roles.ADMIN, Roles.USER),
+  amenityController.signNewAmenityType
+);
 
-router.get("/type", () => {
-  console.log("Type route get type");
-});
+router.get(
+  "/type",
+  jwtMiddleware,
+  hasRole(Roles.ADMIN, Roles.USER),
+  amenityController.getAllAmenityType
+);
 
-router.get("/", () => {
-  console.log("Type route get");
-});
+router.get(
+  "/",
+  jwtMiddleware,
+  hasRole(Roles.ADMIN, Roles.USER),
+  amenityController.getAllAmenities
+);
 
 module.exports = router;
