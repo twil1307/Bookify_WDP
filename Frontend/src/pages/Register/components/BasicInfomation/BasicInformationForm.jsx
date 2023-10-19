@@ -17,7 +17,7 @@ const getInputFieldType = (key) => {
 
 function BasicInformationForm({ className, setNextTabValid }) {
   const { basicHotelInfor, setBasicHotelInfo } = useContext(RegisterContext);
-  console.log(basicHotelInfor);
+  // console.log(basicHotelInfor);
   const [isInformationValid, setInformationValid] = useState({
     name: false,
     hotelType: false,
@@ -45,6 +45,7 @@ function BasicInformationForm({ className, setNextTabValid }) {
     setNextTabValid(isAllInformationValid);
     //eslint-disable-next-line
   }, [isInformationValid]);
+  // console.log(getInputFieldType(basicHotelInfor));
 
   return (
     <div className={className}>

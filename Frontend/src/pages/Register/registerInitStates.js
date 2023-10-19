@@ -11,6 +11,8 @@ const basicHotelInforInitState = {
 const roomInfoInitState = {
   numberOfGuests: 1,
   numberOfRoom: 1,
+  // bedType: "",
+  // bathroomType: "",
   numberOfBed: 6,
   numberOfBathroom: 1,
   price: 100,
