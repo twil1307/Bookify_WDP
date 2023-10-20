@@ -1,8 +1,6 @@
 var express = require("express");
 var router = express.Router();
 const hotelController = require("../controller/hotel.controller");
-const voucherController = require("../controller/voucher.controller");
-const accessibilityController = require("../controller/accessibility.controller");
 const jwtMiddleware = require("../middleware/jwtMiddleware");
 const {
   hasRole,
@@ -13,7 +11,9 @@ const {
   hotelImageUploaderLocal,
   formDataRetrieve,
 } = require("../service/uploadImg");
+const { isUserEverStayHere } = require("../middleware/reviewQualify");
 const Roles = require("../enum/Role");
+const { countPageViews } = require("../middleware/pageViewMiddleware");
 
 // Create new hotel with role admin
 router.post(
@@ -37,26 +37,65 @@ router.post(
   hotelController.signNewHotelType
 );
 
-// create hotel accessibility type
-router.post(
-  "/accessibilityType",
-  formDataRetrieve.none(),
+router.get(
+  "/getOwnerHotel",
   jwtMiddleware,
   hasRole(Roles.HOST, Roles.ADMIN),
-  accessibilityController.signNewHotelAccessibilityType
+  hotelController.getOwnerHotel
 );
 
 router.get("/type", jwtMiddleware, hotelController.getHotelTypes);
 
-router.post(
-  "/voucher",
-  formDataRetrieve.none(),
-  jwtMiddleware,
-  hasRole(Roles.HOST, Roles.ADMIN),
-  voucherController.signNewVoucher
-);
-
 // get all hotel
 router.get("/", isUserAvailable, hotelController.getAllHotels);
+
+// Get specific hotel
+router.get("/:hotelId", countPageViews, hotelController.getHotel);
+
+// update hotel
+router.put(
+  "/:hotelId",
+  jwtMiddleware,
+  hasRole(Roles.ADMIN, Roles.HOST),
+  isExactHost,
+  hotelImageUploaderLocal.fields([
+    { name: "backgroundImage", maxCount: 1 },
+    { name: "hotelImage", maxCount: 5 },
+    { name: "viewImage", maxCount: 5 },
+  ]),
+  hotelController.updateHotel
+);
+
+// delete hotel
+router.delete(
+  "/:hotelId",
+  jwtMiddleware,
+  hasRole(Roles.ADMIN),
+  hotelController.deleteHotel
+);
+
+// review hotel
+router.post(
+  "/:hotelId/review",
+  formDataRetrieve.none(),
+  jwtMiddleware,
+  isUserEverStayHere,
+  hotelController.reviewHotel
+);
+
+// review hotel
+router.post(
+  "/:hotelId/report",
+  formDataRetrieve.none(),
+  jwtMiddleware,
+  isUserEverStayHere,
+  hotelController.reportHotel
+);
+
+router.get(
+  "/:hotelId/isUserEverStayHere",
+  jwtMiddleware,
+  hotelController.checkIsUserEverStayHere
+);
 
 module.exports = router;
