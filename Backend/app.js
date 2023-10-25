@@ -12,7 +12,7 @@ require("dotenv").config();
 require("./config/database");
 
 var app = express();
-const wss = new WebSocketServer({ noServer: true })
+const wss = new WebSocketServer({ noServer: true });
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -29,6 +29,7 @@ app.use(
 
 // Router require ------------------------------------------
 var amenityRouter = require("./routes/amentity");
+var accessibilityRouter = require("./routes/accessibility");
 var dashboardRouter = require("./routes/dashboard");
 var hotelRouter = require("./routes/hotel");
 var userRouter = require("./routes/user");
@@ -39,6 +40,7 @@ const AppError = require("./utils/appError");
 // Count page visitor
 
 app.use("/amenity", amenityRouter);
+app.use("/accessibility", accessibilityRouter);
 app.use("/dashboard", dashboardRouter);
 app.use("/hotel", hotelRouter);
 app.use("/user", userRouter);
