@@ -28,8 +28,6 @@ const Accessibility = require("../models/Accessibility");
 const Voucher = require("../models/Voucher");
 
 module.exports.signNewHotel = async (req, res, next) => {
-  console.log("here");
-
   const session = await mongoose.startSession();
   session.startTransaction();
   const imagesPath = retrieveNewHotelImagePath(req);
@@ -157,7 +155,7 @@ module.exports.signNewHotel = async (req, res, next) => {
     return res.status(200).json({
       message: "Sign up new Hotel successfully",
       data: {
-        hotel: hotelSign,
+        hotel: hotelSignComplete,
       },
     });
   } catch (error) {
@@ -232,6 +230,14 @@ module.exports.getHotel = catchAsync(async (req, res, next) => {
     .populate("hotelAmenities", "-createdAt -updatedAt")
     .populate("roomType")
     .populate("reviews")
+    .populate("Vouchers")
+    .populate({
+      path: "accessibility",
+      // populate: {
+      //   path: "type",
+      //   model: "AccessibilityType",
+      // },
+    })
     .populate("rating");
 
   const data = await getAveragePoint(hotel.reviews);

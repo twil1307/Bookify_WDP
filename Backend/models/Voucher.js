@@ -15,9 +15,14 @@ const voucherSchema = new Schema({
   },
   beginAt: {
     type: Date,
+    default: Date.now,
   },
   endAt: {
     type: Date,
+    default: function () {
+      // Set the default value to "Date.now + 24 hours"
+      return new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours in milliseconds
+    },
   },
   status: {
     type: Boolean,

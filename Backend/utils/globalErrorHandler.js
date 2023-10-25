@@ -3,6 +3,8 @@ const AppError = require("./appError");
 module.exports = (err, req, res, next) => {
   let error = { ...err };
 
+  console.log(error);
+
   if (err.name === "CastError") error = handleCastErrorDB(err);
   if (err.code === 11000) error = handleDuplicateFieldsDB(err);
   if (err.name === "ValidationError") error = handleValidationErrorDB(err);

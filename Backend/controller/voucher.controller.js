@@ -6,10 +6,10 @@ const Hotel = require("../models/Hotel");
 require("dotenv").config();
 
 module.exports.signNewVoucher = catchAsync(async (req, res) => {
-  const Voucher = new Voucher(req.body);
+  const VoucherSign = new Voucher(req.body);
 
   const findExistedAmentity = await Voucher.findOne({
-    name: Voucher.name,
+    name: VoucherSign.name,
   });
 
   if (findExistedAmentity) {
@@ -17,33 +17,43 @@ module.exports.signNewVoucher = catchAsync(async (req, res) => {
       message: "Voucher name already existed",
     });
   } else {
-    const newVoucher = null;
+    let newVoucher = null;
 
     if (req.user.role === roles.ADMIN) {
-      Voucher.type = VoucherType.ALL;
-      newVoucher = await Voucher.save();
+      VoucherSign.type = VoucherType.ALL;
+      // newVoucher = await VoucherSign.save();
     } else if (req.user.role === roles.HOST) {
-      Voucher.type = VoucherType.HOTEL;
-      newVoucher = await Voucher.save();
+      console.log("here");
+      VoucherSign.type = VoucherType.HOTEL;
+      console.log(VoucherSign);
+      // newVoucher = await VoucherSign.save();
 
       // this logic is apply for only 1 owner per 1 hotel
-      const hotelOwned = await Hotel.find({ user: req.user._id });
+      const hotelOwned = await Hotel.findOne({ user: req.user._id });
+
+      console.log(hotelOwned.Vouchers);
+
+      return res.status(200).json({
+        message: "Voucher saved successfully",
+        voucher: newVoucher,
+      });
 
       if (hotelOwned) {
-        hotelOwned.Voucher.push(newVoucher._id);
-        await hotelOwned.save();
+        try {
+          hotelOwned.Vouchers.push(newVoucher._id);
+          console.log(hotelOwned);
+          await hotelOwned.save();
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
 
-    if (newVoucher) {
-      return res.status(200).json({
-        message: "Voucher saved successfully",
-        amenity: newVoucher,
-      });
-    } else {
-      return res.status(500).json({
-        message: "Couldn't save Voucher",
-      });
-    }
+    console.log(VoucherSign);
+
+    return res.status(200).json({
+      message: "Voucher saved successfully",
+      voucher: newVoucher,
+    });
   }
 });
