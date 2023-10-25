@@ -30,3 +30,12 @@ module.exports.signNewHotelAccessibilityType = catchAsync(async (req, res) => {
     }
   }
 });
+
+module.exports.getCurrentAccessibilityType = catchAsync(async (req, res) => {
+  const currentAccessibilityType = await AccessibilityType.find();
+
+  return res.status(200).json({
+    message: "Get data successfully",
+    type: currentAccessibilityType,
+  });
+});
