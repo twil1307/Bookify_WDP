@@ -1,0 +1,54 @@
+@use "src/global";
+.title,
+.description,
+.host-name,
+.host-sub,
+p {
+    font-family: global.$default-font;
+}
+
+.title {
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.progress {
+    width: 100%;
+    height: 5px;
+    overflow: hidden;
+    background: #e5e5e5;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.bar {
+    position: relative;
+    float: left;
+    min-width: 1%;
+    height: 100%;
+    background: #000;
+    transition: all 0.2s;
+}
+
+.item {
+    display: flex;
+    align-self: center;
+    .rating-title {
+        flex: 5;
+    }
+    .progress-container {
+        flex: 5;
+        display: flex;
+        align-items: center;
+    }
+    .rating-point {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.comment-container {
+    padding-top: 3em;
+}

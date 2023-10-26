@@ -1,0 +1,19 @@
+@use "src/global";
+
+#r-n-b-r-picker-section {
+    margin-top: 2em;
+    border-bottom: 1px solid global.$gray-200;
+    padding-bottom: 3em;
+
+    .picker-heading {
+        font-size: 1.4em;
+        margin-bottom: 1.6em;
+        font-weight: bold;
+    }
+
+    .r-n-b-r-picker {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+}

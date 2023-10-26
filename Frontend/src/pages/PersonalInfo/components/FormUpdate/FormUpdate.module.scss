@@ -1,0 +1,132 @@
+@use "src/global";
+.form {
+    margin-top: 30px;
+}
+
+.input-update {
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: solid;
+    border-bottom-color: #ababab;
+    border-bottom-width: 1px;
+    background-color: transparent;
+    outline: none;
+    padding: 7px 0;
+    font-size: 16px;
+}
+
+.textarea-update {
+    font-family: inherit;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 15px 20px;
+    margin-top: 10px;
+    width: 100%;
+    resize: none;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.textarea-update-readOnly {
+    font-family: inherit;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 15px 20px;
+    margin-top: 10px;
+    width: 100%;
+    resize: none;
+    text-align: center;
+    color: #c9c9c9;
+    transition: all 0.3s;
+}
+
+.input-label {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.subname-input-field,
+.name-input-field,
+.email-input-field,
+.phone-input-field,
+.dob-input-field,
+.des-input-field {
+    display: inline-flex;
+    flex-direction: column-reverse;
+    margin-top: 10px;
+    width: 100%;
+    textarea:focus+label,
+    input:focus+label {
+        color: #4361ee;
+    }
+    input:focus {
+        border-bottom-color: #4361ee;
+    }
+    textarea:focus {
+        outline-color: #4361ee;
+    }
+}
+
+.des-input-field {
+    padding-top: 10px;
+    padding-bottom: 60px;
+}
+
+.des-input-field-readOnly {
+    display: inline-flex;
+    flex-direction: column-reverse;
+    margin-top: 10px;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 60px;
+    textarea:focus+label,
+    input:focus+label {
+        color: #000;
+    }
+    textarea:focus {
+        outline: none;
+    }
+}
+
+.button-field {
+    height: 50px;
+    display: flex;
+}
+
+.save-button {
+    background-color: #4361ee;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 15px 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 15px;
+    display: inline-block;
+    margin-right: 15px;
+    &:hover {
+        cursor: pointer;
+        opacity: 0.9;
+    }
+}
+
+.cancel-button {
+    background-color: white;
+    /* Green */
+    border: 1.5px solid #000;
+    color: #000;
+    padding: 15px 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 15px;
+    display: inline-block;
+    &:hover {
+        cursor: pointer;
+        background-color: rgb(197, 197, 197);
+    }
+}

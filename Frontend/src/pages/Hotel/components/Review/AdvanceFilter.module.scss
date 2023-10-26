@@ -1,0 +1,109 @@
+@use "src/global";
+@use "src/static/styles/animations";
+#advance-filter {
+    background: global.$white;
+    position: fixed;
+    top: 3em;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    border-radius: 1.6em;
+    box-shadow: 1px 2px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    @include animations.animate(slide-in-bottom, 0.25s, animations.$slide, false);
+    .heading {
+        position: absolute;
+        left: 0;
+        right: 0;
+        padding: 1em 0;
+        border-bottom: 1px solid global.$gray-200;
+        .filter-heading {
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+        }
+    }
+    .footer {
+        border-top: 1px solid global.$gray-200;
+        display: flex;
+        >* {
+            flex-grow: 1;
+            padding: 0.8em 2em;
+            @include global.vertical-center();
+        }
+        .reset-button {
+            text-decoration: underline;
+            font-weight: bold;
+            transition: all 0.2s linear;
+            &:hover {
+                opacity: 0.6;
+            }
+        }
+        .find-button {
+            background: global.$black;
+            color: global.$white;
+            padding: 0.6em 0.8em;
+            border-radius: 0.8em;
+            transition: all 0.2s linear;
+            &:hover {
+                opacity: 0.6;
+            }
+        }
+    }
+    .close-button {
+        position: absolute;
+        top: 0.7em;
+        left: calc(1.7em - 0.45em);
+        font-size: 1.2em;
+        padding: 0.01em 0.45em;
+        border-radius: 50%;
+    }
+    .report-description {
+        padding: 20px 0;
+        p {
+            text-align: center;
+        }
+    }
+    .report-body {
+        margin-top: 0;
+        h3 {
+            font-size: 1.7em;
+            font-weight: 600;
+        }
+    }
+    .report-title {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1em;
+        label {
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        input {
+            margin-top: 0.9em;
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            padding: 1em 1.8em;
+            border: none;
+        }
+    }
+    .report-content {
+        display: flex;
+        flex-direction: column;
+        margin-top: 2em;
+        margin-bottom: 2em;
+        label {
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        textarea {
+            margin-top: 0.9em;
+            background-color: #f0f0f0;
+            padding: 1.3em 1.8em;
+            border-radius: 15px;
+            height: 15em;
+            border: none;
+            resize: none;
+        }
+    }
+}

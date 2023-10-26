@@ -1,0 +1,247 @@
+@use "src/global";
+
+#booking {
+    padding: 1em;
+    border-radius: 1.4em;
+    box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+
+    .heading-row {
+        margin-bottom: 1em;
+
+        .price {
+            font-weight: bold;
+
+            span {
+                font-size: 1.6em;
+            }
+        }
+    }
+
+    .float-right {
+        float: right;
+    }
+
+    .booking-input {
+        font-size: 0.9em;
+
+        > * {
+            position: relative;
+        }
+
+        .title {
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .room-type-input {
+            border: 1px solid global.$gray-500;
+            border-bottom: none;
+            border-radius: 1em 1em 0 0;
+            padding: 0.6em;
+
+            &::before {
+                position: absolute;
+                content: "";
+                border-radius: 1em;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border: 2px solid black;
+                display: none;
+            }
+
+            &.input-selected::before {
+                display: block;
+            }
+
+            .room-type-option {
+                display: flex;
+                padding: 1em 0.6em;
+                cursor: pointer;
+
+                .room-type-title {
+                    flex: 1 0 0;
+                }
+
+                &:hover {
+                    background: global.$gray-100;
+                }
+
+                &.selected {
+                    background: global.$main-color;
+                    color: global.$white;
+                }
+            }
+        }
+
+        .date-range-input {
+            display: flex;
+            border: 1px solid global.$gray-500;
+            border-bottom: none;
+
+            > * {
+                flex-basis: 50%;
+            }
+
+            .start-day {
+                border-right: 1px solid global.$gray-500;
+                padding: 0.6em;
+                padding-right: 0;
+            }
+
+            .end-day {
+                padding: 0.6em;
+            }
+
+            .date-range-input-box {
+                position: absolute;
+                z-index: 1;
+                right: -2em;
+                top: -1em;
+                background: global.$white;
+                box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+                border-radius: 1.4em;
+
+                .date-range-heading {
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    padding: 1em 1em;
+                    gap: 5em;
+
+                    .heading {
+                        font-size: 1.8em;
+                        white-space: nowrap;
+                    }
+
+                    .date-range-input-modal {
+                        display: flex;
+                        margin-left: auto;
+
+                        .modal-input-value {
+                            font-weight: normal;
+                        }
+
+                        .modal-title {
+                            font-size: 0.8em;
+                        }
+
+                        .modal-start-day {
+                            padding: 0.6em;
+                            border: 1px solid global.$gray-500;
+                            border-right: 0;
+                            border-radius: 0.8em 0 0 0.8em;
+                            min-width: 12em;
+                        }
+
+                        .modal-end-day {
+                            padding: 0.6em;
+                            border: 1px solid global.$gray-500;
+                            min-width: 12em;
+                            border-radius: 0 0.8em 0.8em 0;
+                        }
+                    }
+                }
+
+                .button-row {
+                    button {
+                        float: right;
+                        padding: 0.6em 2em;
+                        background: global.$black;
+                        color: global.$white;
+                        margin-right: 1em;
+                        margin-bottom: 1em;
+                        border-radius: 0.6em;
+                        transition: all 0.2s linear;
+
+                        &:hover {
+                            opacity: 0.7;
+                        }
+                    }
+                }
+            }
+        }
+
+        .guests-input {
+            border: 1px solid global.$gray-500;
+            border-radius: 0 0 1em 1em;
+            padding: 0.6em;
+        }
+
+        .select-box {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            background: global.$white;
+            z-index: 1;
+            padding: 0.6em 0;
+            border-radius: 0 0 0.8em 0.8em;
+            box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+
+            &.select-box--right {
+                left: unset;
+                right: 0;
+                border-radius: 0.8em;
+            }
+        }
+    }
+
+    .booking-button {
+        margin-top: 1em;
+        text-align: center;
+        display: block;
+        width: 100%;
+        padding: 0.6em 0;
+        border-radius: 1em;
+        background: global.$main-color;
+        color: global.$white;
+        transition: all 0.2s linear;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+    .total {
+        margin-top: 2em;
+
+        .provisional {
+            border-bottom: 1px solid global.$gray-500;
+            padding-bottom: 3em;
+
+            .price-for-all-nights {
+                display: flex;
+
+                .price-label {
+                    color: global.$gray-600;
+
+                    span {
+                        margin: 0 0.2em;
+                    }
+                }
+
+                .price {
+                    margin-left: auto;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .final {
+            display: flex;
+            padding-top: 0.6em;
+            padding-bottom: 1em;
+
+            .title {
+                color: global.$gray-600;
+            }
+
+            .price {
+                margin-left: auto;
+                font-weight: bold;
+            }
+        }
+    }
+}

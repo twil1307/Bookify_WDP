@@ -1,0 +1,37 @@
+.save-button {
+    background-color: #4361ee;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 15px 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 15px;
+    display: inline-block;
+    margin-right: 15px;
+    &:hover {
+        cursor: pointer;
+        opacity: 0.9;
+    }
+}
+
+.cancel-button {
+    background-color: white;
+    /* Green */
+    border: 1.5px solid #000;
+    color: #000;
+    padding: 15px 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 15px;
+    display: inline-block;
+    &:hover {
+        cursor: pointer;
+        background-color: rgb(197, 197, 197);
+        border: none;
+    }
+}

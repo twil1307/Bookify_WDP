@@ -1,0 +1,100 @@
+@use "src/global";
+.upload-container {
+    border: 1px solid #000;
+    border-radius: 20px;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+    .upload-image {
+        padding-top: 10px;
+    }
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .file-upload {
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 4px solid #ffffff;
+        overflow: hidden;
+        background-image: linear-gradient( to bottom, global.$gray-500 50%, #ffffff 50%);
+        background-size: 100% 200%;
+        transition: all 0.5s;
+        color: #ffffff;
+        font-size: 100px;
+        input[type="file"] {
+            height: 200px;
+            width: 200px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        &:hover {
+            background-position: 0 -100%;
+            color: global.$gray-500;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+        }
+    }
+    .file-upload-readOnly {
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 4px solid #ffffff;
+        overflow: hidden;
+        background-image: linear-gradient( to bottom, global.$gray-500 50%, #ffffff 50%);
+        background-size: 100% 200%;
+        // transition: all 0.5s;
+        color: #ffffff;
+        font-size: 100px;
+        input[type="file"] {
+            height: 200px;
+            width: 200px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+        }
+    }
+}
+
+.upload-label:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    // transition: all 0.5s;
+}
+
+.upload-label {
+    transition: all 0.3s;
+}
+
+.upload-label-readOnly {
+    color: #c9c9c9;
+    transition: all 0.3s;
+}

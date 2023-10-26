@@ -17,7 +17,6 @@ import {
   getFailureToastMessage,
   getSuccessToastMessage,
 } from "@/utils/reducers/toastMessageReducer";
-import { useUser } from "@/utils/hooks";
 
 function HotelCard({
   _id: hotelId,
