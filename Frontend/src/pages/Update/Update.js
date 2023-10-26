@@ -1,18 +1,16 @@
 import getHotel from "@/services/hotel";
-import { useUser } from "@/utils/hooks";
 import { useEffect, useState, lazy, Suspense } from "react";
 import { useParams } from "react-router-dom";
 
 const RegisterSection = lazy(() => import("../Register/RegisterSection"));
 function Update() {
-  const { Owner_hotel } = useUser();
+  const Owner_hotel = "l";
   const { hotelId } = useParams();
   console.log(hotelId);
   const [hotelInfor, setHotelInfor] = useState(null);
   // đm em đức nhá làm be mà ko check cái attribute bên fe
   useEffect(() => {
-    console.log(Owner_hotel);
-    const hotelParse = Owner_hotel?.hotel;
+    const hotelParse = Owner_hotel?.hotel || "";
     const hotel = {
       basicHotelInfor: {
         name: hotelParse?.hotelName,

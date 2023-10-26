@@ -1,0 +1,73 @@
+@use "src/global";
+.title,
+.user-name,
+.user-comment-time,
+.host-sub,
+.point,
+p {
+    font-family: global.$default-font;
+}
+
+.item {
+    .user {
+        display: flex;
+        align-items: center;
+        .avatar-container {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: fill;
+            }
+        }
+        .user-name {
+            font-weight: 600;
+            font-size: 1.2em;
+        }
+        .user-comment-time {
+            font-size: 0.8em;
+        }
+    }
+}
+
+.item {
+    margin-bottom: 20px;
+    .item-header {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 20px;
+    }
+    .user-rating {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icon {
+            padding-left: 7px;
+            font-size: 1.3em;
+        }
+    }
+    .item-content {
+        p {
+            font-size: 0.8em;
+        }
+    }
+}
+
+.btn-add-cmt {
+    background-color: global.$main-color;
+    padding: 0.5em 1em;
+    color: white;
+    font-family: global.$default-font;
+    border-radius: 1em;
+    &:hover {
+        opacity: 0.6;
+        transition: all 0.5s;
+    }
+}

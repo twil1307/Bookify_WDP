@@ -1,0 +1,44 @@
+@use "src/global";
+.title,
+.description,
+.host-name,
+.host-sub {
+    font-family: global.$default-font;
+}
+
+.title {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.host-info {
+    display: flex;
+    align-items: center;
+}
+
+.description {
+    padding-bottom: 50px;
+}
+
+.img-container {
+    margin-right: 15px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.host {
+    .host-name {
+        font-weight: 600;
+        margin-bottom: 3px;
+    }
+}

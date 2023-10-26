@@ -41,6 +41,7 @@ function App({ children }) {
     setUser(userLocal);
   }, [firstLogin, userLocal]);
   useEffect(() => {
+    websocket.current = new WebSocket(`${websocketEndPoint}/${user?._id}`);
     // console.log(user);
     // console.log(isLogin);
     // updateData();
@@ -75,6 +76,7 @@ function App({ children }) {
 
   useEffect(() => {
     const nav = navigator.geolocation;
+    console.log("rerender");
     nav.getCurrentPosition((pos) => {
       if (pos) {
         const { latitude, longitude } = pos?.coords;
@@ -85,10 +87,6 @@ function App({ children }) {
       }
     });
   }, []);
-
-  useEffect(() => {
-    websocket.current = new WebSocket(`${websocketEndPoint}/${user?._id}`);
-  }, [user]);
 
   return (
     <WebSocketContext.Provider value={websocket.current}>
