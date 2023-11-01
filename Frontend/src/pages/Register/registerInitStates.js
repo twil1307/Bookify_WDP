@@ -9,10 +9,11 @@ const basicHotelInforInitState = {
 };
 
 const roomInfoInitState = {
+  roomTypeID: Math.floor(Math.random() * 100),
   numberOfGuests: 1,
   numberOfRoom: 1,
-  // bedType: "",
-  // bathroomType: "",
+  bedType: "",
+  bathroomType: "",
   numberOfBed: 6,
   numberOfBathroom: 1,
   price: 100,

@@ -11,6 +11,7 @@ import { Loading } from "../Home/components";
 import Report from "./components/Report";
 import Review from "./components/Review";
 import { createContext } from "react";
+import { GetHotel } from "@/services/hotel";
 
 const Booking = lazy(() => import("./components/Booking"));
 const HotelInfo = lazy(() => import("./components/HotelInfo"));
@@ -19,11 +20,10 @@ export const reviewContext = createContext();
 export const reviewDataContext = createContext();
 
 function Hotel() {
-  const { hotel, getHotelbyId, selectDay } = useGetHotel();
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const [hotelInfo, setHotelInfo] = useState({});
-  const [selectDays, setSelectedDays] = useState({});
+  const [selectDays, setSelectedDays] = useState([]);
   const [guests, setGuests] = useState(guestsInitial);
   const [isAllImageOpen, setAllImageOpen] = useState(false);
   const [isAdvanceFilterOpen, setAdvanceFilterOpen] = useState(false);
@@ -31,10 +31,12 @@ function Hotel() {
   const [currentReview, setCurrentReview] = useState([]);
   const href = useHref();
   useEffect(() => {
-    getHotelbyId(id);
-    setSelectedDays(selectDay);
+    GetHotel(id).then((resp) => {
+      setHotelInfo(resp.hotel);
+      setSelectedDays(resp.fullyBookedDates);
+    });
+
     // console.log(selectDay);
-    setHotelInfo(hotel);
   }, [user, id]);
   useEffect(() => {
     console.log(hotelInfo);
@@ -59,8 +61,8 @@ function Hotel() {
   );
 
   useEffect(() => {
-    document.title = hotel.hotelName;
-  }, [hotel]);
+    document.title = hotelInfo.hotelName;
+  }, [hotelInfo]);
 
   return (
     <BookingContext.Provider value={bookingContextValue}>
@@ -80,8 +82,8 @@ function Hotel() {
                 <Grid container justifyContent={"center"}>
                   <Grid item xs={10}>
                     <Album
-                      backgroundImage={hotel.backgroundImg}
-                      images={hotel.images || []}
+                      backgroundImage={hotelInfo.backgroundImage}
+                      images={hotelInfo.images || []}
                       isAllImageOpen={isAllImageOpen}
                       setAllImageOpen={setAllImageOpen}
                     />
@@ -95,7 +97,7 @@ function Hotel() {
                     >
                       <div className={hotelStyles["left"]}>
                         <Suspense fallback={<div>Loading...</div>}>
-                          <HotelInfo hotelInfo={hotel} />
+                          <HotelInfo hotelInfo={hotelInfo} />
                         </Suspense>
                         {/* Hotel Information */}
                       </div>
@@ -103,9 +105,9 @@ function Hotel() {
                         {/* Booking Form */}
                         <Suspense fallback={<div>Loading...</div>}>
                           <Booking
-                            roomType={hotel?.roomType}
-                            isAllowPet={hotel?.isAllowPet}
-                            hotelId={hotel?._id}
+                            roomType={hotelInfo?.roomType}
+                            isAllowPet={hotelInfo?.isAllowPet}
+                            hotelId={hotelInfo?._id}
                           />
                         </Suspense>
                       </div>
@@ -119,7 +121,7 @@ function Hotel() {
                           isAdvanceFilterOpen={isAdvanceFilterOpen}
                           setAdvanceFilterOpen={setAdvanceFilterOpen}
                           getAdvanceFilterHotel={getAdvanceFilterHotel}
-                          hotelInfo={hotel}
+                          hotelInfo={hotelInfo}
                         />
                       )}
                     </Suspense>
@@ -131,7 +133,7 @@ function Hotel() {
                           isReviewOpen={isReviewOpen}
                           setIsReviewOpen={setIsReviewOpen}
                           getReviewHotel={getReviewHotel}
-                          hotelInfo={hotel}
+                          hotelInfo={hotelInfo}
                         />
                       )}
                     </Suspense>

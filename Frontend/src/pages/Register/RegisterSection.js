@@ -43,6 +43,7 @@ function RegisterSection({
   );
   const [isNextTabValid, setNextTabValid] = useState(false);
   const [amenities, setAmenities] = useState(amenitiesInitState);
+  const [roomType, setRoomType] = useState([roomInfoInitState]);
   const [roomInfor, setRoomInfor] = useState(roomInfoInitState);
   const [viewImages, setViewImages] = useState(viewImagesInitState);
   const [roomImages, setRoomImages] = useState(roomImagesInitState);
@@ -118,6 +119,8 @@ function RegisterSection({
       setUpdatedRoomImages,
       deletedImages,
       setDeletedImages,
+      roomType,
+      setRoomType,
     }),
     [
       hotelId,
@@ -133,6 +136,8 @@ function RegisterSection({
       updatedViewImages,
       updatedRoomImages,
       deletedImages,
+      roomType,
+      setRoomType,
     ]
   );
 
@@ -153,6 +158,7 @@ function RegisterSection({
         getSuccessToastMessage({ message: "Cập nhật khách sạn thành công" })
       );
     } else {
+      console.log(roomType);
       const data = await CreateHotel(
         amenities,
         basicHotelInfor,
@@ -162,15 +168,7 @@ function RegisterSection({
         extraInfor,
         roomInfor
       );
-      console.log(
-        amenities,
-        basicHotelInfor,
-        backgroundImage,
-        roomImages,
-        viewImages,
-        extraInfor,
-        roomInfor
-      );
+
       setToastMessages(
         getSuccessToastMessage({ message: "Đăng ký khách sạn thành công" })
       );
@@ -207,7 +205,6 @@ function RegisterSection({
                 width: "60%",
                 margin: "0 auto",
                 overflowX: "hidden",
-                paddingTop: "6em",
               }}
               className={registerStyles["form"]}
             >

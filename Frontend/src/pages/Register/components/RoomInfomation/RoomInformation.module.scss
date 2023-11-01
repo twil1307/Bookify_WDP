@@ -1,15 +1,114 @@
 .container {
-    overflow-Y: scroll;
-    overflow-X: hidden;
-    height: 60vh;
-    &::-webkit-scrollbar {
-        display: none;
-    }
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 60vh;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
-
-.heading {
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  .heading {
     font-weight: bold;
     width: 30rem;
     text-align: center;
-    padding-bottom: 2rem;
+    // padding-bottom: 2rem;
+  }
+}
+.roomPagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  .roomTypeNum_unselect {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    align-items: center;
+    transition: all linear 200ms;
+    text-align: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid #6764ed;
+    p {
+      font-size: 1.25rem;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .roomTypeNum_select {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    align-items: center;
+    transition: all linear 200ms;
+    text-align: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    background-color: #6764ed;
+    border: 1px solid #6764ed;
+    p {
+      color: white;
+      font-size: 1.25rem;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  .roomTypeNum_minus {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    align-items: center;
+    transition: all linear 200ms;
+    text-align: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    background-color: #ae4d15;
+    border: 1px solid #ae4d15;
+    p {
+      color: white;
+      font-size: 1.25rem;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  .roomTypeNum_plus {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    align-items: center;
+    transition: all linear 200ms;
+    text-align: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid #6764ed;
+    p {
+      font-size: 1.25rem;
+      margin: 0;
+      padding: 0;
+    }
+    &:hover {
+      background-color: #6764ed;
+      p {
+        color: white;
+        font-size: 1.25rem;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.display-block {
+  display: block;
+}
+.display-hidden {
+  display: none;
 }

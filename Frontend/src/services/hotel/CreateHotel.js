@@ -12,29 +12,6 @@ export default async function CreateHotel(
 ) {
   const url = `http://localhost:${process.env.REACT_APP_BACK_END_PORT}/hotel`;
   const hotelForm = new FormData();
-  console.log(
-    amenities,
-    basicHotelInfor,
-    backgroundImage,
-    roomImages,
-    viewImages,
-    extraInfor,
-    roomInfor
-  );
-  // const amenitiesId = [];
-  // const amenitiesNames = [];
-  // const amenitiesTypes = [];
-  // amenities.forEach ((item) => {
-  //   amenitiesId.push(item.id);
-  //   amenitiesNames.push(item.name);
-  //   if (item.type) {
-  //     amenitiesTypes.push(item.type);
-  //   } else {
-  //     amenitiesTypes.push(item.amenityTypeId);
-  //   }
-  // });
-  // const typeId = types.filter((item) => item.name === basicHotelInfor.type)[0]
-  //   .code;
 
   hotelForm.append("hotelType", basicHotelInfor.hotelType._id);
   hotelForm.append("hotelName", basicHotelInfor.name);
@@ -45,9 +22,8 @@ export default async function CreateHotel(
   hotelForm.append("city", basicHotelInfor.district);
   hotelForm.append("address", basicHotelInfor.address);
   hotelForm.append("amenities", JSON.stringify(amenities));
-  // hotelForm.append("amenitiesId", amenitiesId);
-  // hotelForm.append("amenitiesName", amenitiesNames);
-  // hotelForm.append("amenitiesTypes", amenitiesTypes);
+  hotelForm.append("roomType", JSON.stringify([roomInfor]));
+
   if (roomImages) {
     for (const file of roomImages) {
       console.log(file);
@@ -83,13 +59,7 @@ export default async function CreateHotel(
   );
   hotelForm.append("isCamera", extraInfor.isAllowPet);
   hotelForm.append("isAnimalAccept", extraInfor.isHasCamera);
-  hotelForm.append("isbathPrivate", roomInfor.isPrivateBathRoom);
-  hotelForm.append("bathNum", roomInfor.numberOfBathroom);
-  hotelForm.append("bedNum", roomInfor.numberOfBed);
-  hotelForm.append("roomPrice", roomInfor.price);
-  hotelForm.append("maxGuest", roomInfor.numberOfGuests);
-  hotelForm.append("bedroomNum", roomInfor.numberOfRoom);
-  hotelForm.append("roomNum", roomInfor.rooms);
+
   const option = {
     method: "POST",
     body: hotelForm,
@@ -97,7 +67,6 @@ export default async function CreateHotel(
     withCredentials: true,
   };
   return await fetch(url, option).then((resp) => {
-    if (CheckStatus(resp.status)) return resp.json();
-    return CheckStatus(resp.status);
+    return resp.json();
   });
 }
