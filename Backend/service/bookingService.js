@@ -1,5 +1,6 @@
 const Room = require("../models/Room");
 const Booking = require("../models/Booking");
+const BookingDetail = require("../models/BookingDetail");
 
 const getUnavailableDateRanges = async (hotelId) => {
   const rooms = await Room.find({ hotelId }).select("_id").lean();
@@ -9,12 +10,10 @@ const getUnavailableDateRanges = async (hotelId) => {
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
 
-  const bookings = await Booking.find({
+  const bookings = await BookingDetail.find({
     checkin: { $gt: yesterday },
     hotelId: hotelId,
   });
-
-  console.log(bookings);
 
   if (bookings.length == 0) {
     return [];
@@ -38,6 +37,8 @@ const getUnavailableDateRanges = async (hotelId) => {
   });
 
   const bookingOrders = Object.values(roomBookings);
+
+  console.log(bookingOrders);
 
   // Find the common values using reduce and filter
   const bookedDate = bookingOrders.reduce((common, arr) => {
