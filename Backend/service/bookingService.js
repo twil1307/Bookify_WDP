@@ -47,4 +47,17 @@ const getUnavailableDateRanges = async (hotelId) => {
   return bookedDate;
 };
 
-module.exports = { getUnavailableDateRanges };
+const groupRoomIdBy = (data) => {
+  const groupedData = data.reduce((result, item) => {
+    const { roomTypeId, _id } = item; // Destructure roomTypeId and the rest of the object
+    if (!result[roomTypeId]) {
+      result[roomTypeId] = []; // Initialize an array for each unique roomTypeId
+    }
+    result[roomTypeId].push(_id); // Push the object without roomTypeId
+    return result;
+  }, {});
+
+  return groupedData;
+};
+
+module.exports = { getUnavailableDateRanges, groupRoomIdBy };
