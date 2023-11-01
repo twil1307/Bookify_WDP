@@ -12,6 +12,7 @@ import {
   PersonalInfo,
   LoginandSecurity,
   BookingHistory,
+  Hotel,
 } from "@/pages";
 import { DefaultLayout, HostingRegisterLayout } from "@/layouts";
 const router = createBrowserRouter(
@@ -24,6 +25,15 @@ const router = createBrowserRouter(
           <Route path="info" element={<PersonalInfo />} />
           <Route path="loginandsecurity" element={<LoginandSecurity />} />
           <Route path="history" element={<BookingHistory />} />
+        </Route>
+        <Route path="hotel">
+          <Route
+            path=":id"
+            element={<Hotel />}
+            errorElement={<div>Can not found...</div>}
+          >
+            {/* <Route path="booking" element={<BookingPayment />} /> */}
+          </Route>
         </Route>
       </Route>
       <Route path="hosting" element={<HostingRegisterLayout />}>

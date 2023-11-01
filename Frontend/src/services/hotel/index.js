@@ -13,6 +13,7 @@ import GetAdvanceSearchHotels from "./GetAdvanceSearchHotels";
 import GetAllTodayBooking from "./GetAllTodayBooking";
 import GetAllBooking from "./GetAllBooking";
 import searchProvinces from "./searchProvinces";
+import GetAccessibility from "./GetAccessibility";
 export {
   GetAllBooking,
   GetAllTodayBooking,
@@ -29,4 +30,5 @@ export {
   getHotelbyOwner,
   bookingRoom,
   searchProvinces,
+  GetAccessibility,
 };
