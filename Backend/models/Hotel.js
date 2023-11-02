@@ -178,10 +178,12 @@ const hotelSchema = new Schema(
     ],
     restrictCheckInDate: {
       type: [Date],
+      default: [],
     },
     accessibility: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "Accessibility",
+      default: [],
     },
     rules: [
       {
@@ -203,6 +205,7 @@ const hotelSchema = new Schema(
 );
 
 hotelSchema.path("rules").default([]);
+hotelSchema.path("additionalFee").default([]);
 
 hotelSchema.statics.calculateAveragePoints = async function (hotelId) {
   const pipeline1 = [
