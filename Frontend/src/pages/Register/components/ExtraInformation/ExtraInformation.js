@@ -18,6 +18,8 @@ const getExtraInforLabel = (key) => {
       return "Giờ đóng cửa khách sạn";
     case "closing":
       return "Giờ mở cửa khách sạn";
+      case "accessibility":
+        return "Các cách truy cập"
     default:
       throw new Error("Invalid type");
   }
@@ -63,7 +65,7 @@ function ExtraInformation() {
 
           <form>
             {extraInforKeys.reduce((prev, key) => {
-              if (key !== "isHasCamera" && key !== "isAllowPet") {
+              if (key !== "isHasCamera" && key !== "isAllowPet" && key !== "accessibility") {
                 return [
                   ...prev,
                   <TimeInput

@@ -20,10 +20,19 @@ const roomInfoInitState = {
   rooms: 10,
   isPrivateBathRoom: false,
 };
-
+// "roomPrice": 100,
+// "bedType": "King Size",
+// "bedNum": 2,
+// "bathroomType": "Ensuite",
+// "bathNum": 1,
+// "maxGuest": 4,
+// "bedroomNum": 1,
+// "isbathPrivate": true,
+// "roomNumber": 2    
 const extraInforInitState = {
   isHasCamera: false,
   isAllowPet: false,
+  accessibility: [],
   checkin: {
     hour: 12,
     minutes: 30,

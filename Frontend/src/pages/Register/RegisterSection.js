@@ -166,7 +166,8 @@ function RegisterSection({
         roomImages,
         viewImages,
         extraInfor,
-        roomInfor
+        roomInfor,
+        roomType
       );
 
       setToastMessages(
