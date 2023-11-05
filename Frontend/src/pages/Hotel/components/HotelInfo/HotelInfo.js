@@ -18,6 +18,13 @@ function HotelInfo({ hotelInfo }) {
     signAt,
     isVerified,
     Rooms,
+    country,
+    address,
+    checkin,
+    checkout,
+    city,
+    district,
+    hotelType,
   } = hotelInfo;
   // console.log(isVerified);
   // console.log(user);
@@ -37,6 +44,12 @@ function HotelInfo({ hotelInfo }) {
       </div>
       <div className={HotelInfoStyle["details"]}>
         <Details
+          country={country}
+          address={address}
+          checkin={checkin}
+          checkout={checkout}
+          city={city}
+          district={district}
           reviews={reviews}
           description={description}
           hotelAmenities={hotelAmenities}

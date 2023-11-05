@@ -21,6 +21,12 @@ function Details({
   rating,
   hotelId,
   signAt,
+  country,
+  address,
+  checkin,
+  checkout,
+  city,
+  district,
 }) {
   // console.log(rating);
   const [value, setValue] = useState("1");
@@ -68,7 +74,16 @@ function Details({
               </TabList>
             </Box>
             <TabPanel value="1" className={DetailStyle["panel"]}>
-              <Description description={description} hotelOwner={hotelOwner} />
+              <Description
+                description={description}
+                hotelOwner={hotelOwner}
+                country={country}
+                address={address}
+                checkin={checkin}
+                checkout={checkout}
+                city={city}
+                district={district}
+              />
             </TabPanel>
             <TabPanel value="2" className={DetailStyle["panel"]}>
               <Amenities hotelAmenities={hotelAmenities} roomType={roomType} />

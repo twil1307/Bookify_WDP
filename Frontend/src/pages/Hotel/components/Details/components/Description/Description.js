@@ -1,10 +1,22 @@
 import DescriptionStyle from "./Description.module.scss";
 
-function Description({ description, hotelOwner }) {
+function Description({
+  description,
+  hotelOwner,
+  country,
+  address,
+  checkin,
+  checkout,
+  city,
+  district,
+}) {
   return (
     <div>
       <h3 className={DescriptionStyle["title"]}>Giới thiệu về khách sạn</h3>
-      <p className={DescriptionStyle["description"]}>{description}</p>
+      <p className={DescriptionStyle["description"]}>
+        Địa chỉ khách sạn: {address},{district},{city} {country}
+      </p>
+      <p className={DescriptionStyle["description"]}>Ghi chú: {description}</p>
       <div className={DescriptionStyle["host-info"]}>
         <div className={DescriptionStyle["img-container"]}>
           <img
