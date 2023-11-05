@@ -8,7 +8,6 @@ const voucherSchema = new Schema({
   },
   name: {
     type: String,
-    require: [true, "Voucher name is required"],
   },
   percentAmount: {
     type: Number,

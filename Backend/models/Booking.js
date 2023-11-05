@@ -11,7 +11,7 @@ const bookingSchema = new Schema(
       required: [true, "User booking required"],
       ref: "User",
     },
-    BookingDetail: {
+    bookingDetail: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "BookingDetail",
     },
