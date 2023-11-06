@@ -8,12 +8,24 @@ const getUnavailableDateRanges = async (hotelId) => {
   const roomIds = rooms.map((room) => room._id.toString());
 
   const yesterday = new Date();
+  const month = yesterday.getMonth() + 1;
   yesterday.setDate(yesterday.getDate() - 1);
 
+  // need to optimize here
   const bookings = await BookingDetail.find({
-    checkin: { $gt: yesterday },
-    hotelId: hotelId,
+    $and: [
+      {
+        // filter booking where checkin is this month
+        $expr: { $eq: [{ $month: "$checkin" }, month] },
+      },
+      {
+        hotelId: hotelId,
+      },
+    ],
   });
+
+  console.log(yesterday);
+  console.log(bookings);
 
   if (bookings.length == 0) {
     return [];
@@ -38,14 +50,17 @@ const getUnavailableDateRanges = async (hotelId) => {
 
   const bookingOrders = Object.values(roomBookings);
 
-  console.log(bookingOrders);
-
   // Find the common values using reduce and filter
+  // This is all the date booked from the past to now
   const bookedDate = bookingOrders.reduce((common, arr) => {
     return common.filter((value) => arr.includes(value));
   });
 
-  return bookedDate;
+  console.log(bookedDate);
+
+  const bookedDatefiltered = filterDates(bookedDate);
+
+  return bookedDatefiltered;
 };
 
 const groupRoomIdBy = (data) => {
@@ -59,6 +74,22 @@ const groupRoomIdBy = (data) => {
   }, {});
 
   return groupedData;
+};
+
+const filterDates = (dateArray) => {
+  const today = new Date(); // Current date
+  today.setHours(0, 0, 0, 0);
+  console.log(today);
+  const filteredDates = dateArray.filter((dateString) => {
+    const parts = dateString.split("/"); // Split the date string into parts
+    const date = new Date(parts[2], parts[0] - 1, parts[1]); // Create a Date object
+
+    console.log(date);
+
+    return date >= today;
+  });
+
+  return filteredDates;
 };
 
 module.exports = { getUnavailableDateRanges, groupRoomIdBy };

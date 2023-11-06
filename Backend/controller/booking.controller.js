@@ -173,6 +173,7 @@ const bookingDateDuplicateCheck = async (
   hotelId,
   roomType
 ) => {
+  console.log(checkin);
   const bookingCheck = await BookingDetail.distinct("roomId", {
     $and: [
       {
