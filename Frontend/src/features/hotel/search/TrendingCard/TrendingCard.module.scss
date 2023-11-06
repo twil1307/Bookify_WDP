@@ -1,0 +1,20 @@
+@use "src/global";
+
+.trending-card {
+    width: 25%;
+    height: 10em;
+    border-radius: 1em;
+    background-position: center;
+    overflow: hidden;
+    cursor: pointer;
+
+    div {
+        @include global.horizontal-center();
+        align-items: flex-end;
+        color: global.$white;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    }
+}

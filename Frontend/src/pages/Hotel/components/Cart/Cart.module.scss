@@ -1,0 +1,28 @@
+.container {
+  width: 25rem;
+  padding: 1rem;
+  h3 {
+    text-align: center;
+    font-weight: bold;
+  }
+  .Booking {
+    position: absolute;
+    bottom: 2rem;
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    margin-top: 3rem;
+    width: 20rem;
+    height: 3rem;
+  }
+  .Booking-1 {
+    position: absolute;
+    bottom: 6rem;
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    margin-top: 3rem;
+    width: 20rem;
+    height: 3rem;
+  }
+}

@@ -1,0 +1,93 @@
+@use "src/global";
+.card-title {
+    display: flex;
+}
+
+.card-wrapper {
+    margin-top: 30px;
+    width: 60%;
+}
+
+.card {
+    border: 1px solid #000000;
+    border-radius: 20px;
+    padding: 15px 20px;
+    margin-top: 5px;
+    display: flex;
+    .card-avatar {
+        margin-right: 10px;
+        .avatar-wrapper {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            border-radius: 50%;
+            overflow: hidden;
+            img {
+                object-fit: cover;
+            }
+        }
+    }
+    .card-body {
+        .card-title {
+            margin-top: 3px;
+            h4 {
+                font-family: global.$default-font;
+                margin-right: 5px;
+                display: flex;
+                align-items: center;
+            }
+            span {
+                color: #6a6a6a;
+                display: flex;
+                align-items: center;
+                margin-left: 5px;
+                font-family: global.$default-font;
+                svg {
+                    font-size: 12px;
+                    color: #6a6a6a;
+                    margin-bottom: 2px;
+                    margin-left: 4px;
+                }
+            }
+        }
+        .card-content {
+            font-size: 12px;
+            p {
+                font-family: global.$default-font;
+                color: #6a6a6a;
+            }
+        }
+        .card-time {
+            margin-top: 2px;
+            p {
+                font-family: global.$default-font;
+                font-size: 12px;
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .card-wrapper {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-wrapper {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-wrapper {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-wrapper {
+        width: 60%;
+    }
+}

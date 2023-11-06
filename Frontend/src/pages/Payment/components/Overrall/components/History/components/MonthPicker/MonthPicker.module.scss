@@ -1,0 +1,48 @@
+@use "src/global";
+.header-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    font-family: global.$default-font;
+}
+
+.header-select {
+    border: 1px solid #000;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 0 10px;
+    background-color: white;
+    text-align: center;
+}
+
+.header-list select {
+    text-align-last: center;
+    // width: 100%;
+    // font-size: 16px;
+    outline: none;
+    // padding: 7px 10px;
+    height: 35px;
+    -webkit-appearance: button;
+    -webkit-border-radius: 2px;
+    // -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    appearance: none;
+    -webkit-padding-end: 15px;
+    -webkit-padding-start: 10px;
+    -webkit-padding-before: 10px;
+    -webkit-padding-after: 10px;
+    -webkit-user-select: none;
+    background-image: url(../../../../../../../../../public/photo/select-arrow.png);
+    background-position: center right;
+    background-size: 10px;
+    background-repeat: no-repeat;
+    border: 0px solid #aaa;
+    font-family: global.$default-font;
+    font-size: inherit;
+    margin: 0;
+    overflow: hidden;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

@@ -1,0 +1,29 @@
+@use "src/global";
+
+#guest-search {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.6em 1.4em;
+    border-radius: 1.6em;
+    min-width: 16em;
+    cursor: pointer;
+
+    &.active {
+        background: global.$white;
+        box-shadow:  1px 9px 36px -3px #9b9b9b;
+
+        .place-input {
+            background: global.$white;
+        }
+    }
+
+    .heading {
+        font-size: 0.8em;
+    }
+
+    .guests-input {
+        font-size: 0.8em;
+        color: global.$gray-600;
+    }
+}

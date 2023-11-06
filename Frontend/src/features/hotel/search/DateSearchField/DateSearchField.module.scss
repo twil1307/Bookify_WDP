@@ -1,0 +1,10 @@
+@use 'src/global';
+
+.date-search-field {
+    background: global.$white;
+    border-radius: 1.6em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 2em;
+}

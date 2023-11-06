@@ -1,0 +1,33 @@
+.amenities-title {
+    margin-top: 12px;
+    margin-bottom: 5px;
+}
+
+.amenities-container {
+    p {
+        font-size: 14px;
+    }
+}
+
+.amenities-container {
+    .img-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #848484;
+        border-radius: 12px;
+        overflow: hidden;
+        padding-top: 3px;
+        height: 4em;
+        p {
+            color: #848484;
+            margin-top: 5px;
+        }
+    }
+}
+
+.amenities-title {
+    margin-top: 12px;
+    margin-bottom: 10px;
+}

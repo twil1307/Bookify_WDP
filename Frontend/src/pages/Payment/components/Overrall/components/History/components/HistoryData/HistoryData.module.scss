@@ -1,0 +1,28 @@
+@use "src/global";
+.report-element {
+    font-family: global.$default-font;
+    padding-right: 10px;
+    .hotel {
+        padding-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .money-remain {
+            color: global.$main-color;
+        }
+        .money-remain-minus {
+            color: global.$pink;
+        }
+    }
+    .book-detail {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ababab;
+        padding-bottom: 20px;
+        p {
+            font-size: 13px;
+            margin-top: 5px;
+        }
+    }
+}

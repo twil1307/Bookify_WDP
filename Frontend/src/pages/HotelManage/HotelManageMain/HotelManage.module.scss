@@ -1,0 +1,106 @@
+@use "src/global";
+$background-color-1: #4361ee;
+$background-color-2: #7252e9;
+$background-color-3: #7209b7;
+
+.container {
+
+    .header {
+        padding: 4em 0;
+        margin: 0 -24px;
+        background-image: linear-gradient(
+            to right,
+            $background-color-1,
+            $background-color-2,
+            $background-color-3
+        );
+
+        .header-text {
+            color: white;
+            padding-left: 24px;
+
+            .sub-title {
+                margin-top: 0.4em;
+                max-width: 25em;
+            }
+        }
+    }
+
+    .body {
+
+        .body-header {
+            display: block;
+            margin-top: 1em;
+
+            h2 {
+                width: 400px;
+            }
+            a {
+                width: 160px;
+                text-align: center;
+            }
+        }
+        
+        .tabs {
+
+            .task1 {
+
+                button {
+                    font-size: 14px;
+                    font-family: global.$default-font;
+                    text-transform: none;
+                    font-weight: 500;
+                    color: black;
+                    padding: 5px 10px;
+                }
+                button.Mui-selected {
+                    color: black;
+                    font-weight: 550;
+                }
+            }
+        }
+    }
+
+    .change-setting {
+        margin-top: 1em;
+
+        h2 {
+            margin-left: 10px;
+        }
+        .grid-display {
+            margin-top: 0.4em;
+
+            .setting-card {
+                cursor: pointer;
+                margin-top: 1.5rem;
+                padding-bottom: 2em;
+                margin-bottom: 3rem;
+                @include global.box-shadow();
+                transition: 0.2s;
+                border-radius: 1.2em;
+                text-align: center;
+
+                .setting-icon {
+                    border: 1px solid #d9d9d9;
+                    background-color: #d9d9d9;
+                    border-radius: 50px;
+                    padding: 0.75rem;
+                    font-size: 1.25rem;
+                    transform: translateY(-23px);
+                }
+
+                h4 {
+                    transform: translateY(-8px);
+                }
+
+                &:hover {
+                    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+                    background-color: #4361ee;
+                    h4 {
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+}
