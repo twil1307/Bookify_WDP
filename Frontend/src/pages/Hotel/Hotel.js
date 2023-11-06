@@ -3,15 +3,20 @@ import hotelStyles from "./Hotel.module.scss";
 import { Album } from "./components";
 import { useHref, useParams, Outlet } from "react-router-dom";
 import { useContext, useState, useMemo } from "react";
-import { UserContext, BookingContext } from "@/utils/contexts";
+import { UserContext, BookingContext, ModalContext } from "@/utils/contexts";
 import { useEffect, Suspense, lazy } from "react";
 import { useClsx, useGetHotel } from "@/utils/hooks";
-import { guestsInitial } from "./hotelInitState";
 import { Loading } from "../Home/components";
 import Report from "./components/Report";
 import Review from "./components/Review";
 import { createContext } from "react";
 import { GetHotel } from "@/services/hotel";
+import Info from "./components/Info";
+import Button from "@mui/material/Button";
+import Drawer from "@mui/material/Drawer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import Cart from "./components/Cart";
 
 const Booking = lazy(() => import("./components/Booking"));
 const HotelInfo = lazy(() => import("./components/HotelInfo"));
@@ -23,8 +28,11 @@ function Hotel() {
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const [hotelInfo, setHotelInfo] = useState({});
-  const [selectDays, setSelectedDays] = useState([]);
-  const [guests, setGuests] = useState(guestsInitial);
+  const [bookedDays, setBookedDays] = useState([]);
+  const [bookList, setBookList] = useState([]);
+  const [drawer, setDrawer] = useState(false);
+  const { dispatch } = useContext(ModalContext);
+
   const [isAllImageOpen, setAllImageOpen] = useState(false);
   const [isAdvanceFilterOpen, setAdvanceFilterOpen] = useState(false);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
@@ -33,7 +41,7 @@ function Hotel() {
   useEffect(() => {
     GetHotel(id).then((resp) => {
       setHotelInfo(resp.hotel);
-      setSelectedDays(resp.fullyBookedDates);
+      setBookedDays(resp.fullyBookedDates);
     });
 
     // console.log(selectDay);
@@ -41,7 +49,16 @@ function Hotel() {
   useEffect(() => {
     console.log(hotelInfo);
   }, [hotelInfo]);
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
 
+    setDrawer(open);
+  };
   const getAdvanceFilterHotel = () => {
     setAdvanceFilterOpen(false);
   };
@@ -52,12 +69,11 @@ function Hotel() {
 
   const bookingContextValue = useMemo(
     () => ({
-      selectDays,
-      setSelectedDays,
-      guests,
-      setGuests,
+      bookedDays,
+      bookList,
+      setBookList,
     }),
-    [selectDays, guests]
+    [bookedDays, bookList]
   );
 
   useEffect(() => {
@@ -90,6 +106,7 @@ function Hotel() {
                     <Box
                       sx={{
                         marginTop: "2em",
+                        marginBottom: "2em",
                         position: "relative",
                         display: "flex",
                         gap: "0.6em",
@@ -104,14 +121,27 @@ function Hotel() {
                       <div className={hotelStyles["right"]}>
                         {/* Booking Form */}
                         <Suspense fallback={<div>Loading...</div>}>
+                          {/* <Info hotelInfo={hotelInfo} /> */}
                           <Booking
                             roomType={hotelInfo?.roomType}
-                            isAllowPet={hotelInfo?.isAllowPet}
+                            isAllowPet={hotelInfo?.isAnimalAccept}
                             hotelId={hotelInfo?._id}
                           />
                         </Suspense>
                       </div>
                     </Box>
+                    <Grid container spacing={2}>
+                      {/* {hotelInfo.roomType?.map((el, index) => (
+                        <Grid item xs={4} key={index}>
+                          <Booking
+                            roomType={el}
+                            isAllowPet={hotelInfo?.isAnimalAccept}
+                            hotelId={hotelInfo?._id}
+                            index={index}
+                          />
+                        </Grid>
+                      ))} */}
+                    </Grid>
                   </Grid>
 
                   {
@@ -142,6 +172,37 @@ function Hotel() {
               </div>
               {href.includes("/booking") ? <Outlet context={hotelInfo} /> : ""}
             </>
+            {bookList.length != 0 ? (
+              <div
+                className={hotelStyles["cartIcon"]}
+                onClick={toggleDrawer(true)}
+              >
+                <FontAwesomeIcon
+                  icon={faCartShopping}
+                  className={hotelStyles["CartIcon"]}
+                />
+
+                {bookList.length != 0 ? (
+                  bookList.length < 10 ? (
+                    <div className={hotelStyles["cartNumber"]}>
+                      <p>{bookList.length}</p>
+                    </div>
+                  ) : (
+                    <div className={hotelStyles["cartNumber"]}>
+                      <p>9+</p>
+                    </div>
+                  )
+                ) : (
+                  ""
+                )}
+              </div>
+            ) : (
+              <></>
+            )}
+            <Drawer anchor="right" open={drawer} onClose={toggleDrawer(false)}>
+              <Cart setDrawer={toggleDrawer} />
+            </Drawer>
+            )
           </reviewDataContext.Provider>
         </reviewContext.Provider>
       </reportContext.Provider>

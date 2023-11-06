@@ -1,3 +1,4 @@
 import DefaultLayout from "./DefaultLayout";
 import HostingRegisterLayout from "./HostingRegisterLayout";
-export { DefaultLayout, HostingRegisterLayout };
+import HotelManageLayout from "./HotelManageLayout";
+export { DefaultLayout, HostingRegisterLayout, HotelManageLayout };

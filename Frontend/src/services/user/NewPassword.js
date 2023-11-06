@@ -12,9 +12,7 @@ async function newPassowrdUpdate(newPassword) {
   };
 
   return await fetch(url, options).then((response) => {
-    console.log(response);
-    if (CheckStatus(response.status)) return response.json();
-    return CheckStatus(response.status);
+    return response.json();
   });
 }
 

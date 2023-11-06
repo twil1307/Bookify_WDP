@@ -34,20 +34,35 @@ function Amenities({ hotelAmenities, roomType }) {
       {/* ---------------------------------------------------------------------------------------------------- */}
       <h3 className={AmenitiesStyle["sub-title"]}>Nơi bạn sẽ ngủ nghỉ</h3>
       <div className={AmenitiesStyle["Amenities"]}>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{}}>
           <Grid container spacing={1}>
-            <Grid item xs={12} md={4}>
-              <div className={AmenitiesStyle["sub-item"]}>
-                <div className={AmenitiesStyle["sub-icon"]}>
-                  <FontAwesomeIcon icon={icon["faBed"]} />
+            {roomType.map((el, index) => (
+              <Grid item xs={12} md={6} key={index}>
+                <div className={AmenitiesStyle["sub-item"]}>
+                  <div className={AmenitiesStyle["roomtype"]}>
+                    <div className={AmenitiesStyle["sub-icon"]}>
+                      <FontAwesomeIcon
+                        className={AmenitiesStyle["icon"]}
+                        icon={icon["faBed"]}
+                      />
+                      <FontAwesomeIcon
+                        className={AmenitiesStyle["icon"]}
+                        icon={icon["faShower"]}
+                      />
+                    </div>
+                    <h6 className={AmenitiesStyle["sub-name"]}>
+                      Phòng loại {index + 1}
+                    </h6>
+                    <p className={AmenitiesStyle["sub-des"]}>
+                      {el.bathNum} phòng tắm loại {el.bathroomType},{" "}
+                      {el.bedroomNum} phòng ngủ {el.bedNum} giường
+                    </p>
+                  </div>
                 </div>
-                <h6 className={AmenitiesStyle["sub-name"]}>Phòng ngủ</h6>
-                <p className={AmenitiesStyle["sub-des"]}>
-                  {roomType.bedNum + " " + roomType.bedType}
-                </p>
-              </div>
-            </Grid>
-            <Grid item xs={12} md={4}>
+              </Grid>
+            ))}
+
+            {/* <Grid item xs={12} md={4}>
               <div className={AmenitiesStyle["sub-item"]}>
                 <div className={AmenitiesStyle["sub-icon"]}>
                   <FontAwesomeIcon icon={icon["faShower"]} />
@@ -57,7 +72,7 @@ function Amenities({ hotelAmenities, roomType }) {
                   {roomType.bathNum + " " + roomType.bathroomType}
                 </p>
               </div>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Box>
       </div>

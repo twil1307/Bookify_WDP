@@ -1,7 +1,10 @@
 import {
   SignInModal,
-  SignUpModal
- 
+  SignUpModal,
+  PasswordModal,
+  NewPasswordModal,
+  HotelSettingModal,
+  ChangeCardModal,
 } from "@/features/account";
 
 const modalType = {
@@ -12,6 +15,7 @@ const modalType = {
   NEWPASSWORD: "newpassword",
   HOTELSETTING: "hotelsetting",
   CHANGECARD: "changecard",
+  CARTSHOW: "showcart",
 };
 
 const getSignInModal = (payload) => {
@@ -52,6 +56,9 @@ const getHotelSettingModal = (payload) => {
 const getChangeCard = (payload) => {
   return { ...payload, type: modalType.CHANGECARD };
 };
+const getCartModal = (payload) => {
+  return { ...payload, type: modalType.CARTSHOW };
+};
 
 const reducer = (state, modal) => {
   const newState = {
@@ -60,37 +67,41 @@ const reducer = (state, modal) => {
   };
   switch (modal.type) {
     case modalType.SIGN_IN:
-    
       return {
         ...newState,
         renderModal: () => <SignInModal animation={modal?.animation} />,
       };
-    case modalType.SIGN_UP: 
-     console.log(modal.type);
-     return {
-      ...newState,
-      renderModal: () => <SignUpModal animation={modal?.animation} />,
-    };
-    case modalType.PASSWORD:
+    case modalType.SIGN_UP:
+      console.log(modal.type);
       return {
         ...newState,
-        renderModal: () => {} ,
+        renderModal: () => <SignUpModal animation={modal?.animation} />,
       };
-    case modalType.NEWPASSWORD:
-      return {
-        ...newState,
-        renderModal: () => {} ,
-      };
-    case modalType.HOTELSETTING:
-      return {
-        ...newState,
-        renderModal: () => {} 
-      };
-    case modalType.CHANGECARD:
-      return {
-        ...newState,
-        renderModal: () => {} 
-      };
+      case modalType.PASSWORD:
+        return {
+          ...newState,
+          renderModal: () => <PasswordModal submodal={modal?.modal} animation={modal?.animation} />,
+        };
+      case modalType.NEWPASSWORD:
+        return {
+          ...newState,
+          renderModal: () => <NewPasswordModal animation={modal?.animation} />,
+        };
+      case modalType.HOTELSETTING:
+        return {
+          ...newState,
+          renderModal: () => <HotelSettingModal animation={modal?.animation} />,
+        };
+      case modalType.CHANGECARD:
+        return {
+          ...newState,
+          renderModal: () => <ChangeCardModal animation={modal?.animation} />,
+        };
+        case modalType.CARTSHOW:
+          return {
+            ...newState,
+            renderModal: () => <SignInModal animation={modal?.animation} />,
+          };
     case modalType.FILTER:
       break;
     default:
@@ -107,4 +118,5 @@ export {
   getNewPasswordModal,
   getHotelSettingModal,
   getChangeCard,
+  getCartModal,
 };

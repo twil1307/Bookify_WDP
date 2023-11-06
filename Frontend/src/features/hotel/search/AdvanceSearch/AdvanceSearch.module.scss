@@ -1,0 +1,108 @@
+@use "src/global";
+@use "src/static/styles/animations";
+
+#advance-search {
+    position: absolute;
+    top: -51.31px;
+    right: 0;
+    left: 0;
+    background: global.$white;
+
+    &.to-header {
+        top: -47.31px;
+    }
+
+    .d-none {
+        display: none !important;
+    }
+
+    .advance-search-header {
+        @include global.center();
+        font-size: 0.9em;
+        gap: 1em;
+        height: 71.31px;
+
+        .search-field-nav {
+            cursor: pointer;
+            transition: all 0.15s ease-out;
+
+            &.active {
+                font-weight: bold;
+
+                &:hover {
+                    opacity: 0.7;
+                }
+            }
+
+            &:not(.active):hover {
+                font-weight: bold;
+            }
+        }
+    }
+
+    .left::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        left: -100%;
+        height: 52.5%;
+        top: 67px;
+        padding-top: 0.4em;
+        bottom: 0;
+        background: global.$white;
+    }
+
+    .advance-search-header-field {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        border-radius: 2em;
+        @include animations.animate(
+            slide-in-fwd-top-no-pos,
+            0.25s,
+            animations.$slide,
+            false
+        );
+        position: relative;
+        padding-bottom: 1em;
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            right: -100%;
+            bottom: 0;
+            top: -4px;
+            background: global.$white;
+        }
+
+        &.searched {
+            padding-bottom: 0 !important;
+
+            ::before {
+                display: none;
+            }
+        }
+
+        .advance-search-button {
+            position: absolute;
+            right: 0.25em;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: global.$main-color;
+            border-radius: 0.8em;
+            transition: all 0.2s ease-out;
+            border-radius: 1.6em;
+
+            .search-button {
+                padding: 0.6em 0.75em;
+                color: global.$white;
+                cursor: pointer;
+            }
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+}

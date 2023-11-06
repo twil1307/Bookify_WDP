@@ -15,10 +15,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useUppercase } from "@/utils/hooks";
 import { accountValidation } from "@/utils/validation";
 import { SignIn } from "@/services/user";
-import { UserContext } from "@/utils/contexts";
-
+import { ToastMessageContext, UserContext } from "@/utils/contexts";
+import {
+  getFailureToastMessage,
+  getSuccessToastMessage,
+} from "@/utils/reducers/toastMessageReducer";
 function SignInForm({ setModalOpen }) {
   const { setUser } = useContext(UserContext);
+  const { setToastMessages } = useContext(ToastMessageContext);
+
   const [account, setAccount] = useState({
     username: null,
     password: null,
@@ -55,12 +60,19 @@ function SignInForm({ setModalOpen }) {
             setLoading(false);
             localStorage.setItem("user", JSON.stringify(resp.user));
             setUser(resp.user);
+            setToastMessages(
+              getSuccessToastMessage({ message: "Đăng nhập thành công" })
+            );
             setModalOpen(event);
           } else {
             console.log("User not found");
+            setToastMessages(
+              getFailureToastMessage({ message: "Đăng nhập thất bại" })
+            );
           }
         });
       } finally {
+        setLoading(false);
       }
     }
   };

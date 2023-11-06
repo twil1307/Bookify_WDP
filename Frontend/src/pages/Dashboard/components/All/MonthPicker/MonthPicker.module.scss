@@ -1,0 +1,7 @@
+@use "src/global";
+.time-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: global.$default-font;
+}

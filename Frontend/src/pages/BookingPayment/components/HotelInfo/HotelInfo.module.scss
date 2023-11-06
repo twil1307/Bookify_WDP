@@ -1,0 +1,42 @@
+.hotelInfo-wrapper {
+    height: 100%;
+    width: 100%;
+    border: 1px solid #ababab;
+    border-radius: 15px;
+    padding: 15px 20px;
+    overflow-y: scroll;
+    .hotel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .hotel-name {
+            flex: 9;
+        }
+        .rating-stars {
+            flex: 1;
+            text-align: center;
+            svg {
+                font-size: 7px;
+                padding-bottom: 4px;
+            }
+        }
+    }
+}
+
+.hotelInfo-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.photos-container {
+    .img-card {
+        display: flex;
+        justify-content: center;
+        border-radius: 12px;
+        overflow: hidden;
+        height: 6em;
+        img {
+            border-radius: 12px;
+            object-fit: contain;
+        }
+    }
+}

@@ -1,0 +1,64 @@
+@use "src/global";
+.time-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: global.$default-font;
+}
+
+.static-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.static-card {
+    display: inline-block;
+    padding: 20px 25px 25px 25px;
+    border-radius: 17px;
+    width: 100%;
+    box-shadow: 5px 5px 5px rgb(202, 210, 212);
+}
+
+.booking-number {
+    background-color: #f72585;
+}
+
+.views-number {
+    background-color: #7209b7;
+}
+
+.checkout-number {
+    background-color: #3a0ca3;
+}
+
+.rate-number {
+    background-color: #4361ee;
+}
+
+.register-number {
+    background-color: #4cc9f0;
+}
+
+.static {
+    display: flex;
+    align-items: center;
+    .number {
+        font-family: global.$default-font;
+        padding-right: 7px;
+        color: white;
+        font-size: 27px;
+    }
+    .increase-number {
+        font-family: global.$default-font;
+        padding-top: 7px;
+        color: white;
+        font-size: 13px;
+    }
+}
+
+.static-des {
+    font-family: global.$default-font;
+    color: white;
+    font-size: 15px;
+}

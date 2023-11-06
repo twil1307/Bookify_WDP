@@ -1,0 +1,18 @@
+@use "src/global";
+.month-picker-wrapper {
+    // height: 270px;
+    width: 100%;
+    // margin-bottom: 200px;
+    display: flex;
+    justify-content: space-between;
+    .month-label {
+        font-family: global.$default-font;
+        user-select: none;
+    }
+}
+
+.arrow-left,
+.arrow-right {
+    cursor: pointer;
+    padding: 5px;
+}

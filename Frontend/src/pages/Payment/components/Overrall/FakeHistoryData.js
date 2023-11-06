@@ -1,0 +1,86 @@
+export const data = [
+  {
+    hotelName: "Vinpearl Nam Hội An",
+    price: 500,
+    roomType: "1 Phòng ngủ đôi",
+    time: "12:00 - 24/02/2022",
+  },
+  {
+    hotelName: "Novotel Lý Sơn",
+    price: 700,
+    roomType: "1 Phòng ngủ đơn",
+    time: "12:00 - 21/03/2022",
+  },
+  {
+    hotelName: "Vincome 2",
+    price: 300,
+    roomType: "2 Phòng ngủ đôi",
+    time: "12:00 - 21/04/2022",
+  },
+  {
+    hotelName: "Ngoài đường",
+    price: 200,
+    roomType: "1 Phòng ngủ đôi",
+    time: "12:00 - 21/02/2022",
+  },
+  {
+    hotelName: "Dưới chân cầu",
+    price: 800,
+    roomType: "1 Phòng ngủ siêu to khổng lồ",
+    time: "12:00 - 22/03/2022",
+  },
+  {
+    hotelName: "Dưới cống",
+    price: 400,
+    roomType: "1 Phòng ngủ đôi",
+    time: "12:00 - 21/02/2022",
+  },
+  {
+    hotelName: "Dưới chân cầu",
+    price: 800,
+    roomType: "1 Phòng ngủ siêu to khổng lồ",
+    time: "12:00 - 25/03/2022",
+  },
+  {
+    hotelName: "Dưới cống",
+    price: 400,
+    roomType: "1 Phòng ngủ đôi",
+    time: "12:00 - 21/01/2022",
+  },
+  {
+    hotelName: "Dưới ruộng",
+    price: 800,
+    roomType: "1 Phòng ngủ siêu to khổng lồ",
+    time: "12:00 - 27/03/2022",
+  },
+  {
+    hotelName: "Lanmark 81",
+    price: 400,
+    roomType: "1 Phòng ngủ đôi",
+    time: "12:00 - 21/05/2022",
+  },
+  {
+    hotelName: "Dưới chân cầu",
+    price: 800,
+    roomType: "1 Phòng ngủ siêu to khổng lồ",
+    time: "12:00 - 21/06/2022",
+  },
+  {
+    hotelName: "Dưới cống",
+    price: 400,
+    roomType: "1 Phòng ngủ đôi",
+    time: "12:00 - 21/07/2022",
+  },
+  {
+    hotelName: "Dưới chân cầu",
+    price: 800,
+    roomType: "1 Phòng ngủ siêu to khổng lồ",
+    time: "12:00 - 21/05/2022",
+  },
+  {
+    hotelName: "Dưới cống",
+    price: 400,
+    roomType: "1 Phòng ngủ đôi",
+    time: "12:00 - 21/4/2022",
+  },
+];

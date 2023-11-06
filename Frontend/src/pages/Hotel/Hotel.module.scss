@@ -1,23 +1,64 @@
 @use "src/global";
 
 #hotel {
-    
-    &.no-scroll {
-        height: 0vh;
-        overflow-y: hidden;
-    }
+  padding-bottom: 5rem;
+  &.no-scroll {
+    height: 0vh;
+    overflow-y: hidden;
+  }
 
-    &.d-none {
-        display: none;
-    }
+  &.d-none {
+    display: none;
+  }
 
-    .left {
-        flex-basis: 65%;
-        height: 70vh;
-    }
+  .left {
+    flex-basis: 65%;
+    // height: 70vh;
+    padding-right: 3rem;
+  }
 
-    .right {
-        flex-basis: 35%;
-        
-    }
+  .right {
+    flex-basis: 35%;
+  }
+  .info {
+    margin-top: 3rem;
+  }
+  .Booking {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    margin-top: 3rem;
+    width: 20rem;
+    height: 5rem;
+  }
+}
+.cartIcon {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 3rem;
+  bottom: 3rem;
+  border: 1px solid #4361ee;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  .CartIcon {
+    font-size: x-large;
+    color: #4361ee;
+  }
+  .cartNumber {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    color: white;
+    top: -0.5em;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    right: -0.25rem;
+  }
 }

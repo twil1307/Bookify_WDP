@@ -1,0 +1,42 @@
+@use 'src/global';
+
+.explore-search-places {
+    display: inline-block;
+    position: absolute;
+    top: 100%;
+    left: 3em;
+    background: global.$white;
+    padding: 2em;
+    border-radius: 1.6em;
+    
+    .explore-search-header {
+        padding-bottom: 1em;
+    }
+
+    .explore-search-list {
+        width: max-content;
+
+        .explore-search-result {
+            margin-bottom: 0.4em;
+            cursor: pointer;
+
+            .explore-icon {
+                display: inline-block;
+                padding: 0.6em 1em;
+                background: global.$gray-200;
+                border-radius: 0.6em;
+            }
+
+            .explore-search-title {
+                display: inline-block;
+                margin-left: 0.4em;
+                color: global.$gray-600;
+                font-size: 0.9em;
+            }
+
+            &:hover .explore-search-title {
+                color: global.$black;
+            }
+        }
+    }
+}

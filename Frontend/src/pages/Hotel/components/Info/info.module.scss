@@ -1,0 +1,20 @@
+.container {
+  background-color: #e4f4ff;
+  padding: 1rem;
+  min-height: 550px;
+  position: relative;
+  .title {
+    margin-top: 1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  .reserve {
+    width: 300px;
+    height: 50px;
+    position: absolute;
+    font-weight: bold;
+    bottom: 1rem;
+    right: calc((100% - 300px) / 2);
+    text-align: center;
+  }
+}

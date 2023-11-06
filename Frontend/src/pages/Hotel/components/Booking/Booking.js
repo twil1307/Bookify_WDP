@@ -14,6 +14,7 @@ import { description, title } from "./bookingInitState";
 import { useNavigate } from "react-router-dom";
 import { BookingContext, UserContext, ModalContext } from "@/utils/contexts";
 import { getSignInModal } from "@/utils/reducers/modalReducer";
+import { guestsInitial } from "../../hotelInitState";
 
 function formatDay(date) {
   const options = {
@@ -34,15 +35,19 @@ function formatDay(date) {
 function Booking({ roomType, isAllowPet = true, hotelId }) {
   const { user } = useContext(UserContext);
   const { dispatch } = useContext(ModalContext);
+
   const navigate = useNavigate();
-  const { selectDays, setSelectedDays, guests, setGuests } =
-    useContext(BookingContext);
-  console.log(selectDays);
+
+  const { bookedDays, bookList, setBookList } = useContext(BookingContext);
+  // console.log(selectDays);
   const [isSelectBoxOpen, setSelectBoxOpen] = useState({
     roomTypeBox: false,
     datePickerBox: false,
     guestsPickerBox: false,
   });
+  const [chooseRoomType, setchooseRoomType] = useState({});
+  const [selectDays, setSelectedDays] = useState();
+  const [guests, setGuests] = useState(guestsInitial);
   const [price, setPrice] = useState();
   const total = useMemo(() => {
     return Object.keys(guests).reduce((prev, key) => {
@@ -109,39 +114,31 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
       return;
     }
     if (isAllInformatioSelected) {
-      console.log(selectDays, guests, hotelId, price);
-      navigate("booking");
-      // bookingHotel(
-      //   { selectDays, guests, hotelId, price },
-      //   {
-      //     onSuccess: (data) => {
-      //       if (data) {
-      //       }
-      //       console.log("Something wrong");
-      //     },
-      //   }
-      // );
-      // const isAvailable = await searchBookingAvailable(
-      //   selectDays,
-      //   hotelId
-      // ).then((data) => {
-      //   console.log(data);
-      //   return data;
-      // });
-      // if (isAvailable?.check) {
-      //   navigate("booking");
-      // }
+      setBookList([
+        ...(bookList || []),
+        {
+          roomType: roomType._id,
+          hotelId: hotelId,
+          price: price,
+          checkin: selectDays.from,
+          checkout: selectDays.to,
+          adult: guests.adult,
+          child: guests.child,
+          pet: guests.pet,
+          infant: guests.infant,
+        },
+      ]);
     }
   };
 
   return (
     <div id={bookingStyles["booking"]}>
-      <div className={bookingStyles["heading-row"]}>
+      {/* <div className={bookingStyles["heading-row"]}>
         <p className={bookingStyles["price"]}>
           <span>${roomType?.roomPrice}</span>/đêm
         </p>
         <div className={bookingStyles["ticket"]}></div>
-      </div>
+      </div> */}
       <div className={bookingStyles["booking-input"]}>
         <div
           className={[
@@ -154,7 +151,7 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
           <div className={bookingStyles["label"]}>
             <p className={bookingStyles["title"]}>Loại phòng</p>
             <div className={bookingStyles["input-value"]}>
-              Phòng loại 1
+              {chooseRoomType ? "Chọn loại phòng" : "lo"}
               <button
                 className={bookingStyles["float-right"]}
                 onClick={() => handleClick("roomTypeBox")}
@@ -217,6 +214,7 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
                 numberOfMonths={2}
                 selectedDays={selectDays}
                 setSelectedDays={setSelectedDays}
+                fullDays={bookedDays}
               />
               <div className={bookingStyles["button-row"]}>
                 <button
@@ -288,7 +286,7 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
         className={bookingStyles["booking-button"]}
         onClick={handleBooking}
       >
-        {isAllInformatioSelected ? "Đặt phòng ngay" : "Hãy điền thông tin"}
+        {isAllInformatioSelected ? "Lưu" : "Hãy điền thông tin"}
       </button>
     </div>
   );

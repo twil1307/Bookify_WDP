@@ -11,8 +11,7 @@ async function compareCurrentPassword(currentPassword) {
   };
 
   return await fetch(url, options).then((response) => {
-    console.log(response);
-    return CheckStatus(response.status);
+    return response.json();
   });
 }
 export default compareCurrentPassword;
