@@ -14,10 +14,10 @@ import {
   UserContext,
 } from "@/utils/contexts";
 import { CircleLoading } from "@/components";
-import updateBankingAccount from "@/services/hotel/updateBankingAccount";
 import { getChangeCard } from "@/utils/reducers/modalReducer";
 import { getSuccessToastMessage } from "@/utils/reducers/toastMessageReducer";
 import { useUser } from "@/utils/hooks";
+import { UpdateBankingCard } from "@/services/user";
 
 function ChangeCardForm({ setModalOpen }) {
   const { updateCard } = useUser();
@@ -43,25 +43,37 @@ function ChangeCardForm({ setModalOpen }) {
       setLoading(true);
 
       try {
-        updateCard(cardNum, {
-          onSuccess: (data) => {
-            console.log(data);
-            if (!data) {
-              setError(true);
-            } else {
-              setUser((prev) => ({
-                ...prev,
-                bankingAccountNumber: cardNum,
-              }));
-              setToastMessages(
-                getSuccessToastMessage({
-                  message: "Liên kết tài khoản thành công",
-                })
-              );
-              dispatch(getChangeCard({ isOpen: false }));
-            }
-          },
+        UpdateBankingCard(cardNum).then((resp) => {
+          setUser((prev) => ({
+            ...prev,
+            bankingAccountNumber: cardNum,
+          }));
+          setToastMessages(
+            getSuccessToastMessage({
+              message: "Liên kết tài khoản thành công",
+            })
+          );
+          dispatch(getChangeCard({ isOpen: false }));
         });
+        // updateCard(cardNum, {
+        //   onSuccess: (data) => {
+        //     console.log(data);
+        //     if (!data) {
+        //       setError(true);
+        //     } else {
+        //       setUser((prev) => ({
+        //         ...prev,
+        //         bankingAccountNumber: cardNum,
+        //       }));
+        //       setToastMessages(
+        //         getSuccessToastMessage({
+        //           message: "Liên kết tài khoản thành công",
+        //         })
+        //       );
+        //       dispatch(getChangeCard({ isOpen: false }));
+        //     }
+        //   },
+        // });
         // const res = await updateBankingAccount(user._id, cardNum);
         // if (res?.success) {
         //   setUser((prev) => ({

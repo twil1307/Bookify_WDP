@@ -23,7 +23,6 @@ function VerifyAuth() {
 
   //   const navigate = useNavigate();
 
-
-  return { userLocal, firstLogin, };
+  return { userLocal, firstLogin };
 }
 export default VerifyAuth;

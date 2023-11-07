@@ -200,9 +200,8 @@ function Hotel() {
               <></>
             )}
             <Drawer anchor="right" open={drawer} onClose={toggleDrawer(false)}>
-              <Cart setDrawer={toggleDrawer} />
+              <Cart setDrawer={setDrawer} />
             </Drawer>
-            )
           </reviewDataContext.Provider>
         </reviewContext.Provider>
       </reportContext.Provider>

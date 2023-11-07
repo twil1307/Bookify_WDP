@@ -1,0 +1,22 @@
+@use "src/global";
+
+.container {
+  position: absolute;
+  background: global.$white;
+  width: 18rem;
+  z-index: 1;
+  top: 3.75rem;
+  right: -2rem;
+  padding: 1em;
+  border-radius: 0 0 0.8em 0.8em;
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+
+  .item {
+    font-weight: bold;
+    padding: 0.5em 0;
+    cursor: pointer;
+    &:not(:last-child) {
+      border-bottom: 1px solid #c6c6c6;
+    }
+  }
+}

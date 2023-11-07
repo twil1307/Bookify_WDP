@@ -16,10 +16,8 @@ import {
   getSuccessToastMessage,
 } from "@/utils/reducers/toastMessageReducer";
 import { newPassowrdUpdate } from "@/services/user";
-import { useUser } from "@/utils/hooks";
 
 function NewPasswordForm() {
-  const { updatePass } = useUser();
   const { setToastMessages } = useContext(ToastMessageContext);
   const [newPassword, setNewPassword] = useState({
     password: null,
