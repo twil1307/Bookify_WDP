@@ -13,7 +13,7 @@ import NotifyBox from "./NotifyBox";
 import ToastMessage from "./ToastMessage";
 import ToastMessageBox from "./ToastMessageBox";
 import DatePicker from "./DatePicker";
-
+import RoomPicker from "./RoomPicker";
 export {
   Logo,
   NotifyBox,
@@ -30,4 +30,5 @@ export {
   DropdownBox,
   BookingItem,
   DatePicker,
+  RoomPicker,
 };

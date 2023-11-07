@@ -6,7 +6,7 @@ import {
   useEffect,
   useContext,
 } from "react";
-import { GuestsPicker, DatePicker } from "@/components";
+import { GuestsPicker, DatePicker, RoomPicker } from "@/components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { differenceInDays } from "date-fns";
@@ -45,7 +45,7 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
     datePickerBox: false,
     guestsPickerBox: false,
   });
-  const [chooseRoomType, setchooseRoomType] = useState({});
+  const [chooseType, setChooseType] = useState(null);
   const [selectDays, setSelectedDays] = useState();
   const [guests, setGuests] = useState(guestsInitial);
   const [price, setPrice] = useState();
@@ -85,9 +85,9 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
     if (!selectDateDiff) {
       return;
     } else {
-      setPrice(roomType.roomPrice * selectDateDiff);
+      setPrice(chooseType.roomPrice * selectDateDiff);
     }
-  }, [selectDateDiff, roomType]);
+  }, [selectDateDiff, chooseType]);
 
   const handleClick = (type) => {
     setSelectBoxOpen((prev) => {
@@ -108,7 +108,7 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
   };
 
   const handleBooking = async () => {
-    console.log(isAllInformatioSelected);
+    console.log(chooseType);
     if (!user._id) {
       dispatch(getSignInModal({ isOpen: true }));
       return;
@@ -117,17 +117,21 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
       setBookList([
         ...(bookList || []),
         {
-          roomType: roomType._id,
+          roomType: chooseType._id,
           hotelId: hotelId,
           price: price,
-          checkin: selectDays.from,
-          checkout: selectDays.to,
+          checkin: String(selectDays.from),
+          checkout: String(selectDays.to),
           adult: guests.adult,
           child: guests.child,
           pet: guests.pet,
           infant: guests.infant,
+          type: chooseType.index,
         },
       ]);
+      // setChooseType(null);
+      // setGuests(guestsInitial);
+      // setSelectedDays();
     }
   };
 
@@ -140,18 +144,13 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
         <div className={bookingStyles["ticket"]}></div>
       </div> */}
       <div className={bookingStyles["booking-input"]}>
-        <div
-          className={[
-            bookingStyles["room-type-input"],
-            isSelectBoxOpen["roomTypeBox"]
-              ? bookingStyles["input-selected"]
-              : "",
-          ].join(" ")}
-        >
+        <div className={[bookingStyles["room-type-input"]].join(" ")}>
           <div className={bookingStyles["label"]}>
             <p className={bookingStyles["title"]}>Loại phòng</p>
             <div className={bookingStyles["input-value"]}>
-              {chooseRoomType ? "Chọn loại phòng" : "lo"}
+              {chooseType?.index !== undefined
+                ? `Loại phòng ${chooseType.index + 1}`
+                : "Chọn phòng"}
               <button
                 className={bookingStyles["float-right"]}
                 onClick={() => handleClick("roomTypeBox")}
@@ -159,6 +158,14 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
                 <FontAwesomeIcon icon={faAngleDown} />
               </button>
             </div>
+            {isSelectBoxOpen["roomTypeBox"] && (
+              <RoomPicker
+                roomType={roomType}
+                setGuests={setGuests}
+                setChooseType={setChooseType}
+                handleClick={handleClick}
+              />
+            )}
           </div>
         </div>
         <div
@@ -181,7 +188,7 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
               </div>
             </div>
           </div>
-          {isSelectBoxOpen["datePickerBox"] && (
+          {isSelectBoxOpen["datePickerBox"] && chooseType && (
             <div
               className={[bookingStyles["date-range-input-box"]].join(" ")}
               onClick={(e) => {
@@ -232,12 +239,16 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
             <p className={bookingStyles["title"]}>Khách</p>
             <div className={bookingStyles["input-value"]}>
               {total ? `${total} người` : "Thêm người"}
-              <button
-                className={bookingStyles["float-right"]}
-                onClick={() => handleClick("guestsPickerBox")}
-              >
-                <FontAwesomeIcon icon={faAngleDown} />
-              </button>
+              {chooseType ? (
+                <button
+                  className={bookingStyles["float-right"]}
+                  onClick={() => handleClick("guestsPickerBox")}
+                >
+                  <FontAwesomeIcon icon={faAngleDown} />
+                </button>
+              ) : (
+                <></>
+              )}
             </div>
             {isSelectBoxOpen["guestsPickerBox"] && (
               <div
@@ -249,11 +260,11 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
                 <GuestsPicker
                   guests={guests}
                   setGuests={setGuests}
-                  totalLimit={roomType.numberOfGuests}
+                  totalLimit={chooseType.maxGuest}
                   description={description}
                   isAllowPet={isAllowPet}
                   title={title}
-                  limit={roomType.numberOfGuests}
+                  limit={chooseType.maxGuest}
                 />
               </div>
             )}
@@ -265,7 +276,7 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
           <div className={bookingStyles["provisional"]}>
             <div className={bookingStyles["price-for-all-nights"]}>
               <p className={bookingStyles["price-label"]}>
-                ${roomType.roomPrice}
+                ${chooseType.roomPrice}
                 <span>x</span>
                 {selectDateDiff} đêm
               </p>
