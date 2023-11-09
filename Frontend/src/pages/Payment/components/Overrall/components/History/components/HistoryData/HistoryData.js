@@ -5,7 +5,7 @@ import { useContext } from "react";
 import HistoryDataStyle from "./HistoryData.module.scss";
 
 function HistoryData({ data }) {
-  console.log(data);
+  // console.log(data);
   return (
     <>
       {data?.map((item, index) => {

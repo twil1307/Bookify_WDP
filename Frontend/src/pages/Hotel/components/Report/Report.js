@@ -28,15 +28,15 @@ function AdvanceFilter({
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { user } = useContext(UserContext);
-  console.log(user._id);
+  // console.log(user._id);
   useEffect(() => {
     setAdvanceFilterOpen(isOpen);
     //eslint-disable-next-line
   }, [isOpen]);
 
   const submitReport = () => {
-    console.log(title);
-    console.log(content);
+    // console.log(title);
+    // console.log(content);
     const reportForm = new FormData();
     reportForm.append("hotelid", hotelInfo.hotelId);
     reportForm.append("userid", user._id);
@@ -49,7 +49,7 @@ function AdvanceFilter({
       .then((res) => res.json())
       .then((result) => {
         setAdvanceFilterOpen(false);
-        console.log(result);
+        // console.log(result);
         setToastMessages(
           getSuccessToastMessage({
             message: "Báo cáo thành công",

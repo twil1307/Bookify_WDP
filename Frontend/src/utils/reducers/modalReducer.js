@@ -72,7 +72,7 @@ const reducer = (state, modal) => {
         renderModal: () => <SignInModal animation={modal?.animation} />,
       };
     case modalType.SIGN_UP:
-      console.log(modal.type);
+      // console.log(modal.type);
       return {
         ...newState,
         renderModal: () => <SignUpModal animation={modal?.animation} />,

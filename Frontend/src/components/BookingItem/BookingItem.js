@@ -26,7 +26,7 @@ const getBookingGuestsTitle = (guests) => {
 
 function BookingItem({ booking, handleBookingAction }) {
   const { user, roomType } = booking;
-  console.log(booking);
+  // console.log(booking);
   const [isLoading, setLoading] = useState(false);
 
   return (

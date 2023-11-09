@@ -32,7 +32,7 @@ function Payment() {
     )
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         setPaymentList(result.listTrans);
         setChartData(result.chartData);
         setWalletAmount(result.wallet);

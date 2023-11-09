@@ -30,7 +30,7 @@ function DefaultLayout() {
 
   const getBookmarkedHotel = () => {
     GetBookMarked().then((resp) => {
-      console.log(resp.bookmarkedHotel);
+      // console.log(resp.bookmarkedHotel);
       setBookmarkedHotels(resp.bookmarkedHotel);
     });
   };

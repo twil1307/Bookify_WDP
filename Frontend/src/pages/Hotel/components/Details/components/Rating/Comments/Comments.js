@@ -15,7 +15,7 @@ function Comments({ reviews, hotelId }) {
   const { setToastMessages } = useContext(ToastMessageContext);
   const { user } = useContext(UserContext);
   const [currentReview, setCurrentReview] = useContext(reviewDataContext);
-  console.log(currentReview);
+  // console.log(currentReview);
   const checkUser = () => {
     if (user._id) {
       fetch(
@@ -23,7 +23,7 @@ function Comments({ reviews, hotelId }) {
       )
         .then((res) => res.json())
         .then((result) => {
-          console.log(result);
+          // console.log(result);
           if (result.require) {
             setToastMessages(
               getFailureToastMessage({

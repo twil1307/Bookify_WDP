@@ -18,7 +18,7 @@ function Rating() {
   const [filter, setFilter] = useState(0);
   const [hotel, setHotel] = useOutletContext();
   const [comments, setComments] = useState([]);
-  console.log(hotel);
+  // console.log(hotel);
   useEffect(() => {
     if (filter === 0) {
       fetch(

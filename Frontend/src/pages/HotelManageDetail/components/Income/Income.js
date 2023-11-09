@@ -17,9 +17,9 @@ function Income() {
   const incomeByMonth = [];
 
   useEffect(() => {
-    console.log(hotel);
+    // console.log(hotel);
     getHotelManage(hotel._id, "income", month).then((result) => {
-      console.log(result);
+      // console.log(result);
       setDays2(result.income.label);
       setTotalIncome(result.income.value);
     });

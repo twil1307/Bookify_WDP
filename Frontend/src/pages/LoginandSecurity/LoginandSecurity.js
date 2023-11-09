@@ -1,7 +1,6 @@
 import LoginandSecurityStyle from "./LoginandSecurity.module.scss";
 import HeaderInfo from "./components/Header";
 import FormUpdate from "./components/Form";
-import VerifyAuth from "@/utils/hooks/verifyAuth";
 import { useNavigate } from "react-router-dom";
 import { ToastMessageContext } from "@/utils/contexts";
 import { getFailureToastMessage } from "@/utils/reducers/toastMessageReducer";
@@ -9,7 +8,6 @@ import { useEffect, useContext } from "react";
 import { Grid } from '@mui/material';
 
 function LoginandSecurity() {
-  const { user } = VerifyAuth();
   const { setToastMessages } = useContext(ToastMessageContext);
   const navigate = useNavigate();
 

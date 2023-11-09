@@ -15,7 +15,7 @@ function InputText({
   icon = null,
 }) {
   const { dispatch } = useContext(ModalContext);
-  console.log("input field rerender");
+  // console.log("input field rerender");
   const inputLabel = label !== "Card" ? label : "Card Number";
   const inputPlaceholder = label !== "Card" ? label : "XXXX-XXXX-XXXX-XXXX";
   const ClickHandler = (e) => {
