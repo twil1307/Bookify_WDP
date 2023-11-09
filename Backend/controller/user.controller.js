@@ -142,7 +142,7 @@ module.exports.refreshNewTokens = (req, res, next) => {
 
   jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
     if (err) {
-      return res.status(401).json({ error: err.message });
+      return res.status(479).json({ error: err.message });
     }
 
     const idFind = decoded._id;
@@ -269,7 +269,13 @@ module.exports.changePassword = catchAsync(async (req, res, next) => {
 module.exports.addOrRemoveFavorite = catchAsync(async (req, res, next) => {
   const hotelIdBookmark = req.params.hotelId;
 
-  console.log(hotelIdBookmark);
+  const hotel = await Hotel.findById(hotelIdBookmark);
+
+  if (!hotel) {
+    return res.status(400).json({
+      message: "This hotel does not exist",
+    });
+  }
 
   const currentUser = await User.findById(req.user.id);
 
@@ -283,10 +289,16 @@ module.exports.addOrRemoveFavorite = catchAsync(async (req, res, next) => {
     );
   }
 
-  const newUserHotelbookMarked = await currentUser.save();
+  await currentUser.save();
+
+  const hotels = await Hotel.find({
+    _id: { $in: currentUser.hotelBookmarked },
+  }).select(
+    "_id hotelName country district address roomType rating backgroundImage"
+  );
 
   return res.json({
-    user: newUserHotelbookMarked,
+    bookmarks: hotels,
   });
 });
 
