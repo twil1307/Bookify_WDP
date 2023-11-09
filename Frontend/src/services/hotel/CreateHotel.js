@@ -13,7 +13,7 @@ export default async function CreateHotel(
 ) {
   const url = `http://localhost:${process.env.REACT_APP_BACK_END_PORT}/hotel`;
   const hotelForm = new FormData();
-  console.log(roomType);
+  // console.log(roomType);
   const roomsType = roomType.map((e) => {
     return {
       roomPrice: e.price,
@@ -45,7 +45,7 @@ export default async function CreateHotel(
 
   if (roomImages) {
     for (const file of roomImages) {
-      console.log(file);
+      // console.log(file);
       hotelForm.append("hotelImage", file);
     }
   } else {
@@ -54,7 +54,7 @@ export default async function CreateHotel(
 
   if (viewImages) {
     for (const filetest of viewImages) {
-      console.log(filetest);
+      // console.log(filetest);
       hotelForm.append("viewImage", filetest);
     }
   } else {

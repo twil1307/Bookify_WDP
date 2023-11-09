@@ -17,7 +17,7 @@ const months = [
 
 function SelectBox({ onChangeMonth }) {
   const currentMonth = new Date().getMonth() + 1;
-  console.log(currentMonth);
+  // console.log(currentMonth);
   const monthSelect = (e) => {
     onChangeMonth(e.target.value);
   };

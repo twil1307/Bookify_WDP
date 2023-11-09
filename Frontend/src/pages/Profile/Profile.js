@@ -11,7 +11,6 @@ import {
 import profileStyle from "./Profile.module.scss";
 import { useMemo, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import VerifyAuth from "@/utils/hooks/verifyAuth";
 import { ToastMessageContext, UserContext } from "@/utils/contexts";
 import { getFailureToastMessage } from "@/utils/reducers/toastMessageReducer";
 

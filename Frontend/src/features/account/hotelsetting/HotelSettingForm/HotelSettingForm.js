@@ -35,7 +35,7 @@ function HotelSettingForm(requirement) {
   const handleClick = () => {
     setSettings();
   };
-  console.log(checkVerify);
+  // console.log(checkVerify);
   const handleForm = (e) => {
     e.preventDefault();
   };

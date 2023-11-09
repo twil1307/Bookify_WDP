@@ -6,7 +6,7 @@ import PointStyle from "./Point.module.scss";
 import { useMemo } from "react";
 
 function Point({ pointsData }) {
-  console.log(pointsData);
+  // console.log(pointsData);
   const points = useMemo(
     () => [
       {

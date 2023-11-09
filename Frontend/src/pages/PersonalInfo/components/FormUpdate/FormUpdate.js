@@ -20,19 +20,19 @@ function FormUpdate({ account }) {
   const { user, setUser } = useContext(UserContext);
   const changedKey = useRef();
   const [readOnly, setReadOnly] = useState(true);
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
+  // useEffect(() => {
+  //   console.log(userData);
+  // }, [userData]);
   const onChangeDob = (e) => {
     var currentDate = new Date(e.target.value);
-    console.log(currentDate);
+    // console.log(currentDate);
     var month = currentDate.getMonth() + 1;
     if (month < 10) month = "0" + month;
     var dateOfMonth = currentDate.getDate();
     if (dateOfMonth < 10) dateOfMonth = "0" + dateOfMonth;
     var year = currentDate.getFullYear();
     var formattedDate = dateOfMonth + "/" + month + "/" + year;
-    console.log("format " + formattedDate);
+    // console.log("format " + formattedDate);
     setUserData((prev) => {
       return { ...prev, ["dob"]: e.target.value };
     });

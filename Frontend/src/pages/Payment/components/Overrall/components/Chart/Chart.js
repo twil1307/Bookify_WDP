@@ -7,7 +7,7 @@ import { OverrallChartDataContext } from "@/pages/Payment/Payment";
 function Chart({ labels, data }) {
   // const [month, setMonth] = useContext(OverrallContext);
   const [chartData, setChartData] = useContext(OverrallChartDataContext);
-  console.log(chartData);
+  // console.log(chartData);
   return (
     <div>
       <SingleLineChart

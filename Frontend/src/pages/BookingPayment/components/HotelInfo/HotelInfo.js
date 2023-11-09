@@ -9,7 +9,7 @@ import Photos from "./Photos";
 
 function HotelInfo() {
   const hotelInfo = useOutletContext();
-  console.log(hotelInfo);
+  // console.log(hotelInfo);
 
   return (
     <div className={HotelInfoStyle["hotelInfo-wrapper"]}>

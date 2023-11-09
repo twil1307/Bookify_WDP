@@ -5,7 +5,7 @@ import { useHref, useParams, Outlet } from "react-router-dom";
 import { useContext, useState, useMemo } from "react";
 import { UserContext, BookingContext, ModalContext } from "@/utils/contexts";
 import { useEffect, Suspense, lazy } from "react";
-import { useClsx, useGetHotel } from "@/utils/hooks";
+import { useClsx } from "@/utils/hooks";
 import { Loading } from "../Home/components";
 import Report from "./components/Report";
 import Review from "./components/Review";
@@ -46,9 +46,9 @@ function Hotel() {
 
     // console.log(selectDay);
   }, [user, id]);
-  useEffect(() => {
-    console.log(hotelInfo);
-  }, [hotelInfo]);
+  // useEffect(() => {
+  //   console.log(hotelInfo);
+  // }, [hotelInfo]);
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&

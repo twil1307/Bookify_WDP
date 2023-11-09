@@ -65,7 +65,7 @@ function SignInForm({ setModalOpen }) {
             );
             setModalOpen(event);
           } else {
-            console.log("User not found");
+            // console.log("User not found");
             setToastMessages(
               getFailureToastMessage({ message: "Đăng nhập thất bại" })
             );
