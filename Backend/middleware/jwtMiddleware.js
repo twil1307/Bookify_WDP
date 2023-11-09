@@ -14,8 +14,6 @@ module.exports = (req, res, next) => {
 
     const token = accessToken.replace("Bearer ", "");
 
-    console.log(process.env.ACCESS_TOKEN_SECRET);
-
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
       if (err) {
         console.log(err.name);

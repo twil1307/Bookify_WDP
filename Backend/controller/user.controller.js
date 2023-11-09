@@ -142,7 +142,7 @@ module.exports.refreshNewTokens = (req, res, next) => {
 
   jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
     if (err) {
-      return res.status(401).json({ error: err.message });
+      return res.status(479).json({ error: err.message });
     }
 
     const idFind = decoded._id;
