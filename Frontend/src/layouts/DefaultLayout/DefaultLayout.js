@@ -7,6 +7,7 @@ import { Box } from "@mui/material";
 import { Suspense, useContext } from "react";
 import { UserContext, WebSocketContext } from "@/utils/contexts";
 import { SearchContext } from "@/utils/contexts";
+import { GetBookMarked } from "@/services/user";
 
 const guestsInitial = {
   adult: 0,
@@ -27,7 +28,11 @@ function DefaultLayout() {
   const [guests, setGuests] = useState(guestsInitial);
   const [isSearchAdvanceMode, setSearchAdvanceMode] = useState(false);
 
-  const getBookmarkedHotel = () => {};
+  const getBookmarkedHotel = () => {
+    GetBookMarked().then((resp) => {
+      setBookmarkedHotels(resp.bookmarkedHotel);
+    });
+  };
 
   const getNotifications = () => {};
 
@@ -43,7 +48,9 @@ function DefaultLayout() {
 
     //eslint-disable-next-line
   }, [user]);
-
+  // useEffect(() => {
+  //   console.log(bookmarkedHotels);
+  // }, [bookmarkedHotels]);
   const handleOnMessage = (event) => {
     const newNotif = JSON.parse(event.data);
     setNotifs((prev) => [newNotif, ...prev]);
@@ -93,7 +100,7 @@ function DefaultLayout() {
           }}
         >
           <Suspense fallback={<div>Loading...</div>}>
-            <Outlet context={setBookmarkedHotels} />
+            <Outlet context={[bookmarkedHotels,setBookmarkedHotels]} />
           </Suspense>
         </Box>
         {/* <Footer /> */}

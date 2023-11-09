@@ -168,7 +168,7 @@ function Home() {
                 overflow: "hidden",
               }}
             >
-              <BannerCarousel trendingHotels={trendingHotels} />
+              {/* <BannerCarousel trendingHotels={trendingHotels} /> */}
             </Box>
           </Grid>
           <Grid item xs={12}>
@@ -210,7 +210,12 @@ function Home() {
             </div>
           </Grid>
           <div className={homeStyles["hotel-cards"]}>
-            <Grid container spacing={1.5} overflow={"hidden"}>
+            <Grid
+              container
+              spacing={1.5}
+              overflow={"hidden"}
+              style={{ paddingLeft: "1.5rem", paddingRight: "1.5rem" }}
+            >
               <Suspense fallback={<Loading />}>
                 {isLoading ? (
                   <Loading />

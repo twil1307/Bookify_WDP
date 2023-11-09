@@ -29,7 +29,8 @@ function BookingList() {
     if (!hotel) {
       return;
     }
-    GetAllTodayBooking(hotel._id, value).then((data) => {
+    console.log(hotel);
+    await GetAllTodayBooking(hotel._id, value).then((data) => {
       console.log(data.data);
       setBookingList(data.data);
     });
