@@ -9,8 +9,7 @@ export default async function GetBookMarked() {
   };
   try {
     return await fetch(url, option).then((resp) => {
-      if (CheckStatus(resp.status)) return resp.json();
-      return false;
+      return resp.json();
     });
   } catch (e) {
     console.log(e);

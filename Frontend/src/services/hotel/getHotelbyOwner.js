@@ -10,8 +10,7 @@ export default async function getHotelbyOwner() {
 
   try {
     return await fetch(url, option).then((resp) => {
-      if (CheckStatus(resp.json)) return resp.json();
-      return false;
+      return resp.json();
     });
   } catch (e) {
     console.log(e);

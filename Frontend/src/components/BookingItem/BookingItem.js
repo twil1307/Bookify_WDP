@@ -2,7 +2,7 @@ import bookingItemStyles from "./BookingItemStyles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { useState, memo } from "react";
-
+var options = {};
 const getBookingGuestsTitle = (guests) => {
   const bookingGuestsTitle = Object.keys(guests).reduce((prev, key) => {
     if (guests[key] === 0) {
@@ -27,16 +27,26 @@ const getBookingGuestsTitle = (guests) => {
 
 function BookingItem({ booking, handleBookingAction }) {
   const { user, roomType } = booking;
+  console.log(booking);
   const [isLoading, setLoading] = useState(false);
 
   return (
     <div className={bookingItemStyles["tab-card"]} key={booking?.bookingId}>
       <div className={bookingItemStyles["card-header"]}>
-        <b className={bookingItemStyles["color-blue"]}>Hôm nay</b>
+        <b className={bookingItemStyles["color-blue"]}>
+          {String(
+            new Date(booking.checkin).toLocaleDateString("vi-VI", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          )}
+        </b>
         <p>
           {roomType?.bedType} -{" "}
           {getBookingGuestsTitle({
-            adult: booking?.adult,
+            adult: booking?.aldult,
             child: booking?.child,
             infant: booking?.infant,
             pet: booking?.pet,
@@ -47,7 +57,27 @@ function BookingItem({ booking, handleBookingAction }) {
         <div className={bookingItemStyles["info"]}>
           <p className={bookingItemStyles["user-name"]}>{user?.username}</p>
           <p>
-            <span> {booking.checkin}</span> - <span> {booking.checkout}</span>
+            <span>
+              {" "}
+              {String(
+                new Date(booking.checkin).toLocaleDateString("vi-VI", {
+                  year: "numeric",
+                  month: "numeric",
+                  day: "numeric",
+                })
+              )}
+            </span>{" "}
+            -{" "}
+            <span>
+              {" "}
+              {String(
+                new Date(booking.checkout).toLocaleDateString("vi-VI", {
+                  year: "numeric",
+                  month: "numeric",
+                  day: "numeric",
+                })
+              )}
+            </span>
           </p>
         </div>
         {booking?.user ? (
@@ -70,17 +100,11 @@ function BookingItem({ booking, handleBookingAction }) {
       <div className={bookingItemStyles["button-group"]}>
         {booking.status === 0 ? (
           <>
-            <button
-         
-              className={bookingItemStyles["accept-button"]}
-            >
+            <button className={bookingItemStyles["accept-button"]}>
               {isLoading ? "Load" : "Chấp nhận"}
             </button>
-            <button
-          
-              className={bookingItemStyles["reject-button"]}
-            >
-              {isLoading ? "Load"  : "Hủy bỏ"}
+            <button className={bookingItemStyles["reject-button"]}>
+              {isLoading ? "Load" : "Hủy bỏ"}
             </button>
           </>
         ) : booking.status === 1 ? (

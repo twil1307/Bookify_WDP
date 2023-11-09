@@ -17,6 +17,7 @@ import {
   getFailureToastMessage,
   getSuccessToastMessage,
 } from "@/utils/reducers/toastMessageReducer";
+import AddDeleteBookMarked from "@/services/user/AddDeleteBookMarked";
 
 function HotelCard({
   _id: hotelId,
@@ -33,10 +34,24 @@ function HotelCard({
 
   const [bookmarked, setBookmarked] = useState(false);
   const { setToastMessages } = useContext(ToastMessageContext);
-  const setBookmarkedHotels = useOutletContext(BookmarkContext);
-  // const { addBookMarked } = useUser();
+  const [bookmarkedHotels, setBookmarkedHotels] =
+    useOutletContext(BookmarkContext);
   useEffect(() => {
-    if (user?.hotelBookmarked?.includes(hotelId)) setBookmarked(true);
+    // console.log(
+    //   bookmarkedHotels?.map((il) => {
+    //     if (il._id == hotelId) return true;
+    //     return false;
+    //   })
+    // );
+    if (
+      bookmarkedHotels
+        ?.map((il) => {
+          if (il._id == hotelId) return true;
+          return false;
+        })
+        .includes(true)
+    )
+      setBookmarked(true);
     else setBookmarked(false);
   }, []);
 
@@ -47,6 +62,23 @@ function HotelCard({
         getSuccessToastMessage({ message: "Đăng nhập để dùng" })
       );
       return;
+    } else {
+      AddDeleteBookMarked(hotelId).then((resp) => {
+        if (!bookmarked) {
+          setBookmarked(!bookmarked);
+          // setBookmarkedHotels(resp.user.hotelBookmarked);
+          setToastMessages(
+            getSuccessToastMessage({ message: "Đã thêm vào mục yêu thích" })
+          );
+          return;
+        } else {
+          setBookmarked(!bookmarked);
+          setToastMessages(
+            getSuccessToastMessage({ message: "Đã xóa khỏi mục yêu thích" })
+          );
+          // setBookmarkedHotels(resp.user.hotelBookmarked);
+        }
+      });
     }
   };
 
@@ -82,7 +114,6 @@ function HotelCard({
             <p
               className={"hotel-address"}
             >{`${country},  ${district}, ${address}`}</p>
-            <p className={"hotel-price-per-night"}>{`$${averagePrice}`}</p>
           </div>
         </div>
         {user?.role === 0 ? (
