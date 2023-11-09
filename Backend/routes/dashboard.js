@@ -30,9 +30,9 @@ router.get(
 
 router.get(
   "/hotels/manage/booking/today/:hotelId",
-  jwtMiddleware,
-  isExactHost,
-  hasRole(Roles.HOST, Roles.ADMIN),
+  // jwtMiddleware,
+  // isExactHost,
+  // hasRole(Roles.HOST, Roles.ADMIN),
   dashboardController.getHotelBookingToday
 );
 

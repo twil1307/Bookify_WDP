@@ -15,6 +15,11 @@ const bookingSchema = new Schema(
       type: [mongoose.Schema.Types.ObjectId],
       ref: "BookingDetail",
     },
+    hotelId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: [true, "Hotel booking required"],
+      ref: "Hotel",
+    },
   },
   {
     timestamps: true,

@@ -78,6 +78,9 @@ const groupRoomIdBy = (data) => {
 
 const filterDates = (dateArray) => {
   const today = new Date(); // Current date
+
+  // if keep current date, then the comparison below of "=" will
+  // not be happened due to the minute of current date
   today.setHours(0, 0, 0, 0);
   console.log(today);
   const filteredDates = dateArray.filter((dateString) => {
