@@ -1,0 +1,28 @@
+@use "src/global";
+$background-color-1: #4361EE;
+$background-color-2: #7252E9;
+$background-color-3: #7209B7;
+.container {
+    padding-top: 1em;
+
+    .header {
+
+    }
+
+    .task1 {
+
+        button {
+            font-size: 14px;
+            font-family: global.$default-font;
+            text-transform: none;
+            font-weight: 500;
+            color: black;
+            padding: 5px 10px;
+        }
+        
+        button.Mui-selected {
+            color: black;
+            font-weight: 550;
+        }
+    }
+}

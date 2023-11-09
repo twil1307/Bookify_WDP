@@ -1,0 +1,72 @@
+@use "src/global";
+.view-wrapper {
+    padding-bottom: 450px;
+}
+
+.static-wrapper {
+    margin-top: 20px;
+    display: flex;
+    .view-number,
+    .book-number {
+        display: flex;
+        margin-bottom: 10px;
+        svg {
+            font-size: 20px;
+            display: block;
+            border: 1px solid #ababab;
+            padding: 15px;
+            border-radius: 13px;
+        }
+        .static {
+            margin-left: 15px;
+            h6 {
+                font-weight: 500;
+                font-family: global.$default-font;
+                color: #6a6a6a;
+            }
+            h1 {
+                font-family: global.$default-font;
+            }
+        }
+    }
+    .book-number {
+        margin-left: 30px;
+    }
+}
+
+.chart-wrapper {
+    height: 270px;
+    width: 70%;
+}
+
+@media (max-width: 500px) {
+    .chart-wrapper {
+        // height: 300px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .chart-wrapper {
+        // height: 270px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .chart-wrapper {
+        // height: 270px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .chart-wrapper {
+        height: 340px;
+        width: 70%;
+    }
+}
+
+.month-picker {
+    margin-bottom: -200px;
+}

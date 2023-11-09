@@ -1,0 +1,24 @@
+@use 'src/global';
+
+.search-box {
+    position: relative;
+    font-size: 1em;
+
+    .search-bar {
+        position: relative;
+    
+        .search-input-field {
+            font-size: 1em;
+            padding: 0.4em 2.2em;
+            border-radius: 1.2em;
+            outline: none;
+            border: 2px solid global.$gray-200;
+    
+            &:focus {
+                border: 2px solid global.$main-color;
+                padding-left: 0.8em;
+                padding-right: 0.6em;
+            }
+        }
+    }
+}

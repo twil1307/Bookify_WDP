@@ -1,0 +1,71 @@
+@use 'src/global';
+
+#price-range-picker {
+    margin-top: 2em;
+    border-bottom: 1px solid global.$gray-200;
+    padding-bottom: 1em;
+
+    .heading {
+        flex-basis: 100%;
+        font-size: 1.4em;
+        font-weight: bold;
+    }
+
+    .sub-heading {
+        color: global.$gray-500;
+        margin-top: 0.15em;
+    }
+
+    .price-inputs {
+        display: flex;
+        gap: 2em;
+        position: relative;
+        padding: 2em;
+        justify-content: center;
+
+        .line-separetor {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: block;
+            width: 1.4em;
+            background: #000;
+            height: 2px;
+            top: 58%;
+        }
+
+        .price-range-input {
+            position: relative;
+            display: flex;
+            flex-direction: column-reverse;
+
+            &.price-range-input {
+               
+                input {
+                    outline: none;
+                    border: 1px solid global.$gray-200;
+                    transition: all 0.2s ease-out;
+
+                    &:focus {
+                        border: 1px solid global.$black;
+                    }
+                }
+            }
+
+            input {
+                padding: 0.4em;
+                border-radius: 0.6em;
+            }
+
+            .currency {
+                position: absolute;
+                bottom: 0.5em;
+                right: 0.5em;
+            }
+
+            .label-input {
+
+            }
+        }
+    }
+}

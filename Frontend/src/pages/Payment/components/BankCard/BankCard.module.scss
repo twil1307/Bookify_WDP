@@ -1,0 +1,30 @@
+.card-wrapper {
+    background-color: #282828;
+    height: 16em;
+    padding: 20px;
+    display: flex;
+    width: 30em;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 20px;
+    .bank-title {
+        display: flex;
+        justify-content: space-between;
+        .title,
+        .valid {
+            color: white;
+        }
+    }
+    .bank-remain {
+        margin-bottom: 30px;
+        .remain-title,
+        .remainer {
+            color: white;
+        }
+    }
+    .bank-number {
+        h6 {
+            color: white;
+        }
+    }
+}

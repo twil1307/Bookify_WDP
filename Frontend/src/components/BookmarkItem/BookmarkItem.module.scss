@@ -1,0 +1,76 @@
+@use 'src/global';
+
+@mixin text-overflow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bookmark-item {
+    width: 24em;
+    height: 4.4em;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        transition: all 0.2s linear;
+    }
+
+    &:hover::before {
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .item-infor {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        @include global.vertical-center();
+        padding: 0 1em;
+
+        .infor-left { 
+            width: 90%;
+
+            .hotel-name {
+                color: global.$white;
+                width: 100%;
+                @include text-overflow();
+            }
+
+            .hotel-address {
+                width: 100%;
+                color: global.$gray-200;
+                @include text-overflow();
+                font-size: 0.75em;
+            }
+
+            .price {
+                color: global.$white;
+            }
+        }
+
+        .infor-right {
+            margin-left: auto;
+
+            .unbookmark-button {
+                color: global.$white;
+                width: 1.5em;
+                height: 1.5em;
+                @include global.center();
+                border-radius: 50%;
+                transition: all 0.2s linear;
+
+                &:hover {
+                    background: global.$black;
+                }
+            }
+        }
+    }
+}

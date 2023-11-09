@@ -1,0 +1,25 @@
+@use 'src/global';
+
+.text-area-field {
+    display: flex;
+    flex-direction: column-reverse;
+
+    .text-area {
+        width: 100%;
+        height: 8em;
+        text-align: center;
+        border-radius: 0.8em;
+
+        &:focus {
+            outline: none;
+        }
+
+        &.error {
+            border-bottom-color: global.$red;
+        }
+    }
+
+    label {
+        margin-bottom: 0.2em;
+    }
+}

@@ -1,0 +1,70 @@
+@use "src/global";
+
+#home {
+  &.no-scroll {
+    overflow-y: hidden;
+    height: 90vh;
+  }
+
+  .filter-bar-container {
+    position: relative;
+    // height: 124.83px;
+
+    .filter-bar {
+      padding: 0.5em 0;
+      left: 0;
+      right: 0;
+
+      .category-tab {
+        @include global.center();
+        gap: 1em;
+      }
+    }
+
+    .filter-button {
+      position: absolute;
+      right: 1rem;
+      top: 40%;
+      transform: translateY(-50%);
+      border: 1px solid global.$gray-200;
+      padding: 0.6em 0.8em;
+      @include global.center();
+      gap: 0.4em;
+      border-radius: 0.6em;
+      transition: border-color 0.15s linear;
+
+      &:not(.active):hover {
+        border-color: global.$black;
+      }
+
+      &.active {
+        border-color: global.$black;
+
+        &:hover {
+          border-color: global.$gray-200;
+
+          .filter-active {
+            background: global.$gray-200;
+          }
+        }
+      }
+
+      .filter-active {
+        position: absolute;
+        top: -9.5px;
+        right: -9.5px;
+        width: 19px;
+        font-size: 0.8em;
+        border-radius: 50%;
+        display: block;
+        background: global.$black;
+        color: global.$white;
+        transition: all 0.2s linear;
+      }
+    }
+  }
+
+  .hotel-cards {
+    width: 100%;
+  }
+}

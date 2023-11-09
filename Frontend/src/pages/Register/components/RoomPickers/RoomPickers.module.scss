@@ -1,0 +1,48 @@
+.picker {
+  font-size: 20px;
+  
+  .bath-picker {
+    h4 {
+      font-weight: bold;
+    }
+    .bath-picker-button {
+      display: flex;
+      margin-top: 1rem;
+      width: 100%;
+      margin-bottom: 1.5rem;
+      justify-content: space-evenly;
+      .picker-button {
+        display: block;
+        input {
+          display: none;
+        }
+        label {
+          text-align: center;
+          width: 15rem;
+          border: 1px solid #ababab;
+          padding: 1.5rem;
+          opacity: 0.6;
+          transition: all 0.2s;
+          border-radius: 15px;
+        }
+
+        input[type="radio"]:checked {
+          + label {
+            border-color: #4361ee;
+            opacity: 1;
+            color: #4361ee;
+          }
+        }
+
+        @media (min-width: 768px) {
+          display: inline-block;
+        }
+      }
+    }
+  }
+  .price-picker {
+    p {
+      font-weight: bold;
+    }
+  }
+}

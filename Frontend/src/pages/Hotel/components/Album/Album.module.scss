@@ -1,0 +1,69 @@
+@use "src/global";
+
+$gap: 0.6em;
+
+#hotel-album {
+    
+    .initial-hotel-album {
+        overflow: hidden;
+        height: 20em;
+        display: flex;
+        gap: $gap;
+        position: relative;
+        border-radius: 1.2em;
+
+        .preview-hotel-image {
+            height: 100%;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+
+        .left {
+            flex-basis: 65%;
+            height: 100%;
+        }
+
+        .right {
+            flex-basis: 35%;
+            display: flex;
+            gap: $gap;
+            flex-direction: column;
+            align-items: stretch;
+
+            .top-right,
+            .bottom-right {
+                height: calc(50% - ($gap / 2));
+            }
+
+            .bottom-right {
+                display: flex;
+                gap: $gap;
+
+                > * {
+                    width: calc(50% - ($gap / 2));
+                }
+            }
+        }
+
+        #show-all-images {
+            position: absolute;
+            right: 1em;
+            bottom: 1em;
+            background: global.$white;
+            padding: 0.3em 0.4em;
+            border-radius: 0.6em;
+            font-size: 0.9em;
+            transition: 0.2s all linear;
+
+            &:hover {
+                background: global.$black;
+                color: global.$white;
+            }
+        }
+    }
+}

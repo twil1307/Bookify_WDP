@@ -1,0 +1,58 @@
+@use "src/global";
+.hotel_header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    .hotel_banner {
+        flex: 9;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .hotel_name {
+            font-size: 2em;
+            font-weight: 600;
+            padding: 7px 0;
+        }
+        .rating_and_stars {
+            display: flex;
+            align-items: center;
+            .rating_number {
+                color: #6a6a6a;
+                font-size: 0.7em;
+                padding-left: 10px;
+            }
+        }
+        .hotel_guest_limit {
+            color: #6a6a6a;
+            font-size: 1em;
+        }
+    }
+    .hotel_options {
+        flex: 1;
+    }
+}
+
+.hotel_options {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .option_icon {
+        margin-left: 7px;
+        display: inline-block;
+        background-color: #d9d9d9;
+        border-radius: 50%;
+        padding: 2px 6px;
+        transition: all 0.2s;
+        &:hover {
+            cursor: pointer;
+            background-color: #000;
+            color: white;
+        }
+    }
+}
+
+.bookmarked {
+    svg {
+        color: global.$main-color;
+    }
+}

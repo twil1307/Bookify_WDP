@@ -1,0 +1,42 @@
+$background-light: #4361EE;
+$input-width: 330px;
+.container {
+    margin-top: 1.5rem;
+}
+
+.input-update {
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: solid;
+    border-bottom-color: #ababab;
+    border-bottom-width: 1px;
+    background-color: transparent;
+    outline: none;
+    padding: 7px 0;
+    font-size: 16px;
+    width: $input-width;
+}
+
+.button {
+    cursor: pointer;
+}
+
+.label {
+    font-size: 0.75rem;
+}
+
+.form-field {
+    width: 30rem;
+}
+
+.text-input-field {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.button-field {
+    height: 48px;
+    width: 202px;
+    border-radius: 12px;
+}

@@ -1,0 +1,214 @@
+@use "src/global";
+@mixin scrollbars( $size, $foreground-color, $background-color: mix($foreground-color, white, 50%)) {
+    // For Google Chrome
+    &::-webkit-scrollbar {
+        width: $size;
+        height: $size;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: $foreground-color;
+        border-radius: 15px;
+    }
+    &::-webkit-scrollbar-track {
+        background: $background-color;
+        border-radius: 15px;
+    }
+    & {
+        scrollbar-face-color: $foreground-color;
+        scrollbar-track-color: $background-color;
+    }
+}
+
+.task1 {
+    button {
+        font-size: 14px;
+        font-family: global.$default-font;
+        text-transform: none;
+        font-weight: 500;
+        color: black;
+        padding: 0 10px;
+    }
+    button.Mui-selected {
+        color: black;
+        font-weight: 550;
+    }
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 60px;
+    padding-bottom: 310px;
+
+
+    .body {
+        margin-top: 1rem;
+        .grid-container {
+            display: grid;
+            grid-template-columns: 42rem 22rem;
+            .alert {
+                .alert-body {
+                    padding: 0.5rem;
+                    border-radius: 30px;
+                    border: 2px solid #4361ee;
+                    h3 {
+                        color: #4361ee;
+                        font-size: 1.5rem;
+                        margin-left: 1rem;
+                        span {
+                            margin-right: 8px;
+                        }
+                    }
+                    p {
+                        width: 16rem;
+                        text-align: left;
+                        font-weight: bold;
+                        font-size: 10px;
+                        margin: auto;
+                        padding: 0.5rem;
+                        span {
+                            color: #717070;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media (min-width: 768px) {
+        width: 750px;
+        // margin-bottom: 250px;
+    }
+    @media (min-width: 992px) {
+        width: 970px;
+    }
+    @media (min-width: 1200px) {
+        width: 1170px;
+    }
+}
+
+.breadcrumb {
+    // padding: 10px 16px;
+    padding-top: 40px;
+    padding-left: 0;
+    list-style: none;
+    background-color: none;
+    li {
+        display: inline;
+        font-size: 16px;
+        a {
+            color: #000;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: text-decoration 0.5s linear;
+        }
+        a:hover {
+            color: #01447e;
+            text-decoration: underline;
+        }
+    }
+    li+li:before {
+        padding: 8px;
+        color: black;
+        content: ">";
+    }
+}
+
+.title {
+    font-size: 25px;
+}
+
+.sub-title {
+    font-size: 12px;
+    display: none;
+    @media (min-width: 501px) {
+        display: block;
+    }
+}
+
+.nav-bar {
+    width: 40rem;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: solid;
+    border-bottom-color: #ababab;
+    border-bottom-width: 1px;
+    background-color: transparent;
+    outline: none;
+    a {
+        font-size: 0.9rem;
+        color: #6a6a6a;
+        text-align: center;
+        padding: 0 2rem;
+        text-decoration: none;
+        transition: color 0.2s linear;
+        transition: background-color 0.2s linear;
+        &:active {
+            text-decoration: none;
+        }
+        &:focus {
+            padding-bottom: 0.1rem;
+            border-bottom-style: solid;
+            border-bottom-color: #18342870;
+            color: #000000;
+        }
+        &:hover {
+            background-color: rgba(18, 254, 211, 0.656);
+            color: #000000;
+        }
+    }
+}
+
+.nav-bar {
+    margin-top: 1rem;
+}
+
+.input-group {
+    width: 40rem;
+    align-items: left;
+    .select-input {
+        width: 5rem;
+        margin-top: 1rem;
+        border-radius: 18px;
+        padding: 5px;
+        margin-left: calc(100% - 6rem);
+        border: 1px solid #ababab;
+    }
+}
+
+.tabs-active {
+    @include scrollbars(5px, rgba(12, 124, 223, 0.673), pink);
+    width: 41rem;
+    height: 25rem;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.tabs {
+    @include scrollbars(5px, rgba(12, 124, 223, 0.673), pink);
+    width: 42rem;
+    height: 25rem;
+    overflow-y: hidden;
+}
+
+.show-more {
+    margin-top: 1rem;
+    width: 40rem;
+    border: 2px solid #000000;
+    border-radius: 18px;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    transition: all 0.2s linear;
+    &:hover {
+        background-color: #4361ee;
+        border-color: white;
+        color: white;
+    }
+}
+
+.MuiTabPanel-root {
+    padding: 0;
+}

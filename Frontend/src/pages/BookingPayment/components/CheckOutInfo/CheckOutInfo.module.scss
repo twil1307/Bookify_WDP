@@ -1,0 +1,131 @@
+@use "src/global";
+.Check-out-title {
+    font-size: 30px;
+    margin-bottom: 40px;
+    position: relative;
+
+    .back-button {
+        position: absolute;
+        left: -2em;
+        font-size: 0.8em;
+        top: 50%;
+        translate: 0 -50%;
+        transition: all 0.2s linear;
+
+        &:hover {
+            opacity: 0.6;
+        }
+    }
+}
+
+.form-title {
+    margin-bottom: 20px;
+}
+
+.basic-info {
+    border-bottom: 1px solid #ababab;
+    padding-bottom: 20px;
+    .info-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .info-alter {
+            font-size: 13px;
+            text-decoration: underline;
+        }
+    }
+    .info-detail {
+        margin-bottom: 10px;
+        p {
+            color: #6a6a6a;
+        }
+    }
+}
+
+.select-wrapper {
+    border: 1px solid #000;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 10px;
+    padding: 0 10px;
+    text-align: center;
+    select {
+        text-align-last: left;
+        padding-right: 29px;
+        direction: right;
+    }
+}
+
+.select-box {
+    outline: none;
+    // padding: 7px 10px;
+    height: 35px;
+    -webkit-appearance: button;
+    -webkit-border-radius: 2px;
+    width: 100%;
+    // -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    appearance: none;
+    -webkit-padding-end: 30px;
+    -webkit-padding-start: 20px;
+    -webkit-padding-before: 30px;
+    -webkit-padding-after: 20px;
+    -webkit-user-select: none;
+    background-image: url(../../../../../public/photo/select-arrow.png);
+    background-position: center right;
+    background-size: 15px;
+    background-repeat: no-repeat;
+    border: 0px solid #aaa;
+    // color: #555;
+    font-family: global.$default-font;
+    font-size: inherit;
+    margin: 0;
+    overflow: hidden;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pay-title {
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+.money-amount {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.sub-payment-btn {
+    background-color: #4361ee;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    padding: 10px 0px;
+    width: 100%;
+    border-radius: 0.8em;
+    cursor: pointer;
+    font-family: global.$default-font;
+    transition: all 0.2s linear;
+
+    &:hover {
+        opacity: 0.6;
+    }
+
+    &.inactive {
+        cursor: no-drop;
+        opacity: 0.6;
+        background: global.$pink;
+    }
+}
+
+.error-label {
+    margin-top: 0.4em;
+    color: global.$pink;
+}

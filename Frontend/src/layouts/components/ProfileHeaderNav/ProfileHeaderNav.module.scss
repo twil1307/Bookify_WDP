@@ -1,0 +1,55 @@
+@use 'src/global';
+
+.profile-header-nav {
+    position: relative;
+    z-index: 3;
+
+    .profile-button {
+        display: flex;
+        align-items: center;
+        color: global.$gray-600;
+        border-radius: 2em;
+        border: 1px solid global.$gray-200;
+        transition: all 0.2s ease-out;
+        cursor: pointer;
+    
+        &:hover {
+            border-color: global.$main-color;
+        }
+    
+        .profile-icon {
+            display: inline-block;
+            color: global.$black;
+            margin-right: .6em;
+            padding-left: 1em;
+        }
+    
+        .profile-user-avatar {
+            display: inline-block;
+            @include global.vertical-center();
+            font-size: 1.6em;
+            padding: .2em;
+            padding-left: 0;
+        }
+    }
+
+    .profile-nav {
+        position: absolute;
+        color: global.$black;
+        font-size: 0.9em;
+        top: 3.4em;
+        right: 0;
+        padding: 0.4em 0;
+        border-radius: 0.7em;
+        background-color: global.$white;
+        @include global.box-shadow();
+
+        input[type="checkbox"]:not(:checked) ~ * {
+            display: none;
+        }
+
+        input[type="checkbox"]:checked ~ * {
+            display: block;
+        }
+    }
+}

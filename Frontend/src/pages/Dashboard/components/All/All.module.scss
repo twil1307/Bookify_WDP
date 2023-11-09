@@ -1,0 +1,15 @@
+@use "src/global";
+.time-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: global.$default-font;
+}
+
+.dashboard-all {
+    padding-bottom: 300px;
+}
+
+.charts {
+    margin-top: 30px;
+}

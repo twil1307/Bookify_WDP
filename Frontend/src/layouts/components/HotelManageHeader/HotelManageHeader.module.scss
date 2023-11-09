@@ -1,0 +1,27 @@
+@use 'src/global';
+
+#hotel-manage-header {
+    padding: 1em 1em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid global.$gray-200;
+    background: global.$white;
+    z-index: 1;
+
+    .hotel-manage-tabs {
+        @include global.center();
+        gap: 0.4em;
+
+        .link-to {
+            font-size: 0.9em;
+            font-weight: 500;
+            color: global.$gray-500;
+
+            &.active {
+                color: global.$black;
+            }
+        }
+    }
+}

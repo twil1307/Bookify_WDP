@@ -1,0 +1,8 @@
+@use 'src/global';
+
+.guests-search-field {
+    display: inline-block;
+    position: absolute;
+    right: 3em;
+    z-index: 3;
+}

@@ -1,0 +1,33 @@
+.input-time {
+    display: grid;
+    grid-template-columns: 300px 100px;
+    margin-bottom: 1.5rem;
+    color: #6A6A6A;
+    label {
+        padding-right: 1rem;
+    }
+    .input-grid {
+        font-size: 25px;
+        width: 10rem;
+        span {
+            margin-right: 0.5rem;
+        }
+        input {
+            margin-right: 0.5rem;
+            text-align: center;
+            color: #6A6A6A;
+            border: none;
+            width: 2rem;
+            outline: none;
+            border-bottom: 1px solid #6A6A6A;
+            &:focus {
+                color: black
+            }
+        }
+        input[type="text"]:current {
+            +input {
+                color: black;
+            }
+        }
+    }
+}

@@ -1,0 +1,5 @@
+@use 'src/static/styles/form';
+
+.input-field {
+    @include form.input-field();
+}

@@ -1,0 +1,48 @@
+@use "src/global";
+@use "src/static/styles/form";
+@use "src/static/styles/animations";
+.sign-in-modal {
+    &.slide-in-left {
+        @include animations.animate(slide-in-left, 0.25s, animations.$slide, false);
+    }
+    .page-logo {
+        @include form.heading();
+    }
+    .button-wrapper {
+        padding: 0 1em;
+        text-align: center;
+        margin-bottom: 2.5em;
+        div>p {
+            padding: 0.6em 0;
+        }
+        &>div {
+            @include form.button();
+        }
+        .sign-in-button {
+            @include form.normal-button();
+        }
+        .google-sign-in-button {
+            @include form.googled-button();
+        }
+    }
+    .sign-up-link {
+        text-align: center;
+        font-size: 0.8em;
+        .link {
+            color: global.$main-color;
+            cursor: pointer;
+            font-weight: bold;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    .close-button {
+        @include form.close-button();
+    }
+}
+
+.welcome-heading {
+    text-align: center;
+    width: 20rem;
+}

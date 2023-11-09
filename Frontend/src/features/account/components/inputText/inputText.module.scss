@@ -1,0 +1,57 @@
+        .input-row {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        .input-field {
+            display: inline-flex;
+            flex-direction: column;
+        }
+        
+        .label {
+            font-size: 0.75rem;
+        }
+        
+        .input-update {
+            border-top-style: hidden;
+            border-right-style: hidden;
+            border-left-style: hidden;
+            border-bottom-style: solid;
+            border-bottom-color: #ababab;
+            border-bottom-width: 1px;
+            background-color: transparent;
+            outline: none;
+            padding: 7px 0;
+            font-size: 16px;
+            width: 330px;
+        }
+        
+        .input-password {
+            border-top-style: hidden;
+            border-right-style: hidden;
+            border-left-style: hidden;
+            border-bottom-style: solid;
+            border-bottom-color: #ababab;
+            border-bottom-width: 1px;
+            background-color: transparent;
+            outline: none;
+            padding: 7px 0;
+            font-size: 16px;
+            width: 317px;
+        }
+        
+        .text-input-field {
+            display: inline-flex;
+            flex-direction: column;
+        }
+        
+        .button {
+            position: relative;
+            cursor: pointer;
+            border-bottom-style: solid;
+            border-bottom-color: #ababab;
+            border-bottom-width: 1px;
+            background-color: transparent;
+            outline: none;
+            padding: 0.45rem 0;
+        }
