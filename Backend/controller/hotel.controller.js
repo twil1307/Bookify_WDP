@@ -32,6 +32,12 @@ module.exports.signNewHotel = async (req, res, next) => {
   session.startTransaction();
   const imagesPath = retrieveNewHotelImagePath(req);
   try {
+    const hotel = await Hotel.find({ user: req.user._id });
+
+    if (hotel) {
+      throw new AppError("This account is already a hotel owner", 400);
+    }
+
     // Get image paths only for backgroundImage
     const { backgroundImage, hotelImages, viewImages } =
       retrieveNewHotelImage(req);
@@ -213,7 +219,26 @@ module.exports.getHotelTypes = catchAsync(async (req, res) => {
 module.exports.getOwnerHotel = catchAsync(async (req, res) => {
   const userId = req.user._id;
 
-  const hotel = await Hotel.findOne({ user: userId });
+  const hotel = await Hotel.findOne({ user: userId })
+    .populate("hotelType")
+    .populate({
+      path: "user",
+      select: "username subName name avatar createdAt",
+    })
+    .populate({
+      path: "hotelAmenities",
+      populate: {
+        path: "amenityTypeId",
+        select: "-createdAt -updatedAt",
+      },
+    })
+    .populate("roomType")
+    .populate("reviews")
+    .populate("Vouchers")
+    .populate({
+      path: "accessibility",
+    })
+    .populate("rating");
 
   return res.status(200).json({
     hotel: hotel,
