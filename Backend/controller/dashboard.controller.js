@@ -1,5 +1,4 @@
 const Hotel = require("../models/Hotel");
-const Booking = require("../models/BookingDetail");
 const User = require("../models/User");
 const catchAsync = require("../utils/catchAsync");
 const mongoose = require("mongoose");
@@ -18,6 +17,7 @@ const {
   getDashboardExchangeYearly,
   extractArray,
 } = require("../service/dashBoardService");
+const BookingDetail = require("../models/BookingDetail");
 
 // Get all hotel for dashboard (To enable hotel (?))
 module.exports.getAllHotelsDashBoard = catchAsync(async (req, res, next) => {
@@ -54,7 +54,7 @@ module.exports.verifyHotel = catchAsync(async (req, res, next) => {
 module.exports.verifyBooking = catchAsync(async (req, res, next) => {
   const bookingId = req.params.bookingId;
 
-  await Booking.findByIdAndUpdate(bookingId, { $set: { status: true } });
+  await BookingDetail.findByIdAndUpdate(bookingId, { $set: { status: true } });
 
   return res.status(200).json({
     message: "Accept booking successfully",
@@ -64,7 +64,7 @@ module.exports.verifyBooking = catchAsync(async (req, res, next) => {
 module.exports.disableBooking = catchAsync(async (req, res, next) => {
   const bookingId = req.params.bookingId;
 
-  const booking = await Booking.findByIdAndUpdate(bookingId, {
+  const booking = await BookingDetail.findByIdAndUpdate(bookingId, {
     $set: { status: null },
   });
 
@@ -92,18 +92,18 @@ module.exports.getHotelIncomeMonths = catchAsync(async (req, res, next) => {
 
   // in case request sent not include month, server will return the whole 12 months data
   if (!month) {
-    const bookingData = await Booking.find({ hotelId: hotelId }).select(
+    const bookingData = await BookingDetail.find({ hotelId: hotelId }).select(
       "createdAt price"
     );
-    const { monthsIncome, total } = await getHotelIncome(bookingData);
+    const { daysObj, total } = await getHotelIncome(bookingData);
 
     return res.status(200).json({
-      income: monthsIncome,
+      income: daysObj,
       total: total,
     });
   } else {
     // if there is month, server will return the a specific month data
-    const bookingData = await Booking.find({
+    const bookingData = await BookingDetail.find({
       $and: [
         {
           $expr: { $eq: [{ $month: "$createdAt" }, month] },
@@ -145,7 +145,7 @@ module.exports.getHotelBookingAll = catchAsync(async (req, res, next) => {
 
   switch (type) {
     case "incoming":
-      hotelBookingData = await Booking.find({
+      hotelBookingData = await BookingDetail.find({
         $and: [
           { checkin: { $gt: currentDate } },
           { hotelId: hotelId },
@@ -154,12 +154,12 @@ module.exports.getHotelBookingAll = catchAsync(async (req, res, next) => {
       });
       break;
     case "pending":
-      hotelBookingData = await Booking.find({
+      hotelBookingData = await BookingDetail.find({
         $and: [{ hotelId: hotelId }, { status: false }],
       });
       break;
     case "booked":
-      hotelBookingData = await Booking.find({
+      hotelBookingData = await BookingDetail.find({
         $and: [
           { checkin: { $lte: currentDate } },
           { checkout: { $gte: currentDate } },
@@ -169,7 +169,7 @@ module.exports.getHotelBookingAll = catchAsync(async (req, res, next) => {
       });
       break;
     case "checkout":
-      hotelBookingData = await Booking.find({
+      hotelBookingData = await BookingDetail.find({
         $and: [
           { checkout: { $lt: currentDate } },
           { hotelId: hotelId },
@@ -207,7 +207,7 @@ module.exports.getHotelBookingToday = catchAsync(async (req, res, next) => {
 
   switch (type) {
     case "pending":
-      hotelBookingData = await Booking.find({
+      hotelBookingData = await BookingDetail.find({
         $and: [
           { $expr: { $eq: [{ $dayOfMonth: "$checkin" }, currentDay] } },
           { $expr: { $eq: [{ $month: "$checkin" }, currentMonth] } },
@@ -229,7 +229,7 @@ module.exports.getHotelBookingToday = catchAsync(async (req, res, next) => {
         });
       break;
     case "booked":
-      hotelBookingData = await Booking.find({
+      hotelBookingData = await BookingDetail.find({
         $and: [
           { $expr: { $eq: [{ $dayOfMonth: "$checkin" }, currentDay] } },
           { $expr: { $eq: [{ $month: "$checkin" }, currentMonth] } },
@@ -251,7 +251,7 @@ module.exports.getHotelBookingToday = catchAsync(async (req, res, next) => {
         });
       break;
     case "checkout":
-      hotelBookingData = await Booking.find({
+      hotelBookingData = await BookingDetail.find({
         $and: [
           { $expr: { $eq: [{ $dayOfMonth: "$checkout" }, currentDay] } },
           { $expr: { $eq: [{ $month: "$checkout" }, currentMonth] } },

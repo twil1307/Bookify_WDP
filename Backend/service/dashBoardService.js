@@ -111,7 +111,8 @@ const getHotelIncomeMonths = catchAsync(async (req, res, next) => {
 });
 
 const getDashboardExchangeMonthly = catchAsync(async (req, res, next) => {
-  const year = req.query.year;
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
   // if there is month, server will return the a specific month data
   const bookingData = await Booking.find({
     $and: [
@@ -122,6 +123,8 @@ const getDashboardExchangeMonthly = catchAsync(async (req, res, next) => {
   })
     .select("createdAt price user")
     .populate("user", "subName name username");
+
+  console.log(bookingData);
 
   const { monthlyData, total } = await getDashboardIncomeMonthly(bookingData);
 
@@ -151,6 +154,7 @@ const getDashboardIncomeHistory = async (bookingData) => {
 };
 
 const getDashboardIncomeMonthly = async (bookingData) => {
+  console.log(bookingData);
   const monthShortNames = [
     "Jan",
     "Feb",
@@ -300,7 +304,7 @@ const getHotelVisitors = catchAsync(async (req, res, next) => {
   const dailyBooking = getHotelBookingByDays(numberOfBooking);
 
   const [dailyViewLabel, dailyViewValue] = extractArray(dailyViews);
-  const [dailyBookingLabel, dailyBookingValue] = extractArray(dailyViews);
+  const [dailyBookingLabel, dailyBookingValue] = extractArray(dailyBooking);
 
   return res.status(200).json({
     totalViewsNumber: numberOfVisitors.length,

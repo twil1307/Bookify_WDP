@@ -4,6 +4,7 @@ const catchAsync = require("../utils/catchAsync");
 const Hotel = require("../models/Hotel");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const { ADMIN } = require("../enum/Role");
 
 const isExactUser = catchAsync(async (req, res, next) => {
   const userId = mongoose.Types.ObjectId(req.params.userId);
@@ -41,12 +42,12 @@ const isExactHost = catchAsync(async (req, res, next) => {
     return res.status(404).json({ error: "Hotel not found" });
   }
 
-  if (!userId.equals(hotel.user)) {
+  if (userId.equals(hotel.user) || req.user.role === ADMIN) {
+    return next();
+  } else {
     return res
       .status(401)
       .json({ error: "You are not authorized to access this" });
-  } else {
-    next();
   }
 });
 

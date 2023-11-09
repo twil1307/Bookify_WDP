@@ -1,6 +1,6 @@
 const Hotel = require("../models/Hotel");
 const HotelType = require("../models/HotelType");
-const Booking = require("../models/Booking");
+const BookingDetail = require("../models/BookingDetail");
 const Review = require("../models/Review");
 const Room = require("../models/Room");
 const Reports = require("../models/Report");
@@ -227,7 +227,13 @@ module.exports.getHotel = catchAsync(async (req, res, next) => {
       path: "user",
       select: "username subName name avatar createdAt",
     })
-    .populate("hotelAmenities", "-createdAt -updatedAt")
+    .populate({
+      path: "hotelAmenities",
+      populate: {
+        path: "amenityTypeId",
+        select: "-createdAt -updatedAt",
+      },
+    })
     .populate("roomType")
     .populate("reviews")
     .populate("Vouchers")
@@ -446,7 +452,7 @@ const getHotelsStatusWithCheckInAndCheckOut = async (
 
   // Filter out _id only
   // Get all (distinct) the rooms Ids which is overlapped in the check in and check out date range
-  const bookingCheck = await Booking.distinct("roomId", {
+  const bookingCheck = await BookingDetail.distinct("roomId", {
     $and: [
       {
         $or: [
@@ -585,7 +591,7 @@ module.exports.checkIsUserEverStayHere = catchAsync(async (req, res, next) => {
   const userId = req.user._id;
   const hotelId = req.params.hotelId;
 
-  const userBooking = await Booking.find({
+  const userBooking = await BookingDetail.find({
     user: userId,
     hotelId: hotelId,
   });

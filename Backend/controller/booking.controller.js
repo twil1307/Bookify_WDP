@@ -7,6 +7,7 @@ const AppError = require("../utils/appError");
 const BookingDetail = require("../models/BookingDetail");
 const Room = require("../models/Room");
 const { groupRoomIdBy } = require("../service/bookingService");
+const RoomType = require("../models/RoomType");
 
 module.exports.bookingRoom = catchAsync(async (req, res, next) => {
   const session = await mongoose.startSession();
@@ -24,6 +25,9 @@ module.exports.bookingRoom = catchAsync(async (req, res, next) => {
       throw new AppError("Pick a room please!", 400);
     }
 
+    // get hotel Id
+    const hotelId = bookingRoomRequestData[0].hotelId;
+
     // get out list room type booking request
     const bookingRoomRequest = []; // list type request (include a whole booking detail model)
     const roomTypeRequestId = []; // list room type id
@@ -32,6 +36,7 @@ module.exports.bookingRoom = catchAsync(async (req, res, next) => {
 
     bookingRoomRequestData.forEach((bookingData) => {
       const bookingObjData = new BookingDetail(bookingData);
+      bookingObjData.user = req.user._id;
       // change date time (default sooner 1 day ?due to Z?)
       bookingObjData.checkin = new Date(bookingData.checkin + "Z");
       bookingObjData.checkout = new Date(bookingData.checkout + "Z");
@@ -82,8 +87,12 @@ module.exports.bookingRoom = catchAsync(async (req, res, next) => {
 
       // if the room type is fully booked push into an error array
       if (!availableRoomId || availableRoomId.length === 0) {
+        const roomTypeName = await RoomType.findById(
+          roomTypeRequestId[i]
+        ).select("bedType bathroomType roomPrice");
+
         roomCheckIsFullyBooked.push(
-          `The room type number ${i} with id: ${roomTypeRequestId[i]} is fully booked`
+          `The room type number ${i + 1} (${roomTypeName}) is fully booked`
         );
         continue;
       }
@@ -107,6 +116,7 @@ module.exports.bookingRoom = catchAsync(async (req, res, next) => {
     const guessBookingRequest = new Booking();
     guessBookingRequest.bookingDetail = bookingDetailIds;
     guessBookingRequest.user = req.user._id;
+    guessBookingRequest.hotelId = hotelId;
     console.log(guessBookingRequest);
 
     guessBookingRequest.save({ session });
@@ -173,7 +183,6 @@ const bookingDateDuplicateCheck = async (
   hotelId,
   roomType
 ) => {
-  console.log(checkin);
   const bookingCheck = await BookingDetail.distinct("roomId", {
     $and: [
       {

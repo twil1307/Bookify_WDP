@@ -318,7 +318,7 @@ module.exports.getUserBookmarkedHotels = catchAsync(async (req, res, next) => {
   const hotelBookmarkedId = req.user.hotelBookmarked;
 
   const hotels = await Hotel.find({ _id: { $in: hotelBookmarkedId } }).select(
-    "_id hotelName country district address roomType rating backgroundImg"
+    "_id hotelName country district address roomType rating backgroundImage"
   );
 
   const bookmarkHotels = hotels.map((hotel) => {

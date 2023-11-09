@@ -21,6 +21,11 @@ const bookingDetailSchema = new Schema(
       required: [true, "Hotel booking required"],
       ref: "Hotel",
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: [true, "User booking required"],
+      ref: "User",
+    },
     price: {
       type: Number,
       required: [true, "Price required"],
