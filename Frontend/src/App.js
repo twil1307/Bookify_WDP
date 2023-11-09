@@ -19,6 +19,42 @@ import { modalReducer, toastMessageReducer } from "./utils/reducers";
 import { Modal, ToastMessage, ToastMessageBox } from "./components";
 import { Container } from "@mui/material";
 import VerifyAuth from "./utils/hooks/verifyAuth";
+import fetchIntercept from "fetch-intercept";
+import refreshJwt from "./services/user/refershJwt";
+import LogOut from "./services/user/LogOut";
+
+//interceptor
+const originalRequest = {};
+const unregister = fetchIntercept.register({
+  request: function (url, config) {
+    originalRequest.url = url;
+    originalRequest.config = config;
+    return [url, config];
+  },
+
+  requestError: function (error) {
+    // Called when an error occured during another 'request' interceptor call
+    return Promise.reject(error);
+  },
+
+  response: function (response) {
+    if (response.status == 469) {
+      const { url, config } = originalRequest;
+      refreshJwt().then((resp) => {
+        return fetch(url, config);
+      });
+    } else if (response.status == 479) {
+      localStorage.removeItem("user");
+      LogOut();
+    }
+    return response;
+  },
+
+  responseError: function (error) {
+    // Handle an fetch error
+    return Promise.reject(error);
+  },
+});
 
 const appInitState = {
   isOpen: false,
@@ -41,7 +77,7 @@ function App({ children }) {
     setUser(userLocal);
   }, [firstLogin, userLocal]);
   useEffect(() => {
-    websocket.current = new WebSocket(`${websocketEndPoint}/${user?._id}`);
+    // websocket.current = new WebSocket(`${websocketEndPoint}/${user?._id}`);
     // console.log(user);
     // console.log(isLogin);
     // updateData();
@@ -76,7 +112,7 @@ function App({ children }) {
 
   useEffect(() => {
     const nav = navigator.geolocation;
-    console.log("rerender");
+    // console.log("rerender");
     nav.getCurrentPosition((pos) => {
       if (pos) {
         const { latitude, longitude } = pos?.coords;

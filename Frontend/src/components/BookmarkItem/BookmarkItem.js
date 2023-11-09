@@ -15,18 +15,18 @@ function BookmarkItem({ hotel, handleDeleted }) {
     });
   };
   return (
-    <Link to={`hotel/${hotel}`}>
-      <div
-        className={bookmarkItemStyles["bookmark-item"]}
-        style={{
-          backgroundImage: `url(http://localhost:${process.env.REACT_APP_BACK_END_PORT}${hotel?.backgroundImage})`,
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
-        tabIndex="-1"
-      >
-        <div className={bookmarkItemStyles["item-infor"]} tabIndex="-1">
+    <div
+      className={bookmarkItemStyles["bookmark-item"]}
+      style={{
+        backgroundImage: `url(http://localhost:${process.env.REACT_APP_BACK_END_PORT}${hotel?.backgroundImage})`,
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}
+      tabIndex="-1"
+    >
+      <div className={bookmarkItemStyles["item-infor"]} tabIndex="-1">
+        <Link to={`hotel/${hotel}`}>
           <div className={bookmarkItemStyles["infor-left"]}>
             <h4 className={bookmarkItemStyles["hotel-name"]}>
               {hotel?.hotelName}
@@ -35,18 +35,18 @@ function BookmarkItem({ hotel, handleDeleted }) {
               {`${hotel?.address}, ${hotel?.district}, ${hotel?.city}, ${hotel?.country}`}
             </p>
           </div>
-          <div
-            className={bookmarkItemStyles["infor-right"]}
-            tabIndex="-1"
-            onClick={deleteMarkBooked}
-          >
-            <button className={bookmarkItemStyles["unbookmark-button"]}>
-              <FontAwesomeIcon icon={faXmark} />
-            </button>
-          </div>
+        </Link>
+        <div
+          className={bookmarkItemStyles["infor-right"]}
+          tabIndex="-1"
+          onClick={deleteMarkBooked}
+        >
+          <button className={bookmarkItemStyles["unbookmark-button"]}>
+            <FontAwesomeIcon icon={faXmark} />
+          </button>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 

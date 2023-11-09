@@ -1,21 +1,15 @@
 import optionListStyles from "./OptionList.module.scss";
-import {
-  ModalContext,
-  UserContext,
-  ToastMessageContext,
-} from "@/utils/contexts";
+import { ModalContext, UserContext } from "@/utils/contexts";
 import { useContext, useMemo } from "react";
 import { getSignUpModal, getSignInModal } from "@/utils/reducers/modalReducer";
 import { useNavigate } from "react-router-dom";
-import { getFailureToastMessage } from "@/utils/reducers/toastMessageReducer";
-import { useSignUser } from "@/utils/hooks";
 import VerifyAuth from "@/utils/hooks/verifyAuth";
+import LogOut from "@/services/user/LogOut";
 
 function OptionList({ handleClick }) {
   const { userLocal } = VerifyAuth();
   const { dispatch } = useContext(ModalContext);
   const { user, setUser } = useContext(UserContext);
-  const { SignOut } = useSignUser();
   const navigate = useNavigate();
 
   const options = useMemo(
@@ -101,7 +95,7 @@ function OptionList({ handleClick }) {
           localStorage.removeItem("user");
           e.stopPropagation();
           setUser(userLocal);
-          SignOut();
+          LogOut();
         },
       },
       {

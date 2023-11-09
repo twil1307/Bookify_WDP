@@ -11,7 +11,7 @@ export default async function refreshJwt() {
   try {
     return await fetch(url, option).then((resp) => {
       console.log("token refresh");
-      return CheckStatus(resp.status);
+      return resp.json();
     });
   } catch (e) {
     console.log(e);

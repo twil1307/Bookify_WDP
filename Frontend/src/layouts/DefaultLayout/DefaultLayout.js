@@ -30,6 +30,7 @@ function DefaultLayout() {
 
   const getBookmarkedHotel = () => {
     GetBookMarked().then((resp) => {
+      console.log(resp.bookmarkedHotel);
       setBookmarkedHotels(resp.bookmarkedHotel);
     });
   };
@@ -100,7 +101,7 @@ function DefaultLayout() {
           }}
         >
           <Suspense fallback={<div>Loading...</div>}>
-            <Outlet context={[bookmarkedHotels,setBookmarkedHotels]} />
+            <Outlet context={[bookmarkedHotels, setBookmarkedHotels]} />
           </Suspense>
         </Box>
         {/* <Footer /> */}

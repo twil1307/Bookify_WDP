@@ -24,7 +24,7 @@ function BookmarkBox({ bookmarkedHotels, setBookmarkedHotels }) {
       isScrollable={bookmarkedHotels?.length > 8}
       activeIndex={0}
     >
-      {bookmarkedHotels?.map((hotel) => (
+      {bookmarkedHotels?.map((hotel, index) => (
         <BookmarkItem
           hotel={hotel}
           key={hotel.hotelId}

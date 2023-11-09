@@ -37,7 +37,7 @@ function HotelCard({
   const [bookmarkedHotels, setBookmarkedHotels] =
     useOutletContext(BookmarkContext);
   useEffect(() => {
-    // console.log(
+    console.log(bookmarkedHotels);
     //   bookmarkedHotels?.map((il) => {
     //     if (il._id == hotelId) return true;
     //     return false;
@@ -53,7 +53,7 @@ function HotelCard({
     )
       setBookmarked(true);
     else setBookmarked(false);
-  }, []);
+  }, [user]);
 
   const handleBookmark = async (event) => {
     event.preventDefault();
