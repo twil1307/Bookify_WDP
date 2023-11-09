@@ -2,7 +2,6 @@ import bookingItemStyles from "./BookingItemStyles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { useState, memo } from "react";
-var options = {};
 const getBookingGuestsTitle = (guests) => {
   const bookingGuestsTitle = Object.keys(guests).reduce((prev, key) => {
     if (guests[key] === 0) {
@@ -44,7 +43,7 @@ function BookingItem({ booking, handleBookingAction }) {
           )}
         </b>
         <p>
-          {roomType?.bedType} -{" "}
+          {booking?.roomId.roomTypeId?.bedType} -{" "}
           {getBookingGuestsTitle({
             adult: booking?.aldult,
             child: booking?.child,

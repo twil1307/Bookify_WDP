@@ -2,12 +2,6 @@ import DropdownBox from "../DropdownBox";
 import BookmarkItem from "../BookmarkItem";
 
 function BookmarkBox({ bookmarkedHotels, setBookmarkedHotels }) {
-  const handleDeleted = (deletedHotelId) => {
-    setBookmarkedHotels((list) => {
-      return list.filter(({ hotelId }) => hotelId !== deletedHotelId);
-    });
-  };
-
   // const tabs = useMemo(() => [
   //   {
   //     title: "Tất cả",
@@ -23,11 +17,11 @@ function BookmarkBox({ bookmarkedHotels, setBookmarkedHotels }) {
       isScrollable={bookmarkedHotels?.length > 8}
       activeIndex={0}
     >
-      {bookmarkedHotels?.map((hotel) => (
+      {bookmarkedHotels?.map((hotel, index) => (
         <BookmarkItem
           hotel={hotel}
-          key={hotel.hotelId}
-          handleDeleted={handleDeleted}
+          key={index}
+          setBookmarkedHotels={setBookmarkedHotels}
         />
       ))}
     </DropdownBox>
