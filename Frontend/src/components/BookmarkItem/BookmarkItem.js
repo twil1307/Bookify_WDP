@@ -6,12 +6,12 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "@/utils/contexts";
 import AddDeleteBookMarked from "@/services/user/AddDeleteBookMarked";
 
-function BookmarkItem({ hotel, handleDeleted }) {
+function BookmarkItem({ hotel, setBookmarkedHotels }) {
   const { user } = useContext(UserContext);
   // console.log(hotel);
   const deleteMarkBooked = () => {
     AddDeleteBookMarked(hotel._id).then((resp) => {
-      handleDeleted(hotel._id);
+      setBookmarkedHotels(resp.bookmarks);
     });
   };
   return (
