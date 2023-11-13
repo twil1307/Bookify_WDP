@@ -32,7 +32,9 @@ module.exports.signNewHotel = async (req, res, next) => {
   session.startTransaction();
   const imagesPath = retrieveNewHotelImagePath(req);
   try {
-    const hotel = await Hotel.find({ user: req.user._id });
+    const hotel = await Hotel.findOne({ user: req.user._id });
+
+    console.log(hotel);
 
     if (hotel) {
       throw new AppError("This account is already a hotel owner", 400);
