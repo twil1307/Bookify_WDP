@@ -60,7 +60,7 @@ const appInitState = {
   isOpen: false,
   isOverlay: false,
 };
-const sessionUser = {};
+const sessionUser = {}
 
 const websocketEndPoint = `ws://localhost:${process.env.REACT_APP_BACK_END_PORT}/notification`;
 
