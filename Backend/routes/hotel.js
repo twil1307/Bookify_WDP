@@ -83,7 +83,7 @@ router.post(
   hotelController.reviewHotel
 );
 
-// review hotel
+// report hotel
 router.post(
   "/:hotelId/report",
   formDataRetrieve.none(),
@@ -98,7 +98,7 @@ router.get(
   hotelController.checkIsUserEverStayHere
 );
 
-router.get(
+router.post(
   "/:hotelId/roomTypeAvaibility/:roomTypeId",
   formDataRetrieve.none(),
   jwtMiddleware,
