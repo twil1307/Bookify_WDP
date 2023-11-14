@@ -44,11 +44,13 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
     roomTypeBox: false,
     datePickerBox: false,
     guestsPickerBox: false,
+    roomNumPickerBox: false,
   });
   const [chooseType, setChooseType] = useState(null);
   const [selectDays, setSelectedDays] = useState();
   const [guests, setGuests] = useState(guestsInitial);
   const [price, setPrice] = useState();
+  const [roomNum, setRoomNum] = useState();
   const total = useMemo(() => {
     return Object.keys(guests).reduce((prev, key) => {
       if (key !== "pet") {
@@ -237,6 +239,42 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
               </div>
             </div>
           )}
+        </div>
+        <div className={bookingStyles["guests-input"]}>
+          <div className={bookingStyles["label"]}>
+            <p className={bookingStyles["title"]}>Khách</p>
+            <div className={bookingStyles["input-value"]}>
+              {roomNum ? `${roomNum} phòng` : "Chọn số lượng phòng"}
+              {chooseType ? (
+                <button
+                  className={bookingStyles["float-right"]}
+                  onClick={() => handleClick("roomNumPickerBox")}
+                >
+                  <FontAwesomeIcon icon={faAngleDown} />
+                </button>
+              ) : (
+                <></>
+              )}
+            </div>
+            {isSelectBoxOpen["guestsPickerBox"] && (
+              <div
+                className={[
+                  bookingStyles["select-box"],
+                  bookingStyles["select-box--right"],
+                ].join(" ")}
+              >
+                <GuestsPicker
+                  guests={guests}
+                  setGuests={setGuests}
+                  totalLimit={chooseType.maxGuest}
+                  description={description}
+                  isAllowPet={isAllowPet}
+                  title={title}
+                  limit={chooseType.maxGuest}
+                />
+              </div>
+            )}
+          </div>
         </div>
         <div className={bookingStyles["guests-input"]}>
           <div className={bookingStyles["label"]}>
