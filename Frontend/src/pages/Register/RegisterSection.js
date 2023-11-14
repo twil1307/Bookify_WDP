@@ -14,7 +14,10 @@ import registerStyles from "./Register.module.scss";
 import { useClsx } from "@/utils/hooks";
 import { useNavigate } from "react-router-dom";
 import tabs from "./tabs";
-import { getSuccessToastMessage } from "@/utils/reducers/toastMessageReducer";
+import {
+  getSuccessToastMessage,
+  getFailureToastMessage,
+} from "@/utils/reducers/toastMessageReducer";
 import {
   CreateHotel,
   getDefaultAmenities,
@@ -168,11 +171,20 @@ function RegisterSection({
         extraInfor,
         roomInfor,
         roomType
-      );
-
-      setToastMessages(
-        getSuccessToastMessage({ message: "Đăng ký khách sạn thành công" })
-      );
+      ).then((resp) => {
+        if (resp.message == "This account is already a hotel owner") {
+          setToastMessages(
+            getFailureToastMessage({ message: "Đăng ký khách sạn thất bại" })
+          );
+        } else {
+          setToastMessages(
+            getSuccessToastMessage({ message: "Đăng ký khách sạn thành công" })
+          );
+          setTimeout(() => {
+            navigate("/");
+          });
+        }
+      });
     }
     // navigate("/manager/hotel");
   };
