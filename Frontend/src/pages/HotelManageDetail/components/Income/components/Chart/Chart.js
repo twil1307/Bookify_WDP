@@ -23,7 +23,13 @@ function ChartComponent({
   return (
     <div>
       <div className={ChartStyle["static"]}>
-        <h1>${total}</h1>
+        <h1>
+          ${" "}
+          {(total * 24000)
+            .toString()
+            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}{" "}
+          VND
+        </h1>
         <p>Đã thu được trong tháng {months}</p>
       </div>
 

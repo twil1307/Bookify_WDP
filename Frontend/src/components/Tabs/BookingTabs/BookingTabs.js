@@ -5,16 +5,25 @@ const BookingItem = lazy(() => import("@/components/BookingItem"));
 
 function BookingTabs({ list, setBookingList }) {
   const handleBookingAction = (_id, action) => {
-    setBookingList((list) => {
-      return list.reduce((prev, booking) => {
-        if (booking._id === _id) {
-          booking.status = action === "accept" ? true : false;
-          if (booking.status == true) return [...prev, booking];
+    setBookingList(
+      list.filter((prev) => {
+        if (action === "accept") {
+          if (prev._id === _id) {
+            prev.status = "true";
+            return prev;
+          } else {
+            return prev;
+          }
         } else {
-          return prev;
+          if (prev._id === _id) {
+            // return;
+          } else {
+            return prev;
+          }
         }
-      }, []);
-    });
+      }, [])
+    );
+    console.log();
   };
 
   return (
