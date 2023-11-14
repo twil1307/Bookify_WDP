@@ -1,10 +1,9 @@
-import { guestsInitial } from "@/pages/Hotel/hotelInitState";
 import style from "./room.module.scss";
 export default function RoomPicker({
   roomType,
   setChooseType,
   handleClick,
-  setGuests,
+  handleResetState,
 }) {
   return (
     <div className={style["container"]}>
@@ -14,12 +13,16 @@ export default function RoomPicker({
           className={style["item"]}
           onClick={() => {
             setChooseType({ ...type, index: index });
-            setGuests(guestsInitial);
+            handleResetState();
             handleClick("roomTypeBox");
           }}
         >
           <p>
-            Phòng loại {index + 1}: ${type.roomPrice}/đêm
+            Phòng loại {index + 1}:{" "}
+            {(type.roomPrice * 24000)
+              .toString()
+              .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}{" "}
+            VND/đêm
           </p>
           <p>
             ({type.bedNum} giường,{type.bathNum} bồn tắm)

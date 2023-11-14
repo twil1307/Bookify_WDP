@@ -20,7 +20,7 @@ function Details({
   roomType,
   rating,
   hotelId,
-  signAt,
+  createdAt,
   country,
   address,
   checkin,
@@ -30,7 +30,6 @@ function Details({
 }) {
   // console.log(rating);
   const [value, setValue] = useState("1");
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -40,7 +39,7 @@ function Details({
       <div className={DetailStyle["sign_time"]}>
         <h4>
           Đăng ký vào{" "}
-          {signAt ? format(new Date(signAt), "dd/MM/yyyy") : "năm 2022"}{" "}
+          {createdAt ? format(new Date(createdAt), "dd/MM/yyyy") : "năm 2023"}{" "}
         </h4>
       </div>
       <div className={DetailStyle["tabs_list"]}>

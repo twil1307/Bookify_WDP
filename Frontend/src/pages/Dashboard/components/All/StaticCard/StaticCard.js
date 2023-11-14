@@ -14,9 +14,9 @@ function StaticCard({ prevMonthData, currentMonthData, month }) {
     currentMonthData.overallData,
     month
   );
-  useEffect(() => {
-    console.log(staticTracking);
-  }, [prevMonthData, currentMonthData]);
+  // useEffect(() => {
+  //   console.log(staticTracking);
+  // }, [prevMonthData, currentMonthData]);
 
   const options = [
     {

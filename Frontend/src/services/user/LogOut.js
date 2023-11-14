@@ -6,7 +6,7 @@ export default async function LogOut() {
     credentials: "include",
     withCredentials: true,
   };
-  console.log("Log out");
+  // console.log("Log out");
   try {
     return await fetch(url, option).then((response) => {
       if (CheckStatus(response.status)) return true;

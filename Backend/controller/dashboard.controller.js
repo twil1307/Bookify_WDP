@@ -69,12 +69,6 @@ module.exports.disableBooking = catchAsync(async (req, res, next) => {
   try {
     const bookingId = req.params.bookingId;
 
-    const bookingDetail = await BookingDetail.findById(bookingId).select(
-      "status"
-    );
-
-    console.log(bookingDetail);
-
     const booking = await BookingDetail.findByIdAndUpdate(
       bookingId,
       {

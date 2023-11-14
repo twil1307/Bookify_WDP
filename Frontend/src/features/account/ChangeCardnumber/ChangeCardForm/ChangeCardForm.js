@@ -16,11 +16,9 @@ import {
 import { CircleLoading } from "@/components";
 import { getChangeCard } from "@/utils/reducers/modalReducer";
 import { getSuccessToastMessage } from "@/utils/reducers/toastMessageReducer";
-import { useUser } from "@/utils/hooks";
 import { UpdateBankingCard } from "@/services/user";
 
 function ChangeCardForm({ setModalOpen }) {
-  const { updateCard } = useUser();
   const [cardNum, setCardnum] = useState("");
   const { user, setUser } = useContext(UserContext);
   const { setToastMessages } = useContext(ToastMessageContext);

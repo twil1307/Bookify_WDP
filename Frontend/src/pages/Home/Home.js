@@ -22,6 +22,8 @@ import {
   roomAndBedRoomInitialState,
 } from "./advanceFilterInitState";
 import { useClsx } from "@/utils/hooks";
+import { FilterHotel, GetAdvanceSearchHotels } from "@/services/hotel";
+import getAdvancedTab from "@/services/hotel/getAdvancedTab";
 
 const HotelCards = lazy(() => import("./components/HotelCards"));
 
@@ -105,6 +107,14 @@ function Home() {
 
   const getAdvanceFilterHotel = () => {
     // console.log(roomAndBedRoom, houseType, price, amenitiesPicked);
+    FilterHotel(roomAndBedRoom, houseType, price, amenitiesPicked).then(
+      (data) => {
+        // console.log(data);
+        setHotelsList(data.hotels);
+        setAdvanceFilterOpen(false);
+        setNumberOfFilterPicked(getNumberOfFilterItemPicked());
+      }
+    );
   };
 
   const getHotel = () => {
@@ -120,25 +130,25 @@ function Home() {
       });
   };
 
-  const getAdvanceSearchHotel = async () => {};
+  const getAdvanceSearchHotel = async () => {
+    setLoading(true);
+    await GetAdvanceSearchHotels(place, selectedDays, guests).then((data) => {
+      setHotelsList(data.hotels);
+      setLoading(false);
+    });
+  };
 
-  const trendingHotels = [
-    {
-      backgroundImage:
-        "photo/Hotel-Gardens-The-10-Most-Beautiful-Around-the-World-1.jpg",
-      name: "Hotel 1",
-    },
-    {
-      backgroundImage:
-        "photo/Hotel-Gardens-The-10-Most-Beautiful-Around-the-World-1.jpg",
-      name: "Hotel 2",
-    },
-    {
-      backgroundImage:
-        "photo/Hotel-Gardens-The-10-Most-Beautiful-Around-the-World-1.jpg",
-      name: "Hotel 3",
-    },
-  ];
+  useEffect(() => {
+    // console.log(type);
+    if (type.filterType || type.filterTypeId) {
+      const filterPayload = `${type.filterType}=${type.filterTypeId}`;
+      getAdvancedTab(filterPayload).then((result) => {
+        setHotelsList(result.hotels);
+      });
+    } else {
+      getHotel();
+    }
+  }, [type]);
 
   useEffect(() => {
     if (isSearchAdvanceMode) {

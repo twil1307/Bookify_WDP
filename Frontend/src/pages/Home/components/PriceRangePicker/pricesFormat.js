@@ -1,6 +1,6 @@
 
 export function getPriceRanges(prices) {
-    console.log('run getPriceRanges');
+    // console.log('run getPriceRanges');
     const range = 20;
     let baseRange = 0;
     const maxPriceRoundedToNearestHundred = Math.ceil(getMaxPrice(prices) / 100) * 100;

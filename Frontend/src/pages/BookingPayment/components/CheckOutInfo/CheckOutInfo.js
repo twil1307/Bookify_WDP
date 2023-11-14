@@ -16,10 +16,8 @@ import { useOutletContext, useNavigate } from "react-router-dom";
 // import bookingRoom from "@/services/hotel/bookingRoom";
 import { getSuccessToastMessage } from "@/utils/reducers/toastMessageReducer";
 // import getNotification from "@/services/hotel/getNotification";
-import { useGetHotel } from "@/utils/hooks";
 
 function CheckOutInfo() {
-  const { bookingHotel } = useGetHotel();
 
   const { selectDays, setSelectedDays, guests, setGuests } =
     useContext(BookingContext);

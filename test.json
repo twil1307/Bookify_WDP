@@ -1,0 +1,35 @@
+[
+  {
+    "aldult": 1,
+    "checkin": "Thu Nov 23 2023 00:00:00 GMT+0700 (Giờ Đông Dương)",
+    "hotelId": "655238ecc359804c9f4ca496",
+    "infant": 0,
+    "pet": 0,
+    "price": 100,
+    "roomType": "655238ecc359804c9f4ca49e",
+    "checkout": "Fri Nov 24 2023 00:00:00 GMT+0700 (Giờ Đông Dương)",
+    "child": 0
+  },
+  {
+    "aldult": 1,
+    "checkin": "Thu Nov 23 2023 00:00:00 GMT+0700 (Giờ Đông Dương)",
+    "hotelId": "655238ecc359804c9f4ca496",
+    "infant": 0,
+    "pet": 0,
+    "price": 100,
+    "roomType": "655238ecc359804c9f4ca49e",
+    "checkout": "Fri Nov 24 2023 00:00:00 GMT+0700 (Giờ Đông Dương)",
+    "child": 0
+  },
+  {
+    "aldult": 1,
+    "checkin": "Thu Nov 23 2023 00:00:00 GMT+0700 (Giờ Đông Dương)",
+    "hotelId": "655238ecc359804c9f4ca496",
+    "infant": 0,
+    "pet": 0,
+    "price": 100,
+    "roomType": "655238ecc359804c9f4ca49e",
+    "checkout": "Fri Nov 24 2023 00:00:00 GMT+0700 (Giờ Đông Dương)",
+    "child": 0
+  }
+]

@@ -178,8 +178,12 @@
 
     .guests-input {
       border: 1px solid global.$gray-500;
-      border-radius: 0 0 1em 1em;
+      border-bottom: none;
       padding: 0.6em;
+      &:last-child {
+        border-radius: 0 0 1em 1em;
+        border-bottom: 1px solid global.$gray-500;
+      }
     }
 
     .select-box {

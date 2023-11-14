@@ -296,8 +296,8 @@ module.exports.getHotel = catchAsync(async (req, res, next) => {
 });
 
 module.exports.checkRoomTypeAvaibility = catchAsync(async (req, res) => {
-  const checkInFormattedDate = new Date(req.body.checkin);
-  const checkOutFormattedDate = new Date(req.body.checkout);
+  const checkInFormattedDate = new Date(req.body.checkin + "Z");
+  const checkOutFormattedDate = new Date(req.body.checkout + "Z");
 
   const allRoomsIdByRoomType = await Room.find(
     {

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as icon from "@fortawesome/free-solid-svg-icons";
 
 function Amenities({ hotelAmenities, roomType }) {
-  console.log(hotelAmenities, roomType);
+  // console.log(hotelAmenities, roomType);
   return (
     <div>
       <h3 className={AmenitiesStyle["title"]}>

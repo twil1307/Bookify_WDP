@@ -4,12 +4,12 @@ import { Suspense, lazy } from "react";
 const BookingItem = lazy(() => import("@/components/BookingItem"));
 
 function BookingTabs({ list, setBookingList }) {
-  const handleBookingAction = (bookingId, action) => {
+  const handleBookingAction = (_id, action) => {
     setBookingList((list) => {
       return list.reduce((prev, booking) => {
-        if (booking.bookingId === bookingId) {
-          booking.status = action === "accept" ? 1 : 2;
-          return [...prev, booking];
+        if (booking._id === _id) {
+          booking.status = action === "accept" ? true : false;
+          if (booking.status == true) return [...prev, booking];
         } else {
           return prev;
         }
@@ -25,10 +25,10 @@ function BookingTabs({ list, setBookingList }) {
         gap: "0.6em",
       }}
     >
-      {list?.map((booking) => (
+      {list?.map((booking, index) => (
         <Suspense fallback={<div>Loading...</div>}>
           <BookingItem
-            key={booking?.bookingId}
+            key={index}
             booking={booking}
             handleBookingAction={handleBookingAction}
           />
