@@ -15,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { BookingContext, UserContext, ModalContext } from "@/utils/contexts";
 import { getSignInModal } from "@/utils/reducers/modalReducer";
 import { guestsInitial } from "../../hotelInitState";
+import NumberPicker from "@/components/NumberPicker";
+import { checkRoomAvailable } from "@/services/hotel";
 
 function formatDay(date) {
   const options = {
@@ -50,7 +52,8 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
   const [selectDays, setSelectedDays] = useState();
   const [guests, setGuests] = useState(guestsInitial);
   const [price, setPrice] = useState();
-  const [roomNum, setRoomNum] = useState();
+  const [roomNum, setRoomNum] = useState(1);
+  const [roomInfo, setRoomInfo] = useState();
   const total = useMemo(() => {
     return Object.keys(guests).reduce((prev, key) => {
       if (key !== "pet") {
@@ -60,10 +63,36 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
       }
     }, 0);
   }, [guests]);
+
   const selectDateDiff = useMemo(
     () => differenceInDays(selectDays?.to, selectDays?.from),
     [selectDays]
   );
+
+  const checkDisable = useMemo(() => {
+    const check = bookList.filter((book) => {
+      if (
+        book?.roomType == chooseType?._id &&
+        (new Date(selectDays?.from) <= new Date(book?.checkout) ||
+          new Date(book?.checkout) >= new Date(selectDays?.to))
+      )
+        return book;
+    });
+    return check?.length >= roomInfo?.avaibilityNumber;
+  }, [bookList, roomInfo, roomNum]);
+
+  const limitRoom = useMemo(() => {
+    const check = bookList.filter((book) => {
+      if (
+        book?.roomType == chooseType?._id &&
+        (new Date(selectDays?.from) <= new Date(book?.checkout) ||
+          new Date(book?.checkout) >= new Date(selectDays?.to))
+      )
+        return book;
+    });
+    return check?.length;
+  }, [bookList, roomInfo, roomNum]);
+
   const isAllInformatioSelected = useMemo(() => {
     const isGuestsSelected = total !== 0;
     const selectDaysKey = Object.keys(selectDays || {});
@@ -108,9 +137,20 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
       }, {});
     });
   };
-
+  const handleGetAvailRoom = () => {
+    handleClick("datePickerBox");
+    checkRoomAvailable(
+      hotelId,
+      chooseType._id,
+      selectDays.from,
+      selectDays.to
+    ).then((resp) => {
+      // console.log(resp);
+      setRoomInfo(resp);
+    });
+  };
+  // console.log(chooseType);
   const handleBooking = async () => {
-    // console.log(chooseType);
     if (!user._id) {
       dispatch(getSignInModal({ isOpen: true }));
       return;
@@ -118,7 +158,7 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
     if (isAllInformatioSelected) {
       setBookList([
         ...(bookList || []),
-        {
+        ...Array.from(new Array(roomNum)).map(() => ({
           roomType: chooseType._id,
           hotelId: hotelId,
           price: price,
@@ -129,18 +169,24 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
           pet: guests.pet,
           infant: guests.infant,
           type: chooseType.index,
-        },
+        })),
       ]);
       setChooseType(null);
       setGuests(guestsInitial);
       setSelectedDays();
+      setRoomInfo();
     }
   };
   const handleResetState = () => {
     setGuests(guestsInitial);
     setSelectedDays();
   };
-
+  useEffect(() => {
+    // console.log(
+    //   new Date(selectDays?.from) <= new Date(bookList[0]?.checkout) ||
+    //     new Date(bookList[0]?.checkout) >= new Date(selectDays?.to)
+    // );
+  }, [bookList, roomInfo]);
   return (
     <div id={bookingStyles["booking"]}>
       {/* <div className={bookingStyles["heading-row"]}>
@@ -232,7 +278,7 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
               <div className={bookingStyles["button-row"]}>
                 <button
                   className={bookingStyles["close-date-picker"]}
-                  onClick={() => handleClick("datePickerBox")}
+                  onClick={() => handleGetAvailRoom()}
                 >
                   Đóng
                 </button>
@@ -242,9 +288,9 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
         </div>
         <div className={bookingStyles["guests-input"]}>
           <div className={bookingStyles["label"]}>
-            <p className={bookingStyles["title"]}>Khách</p>
+            <p className={bookingStyles["title"]}>Số phòng</p>
             <div className={bookingStyles["input-value"]}>
-              {roomNum ? `${roomNum} phòng` : "Chọn số lượng phòng"}
+              {roomInfo ? `${roomNum} phòng` : "Chọn số lượng phòng"}
               {chooseType ? (
                 <button
                   className={bookingStyles["float-right"]}
@@ -256,22 +302,22 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
                 <></>
               )}
             </div>
-            {isSelectBoxOpen["guestsPickerBox"] && (
+            {isSelectBoxOpen["roomNumPickerBox"] && (
               <div
                 className={[
                   bookingStyles["select-box"],
                   bookingStyles["select-box--right"],
                 ].join(" ")}
               >
-                <GuestsPicker
-                  guests={guests}
-                  setGuests={setGuests}
-                  totalLimit={chooseType.maxGuest}
-                  description={description}
-                  isAllowPet={isAllowPet}
-                  title={title}
-                  limit={chooseType.maxGuest}
-                />
+                <div style={{ padding: "5px" }}>
+                  <NumberPicker
+                    title={"Số lượng phòng"}
+                    value={roomNum}
+                    disabled={checkDisable}
+                    setValue={setRoomNum}
+                    limit={roomInfo?.avaibilityNumber - limitRoom}
+                  />
+                </div>
               </div>
             )}
           </div>
@@ -349,12 +395,16 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
           </div>
         </div>
       )}
-      <button
-        className={bookingStyles["booking-button"]}
-        onClick={handleBooking}
-      >
-        {isAllInformatioSelected ? "Lưu" : "Hãy điền thông tin"}
-      </button>
+      {checkDisable ? (
+        <></>
+      ) : (
+        <button
+          className={bookingStyles["booking-button"]}
+          onClick={handleBooking}
+        >
+          {isAllInformatioSelected ? "Lưu" : "Hãy điền thông tin"}
+        </button>
+      )}
     </div>
   );
 }

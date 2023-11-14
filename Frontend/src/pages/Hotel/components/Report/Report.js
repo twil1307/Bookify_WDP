@@ -38,13 +38,14 @@ function AdvanceFilter({
     // console.log(title);
     // console.log(content);
     const reportForm = new FormData();
-    reportForm.append("hotelid", hotelInfo._id);
-    reportForm.append("userid", user._id);
+
     reportForm.append("title", title);
     reportForm.append("content", content);
-    fetch(`http://localhost:3001/hotel/${hotelInfo._id}/review`, {
+    fetch(`http://localhost:3001/hotel/${hotelInfo._id}/report`, {
       method: "POST",
       body: reportForm,
+      credentials: "include",
+      withCredentials: true,
     })
       .then((res) => res.json())
       .then((result) => {

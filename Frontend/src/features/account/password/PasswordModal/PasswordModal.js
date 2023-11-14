@@ -27,9 +27,7 @@ function PasswordModal({ animation, submodal }) {
       ref={containerRef}
     >
       <div className={ModalStyles["page-logo"]}>
-        <BrowserRouter>
-          <Logo />
-        </BrowserRouter>
+        <Logo />
       </div>
       <p className={ModalStyles["label"]}>
         <b>Nhập mật khẩu</b> của bạn để thực hiện

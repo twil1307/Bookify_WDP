@@ -27,9 +27,7 @@ function NewPasswordModal({ animation }) {
       ref={containerRef}
     >
       <div className={ModalStyles["page-logo"]}>
-        <BrowserRouter>
-          <Logo />
-        </BrowserRouter>
+        <Logo />
       </div>
       <p className={ModalStyles["label"]}>Nhập mật khẩu mới của bạn</p>
       <NewPasswordForm />

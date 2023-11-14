@@ -29,9 +29,8 @@ function SignInModal({ animation }) {
       ref={containerRef}
     >
       <div className={signInModalStyles["page-logo"]}>
-        <BrowserRouter>
-          <Logo />
-        </BrowserRouter>
+        <Logo />
+
         <h3 className={signInModalStyles["welcome-heading"]}>
           Welcome back, Mate
         </h3>
