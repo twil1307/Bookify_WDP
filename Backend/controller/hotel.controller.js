@@ -10,7 +10,12 @@ const mongoose = require("mongoose");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const fileDelete = require("../utils/fileDelete");
-const { getUnavailableDateRanges } = require("../service/bookingService");
+const {
+  getUnavailableDateRanges,
+  getUnavailableDateRangesWithRoomType,
+  bookingDateDuplicateCheck,
+  groupRoomIdBy,
+} = require("../service/bookingService");
 const {
   getAmenitiesInsertNotDuplicate,
   getListAmenityDuplicatedId,
@@ -262,6 +267,7 @@ module.exports.getHotel = catchAsync(async (req, res, next) => {
       },
     })
     .populate("roomType")
+    .populate("Rooms")
     .populate("reviews")
     .populate("Vouchers")
     .populate({
@@ -287,6 +293,43 @@ module.exports.getHotel = catchAsync(async (req, res, next) => {
   } else {
     return next(new AppError("Hotel not found", 404));
   }
+});
+
+module.exports.checkRoomTypeAvaibility = catchAsync(async (req, res) => {
+  const checkInFormattedDate = new Date(req.body.checkin + "Z");
+  const checkOutFormattedDate = new Date(req.body.checkout + "Z");
+
+  const allRoomsIdByRoomType = await Room.find(
+    {
+      roomTypeId: req.params.roomTypeId,
+      hotelId: req.params.hotelId,
+    },
+    {
+      _id: 1, // Include '_id'
+    }
+  );
+
+  const newArr = allRoomsIdByRoomType.map((item) => {
+    return item._id;
+  });
+
+  const bookingFullFilledByDateRange = await bookingDateDuplicateCheck(
+    checkInFormattedDate,
+    checkOutFormattedDate,
+    req.params.hotelId,
+    req.params.roomTypeId
+  );
+
+  const roomAvailable = newArr.filter((element) =>
+    bookingFullFilledByDateRange.every(
+      (item) => item.toString() !== element.toString()
+    )
+  );
+
+  return res.status(200).json({
+    avaibilityRooms: roomAvailable,
+    avaibilityNumber: roomAvailable.length,
+  });
 });
 
 module.exports.getHotel2 = catchAsync(async (req, res, next) => {

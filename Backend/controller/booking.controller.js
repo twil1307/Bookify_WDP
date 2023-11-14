@@ -1,12 +1,15 @@
 const Booking = require("../models/Booking");
-const Hotel = require("../models/Hotel");
 const BankingAccount = require("../models/BankingAccount");
 const catchAsync = require("../utils/catchAsync");
 const mongoose = require("mongoose");
 const AppError = require("../utils/appError");
 const BookingDetail = require("../models/BookingDetail");
 const Room = require("../models/Room");
-const { groupRoomIdBy } = require("../service/bookingService");
+const {
+  groupRoomIdBy,
+  bookingDateDuplicateCheck,
+  compareRoomFilterId,
+} = require("../service/bookingService");
 const RoomType = require("../models/RoomType");
 
 module.exports.bookingRoom = catchAsync(async (req, res, next) => {
@@ -169,72 +172,3 @@ module.exports.bookingRoom = catchAsync(async (req, res, next) => {
     next(error);
   }
 });
-
-// Compare 2 array
-// Check if rooms id is equal to the rooms of overlap day, if equals => all the rooms in the date range are booked
-// else => get out all the not booked room and set the first room to guest
-const compareRoomFilterId = (hotelRoomIds, bookingCheck) => {
-  const roomAvailable = hotelRoomIds.filter((element) =>
-    bookingCheck.every((item) => item.toString() !== element.toString())
-  );
-  return roomAvailable;
-};
-
-// basically get all the room booked in the date range checkin and checkout given
-const bookingDateDuplicateCheck = async (
-  checkin,
-  checkout,
-  hotelId,
-  roomType
-) => {
-  const bookingCheck = await BookingDetail.distinct("roomId", {
-    $and: [
-      {
-        $or: [
-          {
-            $and: [
-              { checkin: { $lte: checkin } },
-              { checkout: { $gte: checkout } },
-            ],
-          },
-          {
-            $and: [
-              { checkin: { $lte: checkin } },
-              {
-                checkout: {
-                  $lt: checkout,
-                  $gt: checkin,
-                },
-              },
-            ],
-          },
-          {
-            $and: [
-              {
-                checkin: {
-                  $lt: checkout,
-                  $gt: checkin,
-                },
-              },
-              { checkout: { $gte: checkout } },
-            ],
-          },
-          {
-            $and: [
-              { checkin: { $gt: checkin } },
-              { checkout: { $lt: checkout } },
-            ],
-          },
-        ],
-      },
-      {
-        roomType: roomType,
-      },
-      {
-        hotelId: hotelId,
-      },
-    ],
-  });
-
-  return bookingCheck;
-};

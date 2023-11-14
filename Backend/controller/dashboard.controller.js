@@ -70,7 +70,7 @@ module.exports.disableBooking = catchAsync(async (req, res, next) => {
 
   console.log(booking);
 
-  const bankingAccountNumber = await User.findById;
+  // const bankingAccountNumber = await User.findById;
 
   return res.status(200).json({
     message: "Accept booking successfully",
