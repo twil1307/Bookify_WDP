@@ -13,6 +13,7 @@ import { useMemo, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastMessageContext, UserContext } from "@/utils/contexts";
 import { getFailureToastMessage } from "@/utils/reducers/toastMessageReducer";
+import { FetchUser } from "@/services/user";
 
 const account = {
   name: "Le Duc",
@@ -27,54 +28,12 @@ function Profile() {
   const { user, setUser, isLogin, setLogin } = useContext(UserContext);
 
   const navigate = useNavigate();
-  useEffect(() => {
-    // fetch("http://localhost:3001/user/verifyjwt", {
-    //   credentials: 'include' , method: "POST",
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setLogin(true);
-    //     // setUser(data);
-    //     console.log(data);
-    //   })
-    //   .catch((err) => {
-    //     setLogin(false);
-    //   });
-  }, []);
 
-  // useEffect(() => {
-  //   const jwtString = JSON.stringify(localStorage.getItem("jwt"));
-  //   const userForm = new FormData();
-  //   userForm.append("jwt", jwtString);
-  //   if (jwtString) {
-  //     fetch("http://localhost:3001/user/verifyjwt", {
-  //       method: "POST",
-  //       body: userForm,
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         setLogin(true);
-  //         setUser(data);
-  //       })
-  //       .catch((err) => {
-  //         setUser({ role: 0 });
-  //         navigate("/");
-  //         setToastMessages(
-  //           getFailureToastMessage({
-  //             message: "Đăng nhập để truy cập",
-  //           })
-  //         );
-  //       });
-  //   } else {
-  //     navigate("/");
-  //     setUser({ role: 0 });
-  //     setToastMessages(
-  //       getFailureToastMessage({
-  //         message: "Đăng nhập để truy cập",
-  //       })
-  //     );
-  //   }
-  // }, []);
+  useEffect(() => {
+    FetchUser(user._id).then((resp) => {
+      setUser(resp);
+    });
+  }, []);
 
   const options = useMemo(
     () => [
@@ -122,7 +81,7 @@ function Profile() {
             className={profileStyle["commonInfo"]}
             style={{ marginBottom: "1rem" }}
           >
-            {account.name}, {account.email}{" "}
+            {user.username}, {user.email}{" "}
             <Link to={`info`}>Thay đổi hồ sơ</Link>
           </h4>
           <Box sx={{ flexGrow: 1 }}>

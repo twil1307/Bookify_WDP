@@ -66,7 +66,7 @@ function RegisterSection({
 
   useEffect(() => {
     getDefaultAmenityTypes().then((defaultAmenityTypes) => {
-      console.log(defaultAmenityTypes);
+      // console.log(defaultAmenityTypes);
       setDisplayAmenitiesType(defaultAmenityTypes.amenityTypes);
     });
 

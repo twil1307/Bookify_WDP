@@ -1,12 +1,14 @@
 import { Outlet, useHref, useNavigate } from "react-router-dom";
 import HostingRegisterHeader from "../components/HostingRegisterHeader";
-import VerifyAuth from "@/utils/hooks/verifyAuth";
+import { useContext } from "react";
+import { UserContext } from "@/utils/contexts";
 
 function HostingRegisterLayout() {
   const navigate = useNavigate();
   const href = useHref();
-  const { firstLogin } = VerifyAuth();
-  if (!firstLogin) {
+  const { user } = useContext(UserContext);
+  // console.log(user);
+  if (user.role !== 1) {
     navigate("/");
   }
   return (
