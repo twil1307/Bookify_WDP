@@ -101,10 +101,15 @@ function HotelCard({
             <h3 className={"hotel-name"}>{hotelName}</h3>
             <div className={"average-point"}>
               <FontAwesomeIcon icon={faStar} />
-              <span>{rating.communicationPoint}</span>
-              <span>{rating.accuracyPoint}</span>
-              <span>{rating.locationPoint}</span>
-              <span>{rating.valuePoint}</span>
+              <span>
+                {Math.floor(
+                  (rating.communicationPoint +
+                    rating.accuracyPoint +
+                    rating.locationPoint +
+                    rating.valuePoint) /
+                    4
+                )}
+              </span>
             </div>
           </div>
           <p
