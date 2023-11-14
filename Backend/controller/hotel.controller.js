@@ -268,7 +268,13 @@ module.exports.getHotel = catchAsync(async (req, res, next) => {
     })
     .populate("roomType")
     .populate("Rooms")
-    .populate("reviews")
+    .populate({
+      path: "reviews",
+      populate: {
+        path: "user",
+        select: "username name subName",
+      },
+    })
     .populate("Vouchers")
     .populate({
       path: "accessibility",

@@ -71,13 +71,19 @@ module.exports.updateUser = catchAsync(async (req, res, next) => {
 module.exports.updateUserBankingAccount = catchAsync(async (req, res, next) => {
   console.log(req.body.bankingAccountNumber);
 
-  const bankingAccount = new BankingAccount(req.body);
+  const bankingAccount2 = await BankingAccount.find({
+    bankingAccountNumber: req.body.bankingAccountNumber,
+  });
 
-  await bankingAccount.save();
+  if (!bankingAccount2) {
+    return res.status(404).send({
+      message: "Banking account is not existed",
+    });
+  }
 
   const newUser = await User.findByIdAndUpdate(
     req.user._id,
-    { $set: { bankingAccountNumber: bankingAccount._id } },
+    { $set: { bankingAccountNumber: bankingAccount2._id } },
     { new: true }
   );
 
