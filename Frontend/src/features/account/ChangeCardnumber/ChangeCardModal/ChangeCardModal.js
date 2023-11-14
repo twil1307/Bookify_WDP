@@ -29,9 +29,8 @@ function ChangeCard({ animation }) {
       ref={containerRef}
     >
       <div className={changeCardStyle["page-logo"]}>
-        <BrowserRouter>
-          <Logo />
-        </BrowserRouter>
+        <Logo />
+
         <h3 className={changeCardStyle["welcome-heading"]}>
           Change your Bank account Card number
         </h3>

@@ -33,7 +33,7 @@ function AdvanceFilter({
   const [content, setContent] = useState("");
   const { user } = useContext(UserContext);
   const [currentReview, setCurrentReview] = useContext(reviewDataContext);
-
+  console.log(hotelInfo);
   useEffect(() => {
     setIsReviewOpen(isOpen);
     //eslint-disable-next-line
@@ -44,29 +44,33 @@ function AdvanceFilter({
     // console.log(content);
 
     const reportForm = new FormData();
-    reportForm.append("hotelid", hotelInfo.hotelId);
-    reportForm.append("userid", user._id);
+    // reportForm.append("hotelid", hotelInfo._id);
     reportForm.append("content", content);
-    reportForm.append("accuracy_point", point.accuracy_point);
-    reportForm.append("location_point", point.location_point);
-    reportForm.append("value_point", point.value_point);
-    reportForm.append("communication_point", point.communication_point);
-    fetch("http://localhost:8080/bookify/api/hotel/review", {
-      method: "POST",
-      body: reportForm,
-    })
+    reportForm.append("accuracyPoint", point.accuracy_point);
+    reportForm.append("locationPoint", point.location_point);
+    reportForm.append("valuePoint", point.value_point);
+    reportForm.append("communicationPoint", point.communication_point);
+    fetch(
+      `http://localhost:${process.env.REACT_APP_BACK_END_PORT}/hotel/${hotelInfo._id}/review`,
+      {
+        method: "POST",
+        body: reportForm,
+        credentials: "include",
+        withCredentials: true,
+      }
+    )
       .then((res) => res.json())
       .then((result) => {
         setIsReviewOpen(false);
         setCurrentReview([
           ...currentReview,
           {
-            accuracy_point: point.accuracy_point,
-            communication_point: point.communication_point,
+            accuracyPoint: point.accuracy_point,
+            communicationPoint: point.communication_point,
             content: content,
             createdAt: format(new Date(), "hh:mm dd-MM-yyy"),
             hotelId: hotelInfo.hotelId,
-            location_point: point.location_point,
+            locationPoint: point.location_point,
             reviewId: uuid(),
             sourceId: 0,
             userId: user._id,
@@ -75,7 +79,7 @@ function AdvanceFilter({
             avatar: user.avatar ? user.avatar : null,
             usernameAcount: user.username,
 
-            value_point: point.value_point,
+            valuePoint: point.value_point,
           },
         ]);
         setToastMessages(

@@ -42,13 +42,10 @@ function Hotel() {
     GetHotel(id).then((resp) => {
       setHotelInfo(resp.hotel);
       setBookedDays(resp.fullyBookedDates);
+      setCurrentReview(resp.hotel.reviews);
     });
-
-    // console.log(selectDay);
   }, [user, id]);
-  // useEffect(() => {
-  //   console.log(hotelInfo);
-  // }, [hotelInfo]);
+
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -130,18 +127,6 @@ function Hotel() {
                         </Suspense>
                       </div>
                     </Box>
-                    <Grid container spacing={2}>
-                      {/* {hotelInfo.roomType?.map((el, index) => (
-                        <Grid item xs={4} key={index}>
-                          <Booking
-                            roomType={el}
-                            isAllowPet={hotelInfo?.isAnimalAccept}
-                            hotelId={hotelInfo?._id}
-                            index={index}
-                          />
-                        </Grid>
-                      ))} */}
-                    </Grid>
                   </Grid>
 
                   {

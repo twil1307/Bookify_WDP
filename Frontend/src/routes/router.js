@@ -25,9 +25,10 @@ import {
   HostingRegisterLayout,
   HotelManageLayout,
 } from "@/layouts";
+import App from "@/App";
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route>
+    <Route element={<App />}>
       <Route path="/" element={<DefaultLayout />}>
         <Route path="" element={<Home />} />
         <Route path="hotel">

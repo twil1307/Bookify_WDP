@@ -9,32 +9,29 @@ import { UserContext } from "@/utils/contexts";
 import { ToastMessageContext } from "@/utils/contexts";
 import { getFailureToastMessage } from "@/utils/reducers/toastMessageReducer";
 import { format } from "date-fns";
+import { checkHotelBook } from "@/services/hotel";
 
 function Comments({ reviews, hotelId }) {
   const [isReviewOpen, setIsReviewOpen] = useContext(reviewContext);
   const { setToastMessages } = useContext(ToastMessageContext);
   const { user } = useContext(UserContext);
   const [currentReview, setCurrentReview] = useContext(reviewDataContext);
-  // console.log(currentReview);
+  console.log(currentReview);
   const checkUser = () => {
     if (user._id) {
-      fetch(
-        `http://localhost:8080/bookify/api/hotel/review?hotelid=${hotelId}&userid=${user._id}`
-      )
-        .then((res) => res.json())
-        .then((result) => {
-          // console.log(result);
-          if (result.require) {
-            setToastMessages(
-              getFailureToastMessage({
-                message: "Bạn chưa từng ở khách sạn này",
-              })
-            );
-          }
-          if (result.success) {
-            setIsReviewOpen(true);
-          }
-        });
+      checkHotelBook(hotelId).then((result) => {
+        // console.log(result);
+        if (result !== 200) {
+          setToastMessages(
+            getFailureToastMessage({
+              message: "Bạn chưa từng ở khách sạn này",
+            })
+          );
+        }
+        if (result == 200) {
+          setIsReviewOpen(true);
+        }
+      });
     } else {
       setToastMessages(
         getFailureToastMessage({
@@ -66,23 +63,23 @@ function Comments({ reviews, hotelId }) {
                       </div>
                       <div className={CommentStyle["user-info"]}>
                         <h6 className={CommentStyle["user-name"]}>
-                          {review.username
-                            ? review.username
-                            : review.usernameAcount}
+                          {review?.username
+                            ? review?.username
+                            : review?.usernameAcount}
                         </h6>
                         <p className={CommentStyle["user-comment-time"]}>
-                          {review.minute}{" "}
-                          {format(new Date(review.createdAt), "dd-MM-yyyy")}
+                          {review?.minute}{" "}
+                          {format(new Date(review?.createdAt), "dd-MM-yyyy")}
                         </p>
                       </div>
                     </div>
                     <div className={CommentStyle["user-rating"]}>
                       <span className={CommentStyle["point"]}>
                         {Math.floor(
-                          (review.accuracy_point +
-                            review.communication_point +
-                            review.location_point +
-                            review.value_point) /
+                          (review?.accuracyPoint +
+                            review?.communicationPoint +
+                            review?.locationPoint +
+                            review?.valuePoint) /
                             4
                         )}
                       </span>{" "}
@@ -92,7 +89,7 @@ function Comments({ reviews, hotelId }) {
                     </div>
                   </div>
                   <div className={CommentStyle["item-content"]}>
-                    <p>{review.content}</p>
+                    <p>{review?.content}</p>
                   </div>
                 </div>
               </Grid>
