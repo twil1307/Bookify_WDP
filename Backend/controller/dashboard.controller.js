@@ -69,6 +69,7 @@ module.exports.disableBooking = catchAsync(async (req, res, next) => {
   try {
     const bookingId = req.params.bookingId;
 
+
     const booking = await BookingDetail.findByIdAndUpdate(
       bookingId,
       {
@@ -90,6 +91,7 @@ module.exports.disableBooking = catchAsync(async (req, res, next) => {
     );
 
     console.log(bankingAccount);
+
 
     await session.commitTransaction();
     session.endSession();
