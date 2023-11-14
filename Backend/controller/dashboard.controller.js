@@ -62,19 +62,41 @@ module.exports.verifyBooking = catchAsync(async (req, res, next) => {
 });
 
 module.exports.disableBooking = catchAsync(async (req, res, next) => {
-  const bookingId = req.params.bookingId;
+  const session = await mongoose.startSession();
+  session.startTransaction();
 
-  const booking = await BookingDetail.findByIdAndUpdate(bookingId, {
-    $set: { status: null },
-  });
+  try {
+    const bookingId = req.params.bookingId;
 
-  console.log(booking);
+    const booking = await BookingDetail.findByIdAndUpdate(
+      bookingId,
+      {
+        $set: { status: null },
+      },
+      { session }
+    );
 
-  // const bankingAccountNumber = await User.findById;
 
-  return res.status(200).json({
-    message: "Accept booking successfully",
-  });
+    console.log(booking);
+
+
+    const bankingAccountNumber = await User.findById();
+
+    await session.commitTransaction();
+    session.endSession();
+
+    return res.status(200).json({
+      message: "Disable booking successfully",
+    });
+  } catch (error) {
+    console.log("Aborting booking request");
+
+    await session.abortTransaction();
+
+    session.endSession();
+
+    next(error);
+  }
 });
 
 module.exports.disableHotel = catchAsync(async (req, res, next) => {
