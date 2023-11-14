@@ -98,4 +98,11 @@ router.get(
   hotelController.checkIsUserEverStayHere
 );
 
+router.get(
+  "/:hotelId/roomTypeAvaibility/:roomTypeId",
+  formDataRetrieve.none(),
+  jwtMiddleware,
+  hotelController.checkRoomTypeAvaibility
+);
+
 module.exports = router;
