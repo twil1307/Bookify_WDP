@@ -71,9 +71,11 @@ module.exports.updateUser = catchAsync(async (req, res, next) => {
 module.exports.updateUserBankingAccount = catchAsync(async (req, res, next) => {
   console.log(req.body.bankingAccountNumber);
 
-  const bankingAccount2 = await BankingAccount.find({
+  const bankingAccount2 = await BankingAccount.findOne({
     bankingAccountNumber: req.body.bankingAccountNumber,
   });
+
+  console.log(bankingAccount2);
 
   if (!bankingAccount2) {
     return res.status(404).send({
