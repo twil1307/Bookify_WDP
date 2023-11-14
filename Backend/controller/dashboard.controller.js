@@ -18,6 +18,7 @@ const {
   extractArray,
 } = require("../service/dashBoardService");
 const BookingDetail = require("../models/BookingDetail");
+const BankingAccount = require("../models/BankingAccount");
 
 // Get all hotel for dashboard (To enable hotel (?))
 module.exports.getAllHotelsDashBoard = catchAsync(async (req, res, next) => {
@@ -68,6 +69,7 @@ module.exports.disableBooking = catchAsync(async (req, res, next) => {
   try {
     const bookingId = req.params.bookingId;
 
+
     const booking = await BookingDetail.findByIdAndUpdate(
       bookingId,
       {
@@ -76,11 +78,20 @@ module.exports.disableBooking = catchAsync(async (req, res, next) => {
       { session }
     );
 
+    const bankingAccountInfo = await User.findById(booking.user).select(
+      "bankingAccountNumber"
+    );
 
-    console.log(booking);
+    const bankingAccount = await BankingAccount.findByIdAndUpdate(
+      bankingAccountInfo.bankingAccountNumber,
+      {
+        $inc: { amount: +booking.price },
+      },
+      { session }
+    );
 
+    console.log(bankingAccount);
 
-    const bankingAccountNumber = await User.findById();
 
     await session.commitTransaction();
     session.endSession();
