@@ -79,14 +79,19 @@ module.exports.bookingRoom = catchAsync(async (req, res, next) => {
         );
     }
 
+    console.log(bookedDateInRange);
+
     // Get all available room (filter out the roomid )
     const availableRooms = {}; // no need this time
     const roomCheckIsFullyBooked = []; // error array
     for (let i = 0; i < roomTypeRequestId.length; i++) {
+      // [1, 1]
       const availableRoomId = compareRoomFilterId(
-        groupedRoomIdByRoomType[roomTypeRequestId[i]],
-        bookedDateInRange[roomTypeRequestId[i]]
-      );
+        groupedRoomIdByRoomType[roomTypeRequestId[i]], // 1
+        bookedDateInRange[roomTypeRequestId[i]] //
+      ); // => 1
+
+      console.log(availableRoomId);
 
       // if the room type is fully booked push into an error array
       if (!availableRoomId || availableRoomId.length === 0) {
@@ -100,12 +105,32 @@ module.exports.bookingRoom = catchAsync(async (req, res, next) => {
         continue;
       }
 
+      // {roomType1: [1, 2, 3, 5], roomType2: [2, 3, 4]}
+
       availableRooms[roomTypeRequestId[i]] = availableRoomId;
       bookingRoomRequest[i].roomId = availableRoomId[0];
 
-      groupedRoomIdByRoomType[roomTypeRequestId[i]] = groupedRoomIdByRoomType[
-        roomTypeRequestId[i]
-      ].filter((objectId) => !objectId.equals(availableRoomId[0]));
+      let isOverlap = false;
+      for (let j = 0; j < roomTypeRequestId.length; j++) {
+        if (i === j) continue;
+
+        if (
+          dateRangeOverlaps(
+            bookingRoomRequest[i].checkin,
+            bookingRoomRequest[i].checkout,
+            bookingRoomRequest[j].checkin,
+            bookingRoomRequest[j].checkout
+          )
+        ) {
+          isOverlap = true;
+        }
+      }
+
+      if (isOverlap) {
+        groupedRoomIdByRoomType[roomTypeRequestId[i]] = groupedRoomIdByRoomType[
+          roomTypeRequestId[i]
+        ].filter((objectId) => !objectId.equals(availableRoomId[0]));
+      }
     }
 
     if (roomCheckIsFullyBooked.length > 0) {
@@ -172,3 +197,10 @@ module.exports.bookingRoom = catchAsync(async (req, res, next) => {
     next(error);
   }
 });
+
+function dateRangeOverlaps(a_start, a_end, b_start, b_end) {
+  if (a_start <= b_start && b_start <= a_end) return true; // b starts in a
+  if (a_start <= b_end && b_end <= a_end) return true; // b ends in a
+  if (b_start < a_start && a_end < b_end) return true; // a in b
+  return false;
+}
