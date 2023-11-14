@@ -23,7 +23,7 @@ function Hotel() {
 
   const handleChange = useCallback(
     (event) => {
-      console.log("push");
+      // console.log("push");
       const value = event.target.value;
       setFilter(value);
       data.sort((a, b) => {

@@ -37,13 +37,13 @@ function HistoryCard({
       </div>
       <div className={CardStyle["card-body-1"]}>
         <p>{address}</p>
-        <p>{adult} người lớn</p>
-        <p className={CardStyle["blue-color"]}>${price}</p>
+        {/* <p>{adult} người lớn</p> */}
+        {/* <p className={CardStyle["blue-color"]}>${price}</p> */}
       </div>
       <div className={CardStyle["card-body-2"]}>
         <p>Trạng thái: {stat}</p>
-        <p>Nhận phòng: {checkinDate}</p>
-        <p>Trả phòng: {checkoutDate}</p>
+        {/* <p>Nhận phòng: {checkinDate}</p>
+        <p>Trả phòng: {checkoutDate}</p> */}
       </div>
     </div>
   );

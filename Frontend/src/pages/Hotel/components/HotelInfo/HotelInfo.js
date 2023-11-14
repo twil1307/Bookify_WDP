@@ -15,7 +15,7 @@ function HotelInfo({ hotelInfo }) {
     reviews,
     roomType,
     isBookmarked,
-    signAt,
+    createdAt,
     isVerified,
     Rooms,
     country,
@@ -28,6 +28,8 @@ function HotelInfo({ hotelInfo }) {
   } = hotelInfo;
   // console.log(isVerified);
   // console.log(user);
+  // console.log(createdAt);
+
   return (
     <div>
       <div className={HotelInfoStyle["header"]}>
@@ -40,6 +42,10 @@ function HotelInfo({ hotelInfo }) {
           Rooms={Rooms}
           hotelId={hotelId}
           isVerified={isVerified}
+          city={city}
+          district={district}
+          address={address}
+          country={country}
         />
       </div>
       <div className={HotelInfoStyle["details"]}>
@@ -57,7 +63,7 @@ function HotelInfo({ hotelInfo }) {
           roomType={roomType}
           rating={rating}
           hotelId={hotelId}
-          signAt={signAt}
+          createdAt={createdAt}
         />
       </div>
     </div>

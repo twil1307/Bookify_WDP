@@ -13,7 +13,7 @@ import { BrowserRouter } from "react-router-dom";
 function SignUpModal({ animation }) {
   const [isModalOpen, handleClick, containerRef] = usePopup(true);
   const { dispatch } = useContext(ModalContext);
-  console.log("rendered");
+  // console.log("rendered");
   useEffect(() => {
     if (!isModalOpen) {
       dispatch(getSignUpModal({ isOpen: false }));

@@ -96,6 +96,7 @@ function OptionList({ handleClick }) {
           e.stopPropagation();
           setUser(userLocal);
           LogOut();
+          navigate("/");
         },
       },
       {

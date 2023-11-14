@@ -137,8 +137,12 @@ function App({ children }) {
                 </div>
               )}
               <ToastMessageBox>
-                {toastMessages.map(({ type, message }) => (
-                  <ToastMessage type={type} message={message} />
+                {toastMessages.map((props, index) => (
+                  <ToastMessage
+                    type={props.type}
+                    message={props.message}
+                    key={index}
+                  />
                 ))}
               </ToastMessageBox>
             </ToastMessageContext.Provider>

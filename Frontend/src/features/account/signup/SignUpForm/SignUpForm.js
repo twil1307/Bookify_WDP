@@ -10,13 +10,12 @@ import {
   useContext,
 } from "react";
 import { accountValidation } from "@/utils/validation";
-import { useUppercase, useSignUser } from "@/utils/hooks";
+import { useUppercase } from "@/utils/hooks";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SignUp } from "@/services/user";
 
 function SignUpForm({ modalHandler }) {
-  const { SignUpFn } = useSignUser();
   const [registerAccount, setRegisterAccount] = useState({
     username: null,
     email: null,
@@ -50,7 +49,6 @@ function SignUpForm({ modalHandler }) {
     } else {
       setLoading(true);
       try {
-        SignUpFn(registerAccount);
         SignUp(
           registerAccount.username,
           registerAccount.email,
@@ -67,7 +65,7 @@ function SignUpForm({ modalHandler }) {
 
   const handleValueChange = useCallback(
     (value, key) => {
-      console.log(key);
+      // console.log(key);
       setRegisterAccount({
         ...registerAccount,
         [key]: value,
@@ -118,7 +116,7 @@ function SignUpForm({ modalHandler }) {
     //eslint-disable-next-line
   }, [isAccountValid, isAgreed]);
 
-  console.log("form re-render ");
+  // console.log("form re-render ");
   return (
     <div className={formStyles["form-wrapper"]}>
       <form

@@ -14,6 +14,8 @@ import GetAllTodayBooking from "./GetAllTodayBooking";
 import GetAllBooking from "./GetAllBooking";
 import searchProvinces from "./searchProvinces";
 import GetAccessibility from "./GetAccessibility";
+import ManageBooking from "./ManageBooking";
+import checkRoomAvailable from "./CheckRoomAvailable";
 export {
   GetAllBooking,
   GetAllTodayBooking,
@@ -31,4 +33,6 @@ export {
   bookingRoom,
   searchProvinces,
   GetAccessibility,
+  ManageBooking,
+  checkRoomAvailable,
 };

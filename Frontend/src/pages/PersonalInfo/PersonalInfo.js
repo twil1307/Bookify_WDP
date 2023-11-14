@@ -11,7 +11,7 @@ import { Grid } from "@mui/material";
 function PersonalInfo() {
   let { user, isLogin } = useContext(UserContext);
   const { setToastMessages } = useContext(ToastMessageContext);
-  console.log(isLogin);
+  // console.log(isLogin);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function PersonalInfo() {
     }
   }, []);
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <Grid container justifyContent={"center"}>

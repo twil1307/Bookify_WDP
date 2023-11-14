@@ -61,13 +61,13 @@ function NewPasswordForm() {
         //   },
         // });
         newPassowrdUpdate(newPassword.password).then((resp) => {
-          console.log(resp);
+          // console.log(resp);
           if (resp.message !== "Passwords updated successfully") {
             setToastMessages(
               getFailureToastMessage({ message: "Đổi mật khẩu thất bại" })
             );
           } else {
-            console.log(resp);
+            // console.log(resp);
             setToastMessages(
               getSuccessToastMessage({ message: "Đổi mật khẩu thành công" })
             );

@@ -7,7 +7,7 @@ import { format } from "date-fns";
 
 function Filter({ data, rating }) {
   const [filter, setFilter] = useContext(RatingContext);
-  console.log(rating);
+  // console.log(rating);
 
   return (
     <div className={RatingCartStyle["card-wrapper"]}>

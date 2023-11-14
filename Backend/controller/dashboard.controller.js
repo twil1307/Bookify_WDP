@@ -76,7 +76,9 @@ module.exports.disableBooking = catchAsync(async (req, res, next) => {
       { session }
     );
 
+
     console.log(booking);
+
 
     const bankingAccountNumber = await User.findById();
 

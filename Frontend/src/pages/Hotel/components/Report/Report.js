@@ -24,32 +24,32 @@ function AdvanceFilter({
 }) {
   const [isOpen, handleClick, containerRef] = usePopup(isAdvanceFilterOpen);
   const { setToastMessages } = useContext(ToastMessageContext);
-
+  // console.log(hotelInfo);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { user } = useContext(UserContext);
-  console.log(user._id);
+  // console.log(user._id);
   useEffect(() => {
     setAdvanceFilterOpen(isOpen);
     //eslint-disable-next-line
   }, [isOpen]);
 
   const submitReport = () => {
-    console.log(title);
-    console.log(content);
+    // console.log(title);
+    // console.log(content);
     const reportForm = new FormData();
-    reportForm.append("hotelid", hotelInfo.hotelId);
+    reportForm.append("hotelid", hotelInfo._id);
     reportForm.append("userid", user._id);
     reportForm.append("title", title);
     reportForm.append("content", content);
-    fetch("http://localhost:8080/bookify/api/hotel/report", {
+    fetch(`http://localhost:3001/hotel/${hotelInfo._id}/review`, {
       method: "POST",
       body: reportForm,
     })
       .then((res) => res.json())
       .then((result) => {
         setAdvanceFilterOpen(false);
-        console.log(result);
+        // console.log(result);
         setToastMessages(
           getSuccessToastMessage({
             message: "Báo cáo thành công",

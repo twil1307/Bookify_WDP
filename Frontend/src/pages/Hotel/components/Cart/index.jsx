@@ -15,7 +15,7 @@ var options = {
 export default function Cart({ setDrawer }) {
   const { bookList, setBookList } = useContext(BookingContext);
   const { setToastMessages } = useContext(ToastMessageContext);
-
+  let total = 0;
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (bookList.length == 0) setDrawer(false);
@@ -33,6 +33,8 @@ export default function Cart({ setDrawer }) {
         );
         setBookList([]);
         setDrawer(false);
+      } else if (resp.error) {
+        setToastMessages(getFailureToastMessage({ message: "Lỗi đặt phòng" }));
       }
     });
   };
@@ -43,45 +45,52 @@ export default function Cart({ setDrawer }) {
         style={{ marginTop: "1rem" }}
         className={CartStyle["scrollContainer"]}
       >
-        {bookList?.map((el, index) => (
-          <div key={index} className={CartStyle["cartCard"]}>
-            <div style={{ padding: "1rem" }}>
-              <p style={{ fontWeight: "bold", fontSize: "1.25rem" }}>
-                Phòng loại {el.type + 1}
-              </p>
-              <p style={{ fontWeight: "bold" }}>
-                {String(
-                  new Date(el.checkin).toLocaleDateString("vi-VI", options)
-                )}{" "}
-                -{" "}
-                {String(
-                  new Date(el.checkout).toLocaleDateString("vi-VI", options)
-                )}
-              </p>
-              <p style={{ fontWeight: "bold" }}>
-                <span style={{ color: "#4361ee" }}>{el.adult}</span> người lớn{" "}
-                <span style={{ color: "#4361ee" }}>{el.child}</span> trẻ em{" "}
-                <span style={{ color: "#4361ee" }}>{el.infant}</span> trẻ nhỏ
-              </p>
+        {bookList?.map((el, index) => {
+          total += el.price;
+          return (
+            <div key={index} className={CartStyle["cartCard"]}>
+              <div style={{ padding: "1rem" }}>
+                <p style={{ fontWeight: "bold", fontSize: "1.25rem" }}>
+                  Phòng loại {el.type + 1}
+                </p>
+                <p style={{ fontWeight: "bold" }}>
+                  {String(
+                    new Date(el.checkin).toLocaleDateString("vi-VI", options)
+                  )}{" "}
+                  -{" "}
+                  {String(
+                    new Date(el.checkout).toLocaleDateString("vi-VI", options)
+                  )}
+                </p>
+                <p style={{ fontWeight: "bold" }}>
+                  <span style={{ color: "#4361ee" }}>{el.adult}</span> người lớn{" "}
+                  <span style={{ color: "#4361ee" }}>{el.child}</span> trẻ em{" "}
+                  <span style={{ color: "#4361ee" }}>{el.infant}</span> trẻ nhỏ
+                </p>
 
-              <p style={{ fontWeight: "bold", color: "#4361ee" }}>
-                <span style={{ color: "black" }}>Tổng tiền:</span> ${el.price}
-              </p>
+                <p style={{ fontWeight: "bold", color: "#4361ee" }}>
+                  <span style={{ color: "black" }}>Tổng tiền: </span>
+                  {(el.price * 24000)
+                    .toString()
+                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                  VND
+                </p>
+              </div>
+              <div
+                className={CartStyle["Cancel"]}
+                onClick={() => {
+                  setBookList(
+                    bookList.filter((element, i) => {
+                      if (i != index) return element;
+                    })
+                  );
+                }}
+              >
+                <p>Hủy</p>
+              </div>
             </div>
-            <div
-              className={CartStyle["Cancel"]}
-              onClick={() => {
-                setBookList(
-                  bookList.filter((element, i) => {
-                    if (i != index) return element;
-                  })
-                );
-              }}
-            >
-              <p>Hủy</p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       <div
         style={{
@@ -94,6 +103,15 @@ export default function Cart({ setDrawer }) {
           bottom: "2rem",
         }}
       >
+        <div style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+          Tổng số tiền:{" "}
+          <span style={{ color: "red" }}>
+            {(total * 24000)
+              .toString()
+              .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}{" "}
+            VND
+          </span>
+        </div>
         <button
           className={CartStyle["booking-button"]}
           onClick={() => handleBooking()}

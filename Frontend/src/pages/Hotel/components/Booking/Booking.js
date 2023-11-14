@@ -44,11 +44,13 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
     roomTypeBox: false,
     datePickerBox: false,
     guestsPickerBox: false,
+    roomNumPickerBox: false,
   });
   const [chooseType, setChooseType] = useState(null);
   const [selectDays, setSelectedDays] = useState();
   const [guests, setGuests] = useState(guestsInitial);
   const [price, setPrice] = useState();
+  const [roomNum, setRoomNum] = useState();
   const total = useMemo(() => {
     return Object.keys(guests).reduce((prev, key) => {
       if (key !== "pet") {
@@ -108,7 +110,7 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
   };
 
   const handleBooking = async () => {
-    console.log(chooseType);
+    // console.log(chooseType);
     if (!user._id) {
       dispatch(getSignInModal({ isOpen: true }));
       return;
@@ -129,10 +131,14 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
           type: chooseType.index,
         },
       ]);
-      // setChooseType(null);
-      // setGuests(guestsInitial);
-      // setSelectedDays();
+      setChooseType(null);
+      setGuests(guestsInitial);
+      setSelectedDays();
     }
+  };
+  const handleResetState = () => {
+    setGuests(guestsInitial);
+    setSelectedDays();
   };
 
   return (
@@ -161,7 +167,7 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
             {isSelectBoxOpen["roomTypeBox"] && (
               <RoomPicker
                 roomType={roomType}
-                setGuests={setGuests}
+                handleResetState={handleResetState}
                 setChooseType={setChooseType}
                 handleClick={handleClick}
               />
@@ -238,6 +244,42 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
           <div className={bookingStyles["label"]}>
             <p className={bookingStyles["title"]}>Khách</p>
             <div className={bookingStyles["input-value"]}>
+              {roomNum ? `${roomNum} phòng` : "Chọn số lượng phòng"}
+              {chooseType ? (
+                <button
+                  className={bookingStyles["float-right"]}
+                  onClick={() => handleClick("roomNumPickerBox")}
+                >
+                  <FontAwesomeIcon icon={faAngleDown} />
+                </button>
+              ) : (
+                <></>
+              )}
+            </div>
+            {isSelectBoxOpen["guestsPickerBox"] && (
+              <div
+                className={[
+                  bookingStyles["select-box"],
+                  bookingStyles["select-box--right"],
+                ].join(" ")}
+              >
+                <GuestsPicker
+                  guests={guests}
+                  setGuests={setGuests}
+                  totalLimit={chooseType.maxGuest}
+                  description={description}
+                  isAllowPet={isAllowPet}
+                  title={title}
+                  limit={chooseType.maxGuest}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+        <div className={bookingStyles["guests-input"]}>
+          <div className={bookingStyles["label"]}>
+            <p className={bookingStyles["title"]}>Khách</p>
+            <div className={bookingStyles["input-value"]}>
               {total ? `${total} người` : "Thêm người"}
               {chooseType ? (
                 <button
@@ -276,20 +318,34 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
           <div className={bookingStyles["provisional"]}>
             <div className={bookingStyles["price-for-all-nights"]}>
               <p className={bookingStyles["price-label"]}>
-                ${chooseType.roomPrice}
+                ${" "}
+                {(chooseType.roomPrice * 24000)
+                  .toString()
+                  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                VND
                 <span>x</span>
                 {selectDateDiff} đêm
               </p>
-              <p className={bookingStyles["price"]}>${price}</p>
+              <p className={bookingStyles["price"]}>
+                {(price * 24000)
+                  .toString()
+                  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                VND
+              </p>
             </div>
             <div className={bookingStyles["price-for-all-nights"]}>
               <p className={bookingStyles["price-label"]}>Phí vệ sinh</p>
-              <p className={bookingStyles["price"]}>${0}</p>
+              <p className={bookingStyles["price"]}>{0} VND</p>
             </div>
           </div>
           <div className={bookingStyles["final"]}>
             <div className={bookingStyles["title"]}>Tổng phải trả</div>
-            <div className={bookingStyles["price"]}>${price}</div>
+            <div className={bookingStyles["price"]}>
+              {(price * 24000)
+                .toString()
+                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}{" "}
+              VND
+            </div>
           </div>
         </div>
       )}

@@ -98,6 +98,7 @@ router.get(
   hotelController.checkIsUserEverStayHere
 );
 
+
 router.post(
   "/:hotelId/roomTypeAvaibility/:roomTypeId",
   formDataRetrieve.none(),

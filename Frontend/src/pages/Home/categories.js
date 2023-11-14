@@ -18,26 +18,26 @@ import {
 const categories = [
   {
     filterType: "hotelAmenities",
-    filterTypeId: "64724a36c56247dbde3ca5e9",
+    filterTypeId: "652d4b555365facd724ebf88",
     name: "Cam trai 5",
     icon: faCampground,
   },
   {
     filterType: "hotelAmenities",
     name: "BBQ 2",
-    filterTypeId: "64724a36c56247dbde3ca5ea",
+    filterTypeId: "652d4b555365facd724ebf89",
     icon: faBowlFood,
   },
   {
     filterType: "hotelAmenities",
     name: "Restaurant",
-    filterTypeId: "6475ca1dcc850fed9ef393da",
+    filterTypeId: "652d4b555365facd724ebf8a",
     icon: faBowlRice,
   },
   {
     filterType: "hotelAmenities",
     name: "Pool",
-    filterTypeId: "649a51ae5c7e584fe505376b",
+    filterTypeId: "652d4b555365facd724ebf8b",
     icon: faSwimmingPool,
   },
   {

@@ -1,5 +1,5 @@
 export default async function UpdateUser(user) {
-  const url = `http://localhost:${process.env.REACT_APP_BACK_END_PORT}/user/${user._id}`;
+  const url = `http://localhost:${process.env.REACT_APP_BACK_END_PORT}/user`;
   const userData = new FormData();
   userData.append("avatar", user.avatar);
   userData.append("subName", user.subName);

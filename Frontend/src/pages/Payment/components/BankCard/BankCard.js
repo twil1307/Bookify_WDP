@@ -11,7 +11,12 @@ function BankCard({ bankWallet }) {
         <div className={BankCardStyle["remain-title"]}>Số dư trong ví</div>
         <div className={BankCardStyle["remainer"]}>
           <h1>
-            $<span className={BankCardStyle["static"]}>{bankWallet}.0</span>
+            VND{" "}
+            <span className={BankCardStyle["static"]}>
+              {(bankWallet * 24000)
+                .toString()
+                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+            </span>
           </h1>
         </div>
       </div>

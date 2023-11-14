@@ -40,8 +40,8 @@ function AdvanceFilter({
   }, [isOpen]);
 
   const submitReview = () => {
-    console.log(point);
-    console.log(content);
+    // console.log(point);
+    // console.log(content);
 
     const reportForm = new FormData();
     reportForm.append("hotelid", hotelInfo.hotelId);
