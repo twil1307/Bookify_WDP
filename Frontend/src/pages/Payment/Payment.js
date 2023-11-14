@@ -35,8 +35,21 @@ function Payment() {
         // console.log(result);
         setPaymentList(result.listTrans);
         setChartData(result.chartData);
-        setWalletAmount(result.wallet);
       });
+    fetch(
+      `http://localhost:${process.env.REACT_APP_BACK_END_PORT}/user/amount`,
+      {
+        credentials: "include",
+        withCredentials: true,
+      }
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        // console.log(result);
+
+        setWalletAmount(result.amount);
+      });
+    //
   }, [month]);
 
   return (

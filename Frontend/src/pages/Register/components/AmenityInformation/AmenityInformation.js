@@ -28,7 +28,7 @@ const AmenityCard = ({ amenity, setAmenities, isChecked }) => {
         )}
         onClick={handleOnClick}
       >
-        <FontAwesomeIcon icon={Icons[amenity.icon]} />
+        <FontAwesomeIcon icon={Icons[amenity.icon] || Icons["faPencil"]} />
         {amenity.amenityName}
       </div>
     </Grid>

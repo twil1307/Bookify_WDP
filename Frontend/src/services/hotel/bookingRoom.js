@@ -18,7 +18,7 @@ export default async function bookingRoom(bookingDetail) {
       child: il.child,
     };
   });
-  console.log(book);
+  // console.log(book);
   bookingData.append("bookingDetail", JSON.stringify(book));
 
   const url = `http://localhost:${process.env.REACT_APP_BACK_END_PORT}/booking`;

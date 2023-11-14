@@ -8,19 +8,20 @@ import {
   faWrench,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { reportContext } from "../../Hotel";
-import { ToastMessageContext } from "@/utils/contexts";
+import { ToastMessageContext, BookmarkContext } from "@/utils/contexts";
 import {
   getFailureToastMessage,
   getSuccessToastMessage,
 } from "@/utils/reducers/toastMessageReducer";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 import InfoHeaderStyle from "./InfoHeader.module.scss";
 import verifiedHotel from "@/services/admin/verifiedHotel";
-import { useNavigate } from "react-router-dom";
 import disabledHotel from "@/services/admin/disabledHotel";
 import { checkHotelBook } from "@/services/hotel";
+import AddDeleteBookMarked from "@/services/user/AddDeleteBookMarked";
 
 function InfoHeader({
   Rooms = [],
@@ -31,25 +32,31 @@ function InfoHeader({
   isBookmarked = false,
   hotelId = null,
   isVerified = false,
+  city,
+  district,
+  address,
+  country,
 }) {
   // console.log(rating);
   const [isAdvanceFilterOpen, setAdvanceFilterOpen] = useContext(reportContext);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const { setToastMessages } = useContext(ToastMessageContext);
-
+  const [bookmarked, setBookmarked] = useState(false);
+  const [bookmarkedHotels, setBookmarkedHotels] =
+    useOutletContext(BookmarkContext);
   const checkUser = () => {
     if (user._id) {
       checkHotelBook(hotelId).then((result) => {
-        console.log(result);
-        if (!result) {
+        // console.log(result);
+        if (result === 405) {
           setToastMessages(
             getFailureToastMessage({
               message: "Bạn chưa từng ở khách sạn này",
             })
           );
         }
-        if (result) {
+        if (result == 200) {
           setAdvanceFilterOpen(true);
         }
       });
@@ -59,6 +66,32 @@ function InfoHeader({
           message: "Đăng nhập để thực hiện",
         })
       );
+    }
+  };
+  const handleBookmark = async (event) => {
+    event.preventDefault();
+    if (!user._id) {
+      setToastMessages(
+        getSuccessToastMessage({ message: "Đăng nhập để dùng" })
+      );
+      return;
+    } else {
+      AddDeleteBookMarked(hotelId).then((resp) => {
+        if (!bookmarked) {
+          setBookmarked(!bookmarked);
+          setBookmarkedHotels(resp.bookmarks);
+          setToastMessages(
+            getSuccessToastMessage({ message: "Đã thêm vào mục yêu thích" })
+          );
+          return;
+        } else {
+          setBookmarked(!bookmarked);
+          setToastMessages(
+            getSuccessToastMessage({ message: "Đã xóa khỏi mục yêu thích" })
+          );
+          setBookmarkedHotels(resp.bookmarks);
+        }
+      });
     }
   };
 
@@ -89,9 +122,12 @@ function InfoHeader({
         </h6>
         <h1 className={InfoHeaderStyle["hotel_name"]}>{hotelName}</h1>
         <h5 className={InfoHeaderStyle["hotel_guest_limit"]}>
+          {address}, {city}, {district} {country}
+        </h5>
+        {/* <h5 className={InfoHeaderStyle["hotel_guest_limit"]}>
           {roomType?.maxGuest} người - {roomType?.bedroomNum} phòng ngủ -{" "}
           {roomType?.bathNum} phòng tắm
-        </h5>
+        </h5> */}
       </div>
 
       <div className={InfoHeaderStyle["hotel_options"]}>

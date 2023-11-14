@@ -2,6 +2,7 @@ import bookingItemStyles from "./BookingItemStyles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { useState, memo } from "react";
+import { ManageBooking } from "@/services/hotel";
 const getBookingGuestsTitle = (guests) => {
   const bookingGuestsTitle = Object.keys(guests).reduce((prev, key) => {
     if (guests[key] === 0) {
@@ -85,7 +86,7 @@ function BookingItem({ booking, handleBookingAction }) {
             src={
               user.avatar
                 ? user.avatar
-                : "http://localhost:8080/bookify/images/users/blankUser.jpg"
+                : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
             }
             alt="avatar"
           />
@@ -97,22 +98,32 @@ function BookingItem({ booking, handleBookingAction }) {
         )}
       </div>
       <div className={bookingItemStyles["button-group"]}>
-        {booking.status === 0 ? (
+        {booking.status === false ? (
           <>
-            <button className={bookingItemStyles["accept-button"]}>
+            <button
+              className={bookingItemStyles["accept-button"]}
+              onClick={() => {
+                ManageBooking("accept", booking._id).then((resp) => {
+                  handleBookingAction(booking._id, "accept");
+                });
+              }}
+            >
               {isLoading ? "Load" : "Chấp nhận"}
             </button>
-            <button className={bookingItemStyles["reject-button"]}>
+            <button
+              className={bookingItemStyles["reject-button"]}
+              onClick={() => {
+                ManageBooking("disable", booking._id).then((resp) => {
+                  handleBookingAction(booking._id, "disable");
+                });
+              }}
+            >
               {isLoading ? "Load" : "Hủy bỏ"}
             </button>
           </>
-        ) : booking.status === 1 ? (
-          <button className={bookingItemStyles["accept-button"]}>
-            {"Đã chấp nhận"}
-          </button>
         ) : (
           <button className={bookingItemStyles["accept-button"]}>
-            {"Đã hủy"}
+            {"Đã chấp nhận"}
           </button>
         )}
       </div>
