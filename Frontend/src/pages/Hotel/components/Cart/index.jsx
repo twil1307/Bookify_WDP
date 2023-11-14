@@ -103,7 +103,13 @@ export default function Cart({ setDrawer }) {
           bottom: "2rem",
         }}
       >
-        <div style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+        <div
+          style={{
+            fontSize: "1.5rem",
+            fontWeight: "bold",
+            backgroundColor: "white",
+          }}
+        >
           Tổng số tiền:{" "}
           <span style={{ color: "red" }}>
             {(total * 24000)

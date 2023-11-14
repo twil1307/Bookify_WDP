@@ -16,8 +16,11 @@ import {
   getSuccessToastMessage,
 } from "@/utils/reducers/toastMessageReducer";
 import { newPassowrdUpdate } from "@/services/user";
+import LogOut from "@/services/user/LogOut";
+import { useNavigate } from "react-router-dom";
 
 function NewPasswordForm() {
+  const navigate = useNavigate();
   const { setToastMessages } = useContext(ToastMessageContext);
   const [newPassword, setNewPassword] = useState({
     password: null,
@@ -71,6 +74,11 @@ function NewPasswordForm() {
             setToastMessages(
               getSuccessToastMessage({ message: "Đổi mật khẩu thành công" })
             );
+            setTimeout(() => {
+              LogOut();
+              localStorage.removeItem("user");
+              navigate(0);
+            }, 1500);
           }
         });
       } catch (e) {

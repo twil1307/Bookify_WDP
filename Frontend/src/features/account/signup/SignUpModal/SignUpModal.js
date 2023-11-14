@@ -30,9 +30,8 @@ function SignUpModal({ animation }) {
       tabIndex="-1"
     >
       <div className={signUpStyles["page-logo"]}>
-        <BrowserRouter>
-          <Logo />
-        </BrowserRouter>
+        <Logo />
+
         <h3 className={signUpStyles["welcome-heading"]}>Sign Up</h3>
         <h4 className={signUpStyles["sub-heading"]}>Let's get started</h4>
       </div>

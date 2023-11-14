@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 function NumberPicker({
   title,
   description,
-  limit,
+  limit=0,
   value,
   setValue,
   disabled = false,

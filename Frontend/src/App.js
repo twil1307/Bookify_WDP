@@ -22,6 +22,7 @@ import VerifyAuth from "./utils/hooks/verifyAuth";
 import fetchIntercept from "fetch-intercept";
 import refreshJwt from "./services/user/refershJwt";
 import LogOut from "./services/user/LogOut";
+import { Outlet } from "react-router-dom";
 
 //interceptor
 const originalRequest = {};
@@ -130,7 +131,7 @@ function App({ children }) {
         <CoordinatesContext.Provider value={currentCoordinates}>
           <UserContext.Provider value={userContextValue}>
             <ToastMessageContext.Provider value={toastMessageContextValue}>
-              {children}
+              <Outlet />
               {modalState.isOpen && (
                 <div className="overlay">
                   <Modal>{modalState.renderModal()}</Modal>
