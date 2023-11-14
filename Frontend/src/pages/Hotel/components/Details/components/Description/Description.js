@@ -14,7 +14,7 @@ function Description({
     <div>
       <h3 className={DescriptionStyle["title"]}>Giới thiệu về khách sạn</h3>
       <p className={DescriptionStyle["description"]}>
-        Địa chỉ khách sạn: {address},{district},{city} {country}
+        Địa chỉ khách sạn: {address}, {city}, {district} {country}
       </p>
       <p className={DescriptionStyle["description"]}>Ghi chú: {description}</p>
       <div className={DescriptionStyle["host-info"]}>

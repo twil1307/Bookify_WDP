@@ -24,7 +24,7 @@ function AdvanceFilter({
 }) {
   const [isOpen, handleClick, containerRef] = usePopup(isAdvanceFilterOpen);
   const { setToastMessages } = useContext(ToastMessageContext);
-
+  // console.log(hotelInfo);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { user } = useContext(UserContext);
@@ -38,11 +38,11 @@ function AdvanceFilter({
     // console.log(title);
     // console.log(content);
     const reportForm = new FormData();
-    reportForm.append("hotelid", hotelInfo.hotelId);
+    reportForm.append("hotelid", hotelInfo._id);
     reportForm.append("userid", user._id);
     reportForm.append("title", title);
     reportForm.append("content", content);
-    fetch("http://localhost:8080/bookify/api/hotel/report", {
+    fetch(`http://localhost:3001/hotel/${hotelInfo._id}/review`, {
       method: "POST",
       body: reportForm,
     })

@@ -129,10 +129,14 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
           type: chooseType.index,
         },
       ]);
-      // setChooseType(null);
-      // setGuests(guestsInitial);
-      // setSelectedDays();
+      setChooseType(null);
+      setGuests(guestsInitial);
+      setSelectedDays();
     }
+  };
+  const handleResetState = () => {
+    setGuests(guestsInitial);
+    setSelectedDays();
   };
 
   return (
@@ -161,7 +165,7 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
             {isSelectBoxOpen["roomTypeBox"] && (
               <RoomPicker
                 roomType={roomType}
-                setGuests={setGuests}
+                handleResetState={handleResetState}
                 setChooseType={setChooseType}
                 handleClick={handleClick}
               />
@@ -276,20 +280,34 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
           <div className={bookingStyles["provisional"]}>
             <div className={bookingStyles["price-for-all-nights"]}>
               <p className={bookingStyles["price-label"]}>
-                ${chooseType.roomPrice}
+                ${" "}
+                {(chooseType.roomPrice * 24000)
+                  .toString()
+                  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                VND
                 <span>x</span>
                 {selectDateDiff} đêm
               </p>
-              <p className={bookingStyles["price"]}>${price}</p>
+              <p className={bookingStyles["price"]}>
+                {(price * 24000)
+                  .toString()
+                  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                VND
+              </p>
             </div>
             <div className={bookingStyles["price-for-all-nights"]}>
               <p className={bookingStyles["price-label"]}>Phí vệ sinh</p>
-              <p className={bookingStyles["price"]}>${0}</p>
+              <p className={bookingStyles["price"]}>{0} VND</p>
             </div>
           </div>
           <div className={bookingStyles["final"]}>
             <div className={bookingStyles["title"]}>Tổng phải trả</div>
-            <div className={bookingStyles["price"]}>${price}</div>
+            <div className={bookingStyles["price"]}>
+              {(price * 24000)
+                .toString()
+                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}{" "}
+              VND
+            </div>
           </div>
         </div>
       )}

@@ -86,7 +86,7 @@ function BookingItem({ booking, handleBookingAction }) {
             src={
               user.avatar
                 ? user.avatar
-                : "http://localhost:8080/bookify/images/users/blankUser.jpg"
+                : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
             }
             alt="avatar"
           />

@@ -118,7 +118,10 @@ function Profile() {
       <Grid xs={10}>
         <div className={profileStyle["profile-page"]}>
           <h1 className={profileStyle["account"]}>Tài Khoản</h1>
-          <h4 className={profileStyle["commonInfo"]}>
+          <h4
+            className={profileStyle["commonInfo"]}
+            style={{ marginBottom: "1rem" }}
+          >
             {account.name}, {account.email}{" "}
             <Link to={`info`}>Thay đổi hồ sơ</Link>
           </h4>
