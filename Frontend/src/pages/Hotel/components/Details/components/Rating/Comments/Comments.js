@@ -63,8 +63,8 @@ function Comments({ reviews, hotelId }) {
                       </div>
                       <div className={CommentStyle["user-info"]}>
                         <h6 className={CommentStyle["user-name"]}>
-                          {review?.username
-                            ? review?.username
+                          {review?.user.username
+                            ? review?.user.username
                             : review?.usernameAcount}
                         </h6>
                         <p className={CommentStyle["user-comment-time"]}>

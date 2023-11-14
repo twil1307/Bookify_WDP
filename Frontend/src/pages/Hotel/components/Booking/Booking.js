@@ -175,11 +175,13 @@ function Booking({ roomType, isAllowPet = true, hotelId }) {
       setGuests(guestsInitial);
       setSelectedDays();
       setRoomInfo();
+      setRoomNum(1);
     }
   };
   const handleResetState = () => {
     setGuests(guestsInitial);
     setSelectedDays();
+    setRoomNum(1);
   };
   useEffect(() => {
     // console.log(
