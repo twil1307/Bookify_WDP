@@ -99,6 +99,10 @@ module.exports.bookingRoom = catchAsync(async (req, res, next) => {
 
       availableRooms[roomTypeRequestId[i]] = availableRoomId;
       bookingRoomRequest[i].roomId = availableRoomId[0];
+
+      groupedRoomIdByRoomType[roomTypeRequestId[i]] = groupedRoomIdByRoomType[
+        roomTypeRequestId[i]
+      ].filter((objectId) => !objectId.equals(availableRoomId[0]));
     }
 
     if (roomCheckIsFullyBooked.length > 0) {
