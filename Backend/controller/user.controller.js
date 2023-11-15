@@ -71,7 +71,7 @@ module.exports.updateUser = catchAsync(async (req, res, next) => {
 module.exports.updateUserBankingAccount = catchAsync(async (req, res, next) => {
   console.log(req.body.bankingAccountNumber);
 
-  const bankingAccount2 = await BankingAccount.find({
+  const bankingAccount2 = await BankingAccount.findOne({
     bankingAccountNumber: req.body.bankingAccountNumber,
   });
 
@@ -81,11 +81,15 @@ module.exports.updateUserBankingAccount = catchAsync(async (req, res, next) => {
     });
   }
 
+  console.log(bankingAccount2);
+
   const newUser = await User.findByIdAndUpdate(
     req.user._id,
     { $set: { bankingAccountNumber: bankingAccount2._id } },
     { new: true }
   );
+
+  console.log(newUser);
 
   return res.status(200).json({
     user: newUser,
@@ -327,6 +331,7 @@ module.exports.getUserRemainingAmount = catchAsync(async (req, res, next) => {
     .populate("bankingAccountNumber", "amount")
     .select("bankingAccountNumber -_id");
 
+  console.log(bankingAccountId);
   return res.status(200).json({
     amount: bankingAccountId.bankingAccountNumber.amount,
   });

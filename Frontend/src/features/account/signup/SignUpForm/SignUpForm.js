@@ -14,8 +14,14 @@ import { useUppercase } from "@/utils/hooks";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SignUp } from "@/services/user";
-
+import { ToastMessageContext, UserContext } from "@/utils/contexts";
+import {
+  getFailureToastMessage,
+  getSuccessToastMessage,
+} from "@/utils/reducers/toastMessageReducer";
 function SignUpForm({ modalHandler }) {
+  const { setToastMessages } = useContext(ToastMessageContext);
+
   const [registerAccount, setRegisterAccount] = useState({
     username: null,
     email: null,
@@ -55,7 +61,17 @@ function SignUpForm({ modalHandler }) {
           registerAccount.password
         ).then((resp) => {
           setLoading(false);
-          modalHandler(event);
+
+          if (resp == 200) {
+            setToastMessages(
+              getSuccessToastMessage({ message: "Đăng kí thành công" })
+            );
+            modalHandler(event);
+          } else {
+            setToastMessages(
+              getFailureToastMessage({ message: "Đăng kí thất bại" })
+            );
+          }
         });
       } catch (e) {
         console.log(e);

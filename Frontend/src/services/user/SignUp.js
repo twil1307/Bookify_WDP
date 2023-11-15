@@ -9,7 +9,7 @@ async function SignUp(username, email, password) {
     body: accountForm,
   };
 
-  return await fetch(url, options).then((response) => response.json());
+  return await fetch(url, options).then((response) => response.status);
 }
 
 export default SignUp;

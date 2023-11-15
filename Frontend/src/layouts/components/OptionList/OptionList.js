@@ -1,15 +1,22 @@
 import optionListStyles from "./OptionList.module.scss";
-import { ModalContext, UserContext } from "@/utils/contexts";
+import {
+  ModalContext,
+  UserContext,
+  ToastMessageContext,
+} from "@/utils/contexts";
 import { useContext, useMemo } from "react";
 import { getSignUpModal, getSignInModal } from "@/utils/reducers/modalReducer";
 import { useNavigate } from "react-router-dom";
 import VerifyAuth from "@/utils/hooks/verifyAuth";
 import LogOut from "@/services/user/LogOut";
+import { getFailureToastMessage } from "@/utils/reducers/toastMessageReducer";
 
 function OptionList({ handleClick }) {
   const { userLocal } = VerifyAuth();
   const { dispatch } = useContext(ModalContext);
   const { user, setUser } = useContext(UserContext);
+  const { setToastMessages } = useContext(ToastMessageContext);
+
   const navigate = useNavigate();
 
   const options = useMemo(
@@ -61,7 +68,11 @@ function OptionList({ handleClick }) {
         isLoginRequired: true,
         onClickHandler: (event) => {
           event.stopPropagation();
-          navigate("/hosting/introduction");
+          if (user.bankingAccount != null) navigate("/hosting/introduction");
+          else
+            setToastMessages(
+              getFailureToastMessage({ message: "Chưa liên kết tài khoản" })
+            );
           // if (!user.bankingAccount) {
           //   handleClick(event);
           // } else {
