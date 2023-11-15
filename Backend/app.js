@@ -52,7 +52,7 @@ app.all("*", (req, res, next) => {
   // next(createError(404));
   // const err = new Error(`Can't find ${req.originalUrl} on this server`);
   // err.status = 404;
-
+  console.log('##################')
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
 });
 
